@@ -28,7 +28,7 @@ The 10-day intensive training course covers fundamental to advanced topics in mi
 | **09:40** | *Overview of sequencing technologies and data types* | Sindiswa Lukhele |
 | **10:00** | *Setting up and exploring PubMLST* | Sindiswa Lukhele |
 | **11:00** | **Break** | |
-| **11:30** | *Introduction to command line interface (Git Bash) and R* | Arash Iranzadeh |
+| **11:30** | *(Introduction to command line interface (Git Bash) and R)[https://github.com/Arash-Iranzadeh/Microbial-Genomics]* | Arash Iranzadeh |
 
 **Key Learning Outcomes**: Introduction to genomic surveillance, sequencing technologies, command line basics
 
