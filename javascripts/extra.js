@@ -11,6 +11,9 @@ document.addEventListener('DOMContentLoaded', function() {
     // Add interactive timeline functionality
     initializeTimeline();
     
+    // Make all external links open in new tabs
+    makeExternalLinksOpenInNewTab();
+    
 });
 
 // Add copy buttons to code blocks
@@ -89,5 +92,41 @@ function initializeTimeline() {
             item.style.opacity = '1';
             item.style.transform = 'translateY(0)';
         }, index * 100);
+    });
+}
+
+// Make all external links open in new tabs
+function makeExternalLinksOpenInNewTab() {
+    // Get all links on the page
+    const links = document.querySelectorAll('a[href]');
+    
+    links.forEach(function(link) {
+        const href = link.getAttribute('href');
+        
+        // Check if link is external (starts with http/https and not the current domain)
+        // or if it's a document/file link
+        if (href) {
+            const isExternal = href.startsWith('http://') || href.startsWith('https://');
+            const isCurrentDomain = href.includes('cidri-africa.github.io/microbial-genomics-training');
+            const isFile = href.endsWith('.pdf') || href.endsWith('.doc') || href.endsWith('.docx') || 
+                          href.endsWith('.xls') || href.endsWith('.xlsx') || href.endsWith('.ppt') || 
+                          href.endsWith('.pptx') || href.endsWith('.sh');
+            
+            // Open external links and file downloads in new tab
+            if ((isExternal && !isCurrentDomain) || isFile) {
+                link.setAttribute('target', '_blank');
+                link.setAttribute('rel', 'noopener noreferrer');
+                
+                // Add an icon to indicate external link (optional)
+                if (!link.querySelector('.external-link-icon')) {
+                    const icon = document.createElement('span');
+                    icon.className = 'external-link-icon';
+                    icon.innerHTML = ' ↗';
+                    icon.style.fontSize = '0.8em';
+                    icon.style.verticalAlign = 'super';
+                    link.appendChild(icon);
+                }
+            }
+        }
     });
 }
