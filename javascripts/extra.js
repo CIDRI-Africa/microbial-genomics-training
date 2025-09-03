@@ -107,7 +107,9 @@ function makeExternalLinksOpenInNewTab() {
         // or if it's a document/file link
         if (href) {
             const isExternal = href.startsWith('http://') || href.startsWith('https://');
-            const isCurrentDomain = href.includes('cidri-africa.github.io/microbial-genomics-training');
+            const isCurrentDomain = href.includes('cidri-africa.github.io/microbial-genomics-training') || 
+                                   href.includes('mamanambiya.github.io/microbial-genomics-training') ||
+                                   href.includes(window.location.hostname);
             const isFile = href.endsWith('.pdf') || href.endsWith('.doc') || href.endsWith('.docx') || 
                           href.endsWith('.xls') || href.endsWith('.xlsx') || href.endsWith('.ppt') || 
                           href.endsWith('.pptx') || href.endsWith('.sh');
