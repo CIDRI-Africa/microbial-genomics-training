@@ -74,10 +74,10 @@ The 10-day intensive training course covers fundamental to advanced topics in mi
 
 | Time (CAT) | Topic | Links | Trainer |
 |------------|-------|-------|---------|
-| **09:00** | *Genome Annotation* | | Arash Iranzadeh |
+| **09:00** | *Genome Annotation* | [Slides](https://github.com/Arash-Iranzadeh/Microbial-Genomics/blob/main/docs/bacterial_genome_annotation.pptx) [Notes](https://github.com/Arash-Iranzadeh/Microbial-Genomics/blob/main/scripts/de-novo_assembly_annotation.sh) | Arash Iranzadeh |
 | **10:00** | *Antimicrobial Resistance gene detection and resistance prediction* | | Ephifania Geza |
 | **11:30** | **Break** | | |
-| **12:00** | *Multi-locus sequence typing, and serotyping* | | Arash Iranzadeh |
+| **12:00** | *Multi-locus sequence typing, and serotyping* | [Slides](https://github.com/Arash-Iranzadeh/Microbial-Genomics/blob/main/docs/sequence_typing.pptx) [Notes] (https://github.com/Arash-Iranzadeh/Microbial-Genomics/blob/main/scripts/sequence_typing_resistance_genes_identification.sh)| Arash Iranzadeh |
 
 **Key Learning Outcomes**: AMR and virulence factors detection, MLST
 
