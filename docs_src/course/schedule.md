@@ -29,7 +29,7 @@ The 10-day intensive training course covers fundamental to advanced topics in mi
 | **09:40** | *Overview of sequencing technologies and data types* | | Sindiswa Lukhele |
 | **10:00** | *Setting up and exploring PubMLST* | | Sindiswa Lukhele |
 | **11:00** | **Break** | | |
-| **11:30** | *Introduction to command line interface* | [Practical](https://github.com/Arash-Iranzadeh/Microbial-Genomics/blob/main/scripts/practice_unix_commands.sh) | Arash Iranzadeh |
+| **11:30** | *Introduction to command line interface* | [Notes](https://github.com/Arash-Iranzadeh/Microbial-Genomics/blob/main/docs/unix_command_line.pptx) [Practical](https://github.com/Arash-Iranzadeh/Microbial-Genomics/blob/main/scripts/practice_unix_commands.sh) | Arash Iranzadeh |
 
 **Key Learning Outcomes**: Introduction to genomic surveillance, sequencing technologies, command line basics
 
@@ -42,7 +42,7 @@ The 10-day intensive training course covers fundamental to advanced topics in mi
 
 | Time (CAT) | Topic | Links | Trainer |
 |------------|-------|-------|---------|
-| **09:00** | *Introduction to command line interface* | [Practical](https://github.com/Arash-Iranzadeh/Microbial-Genomics/blob/main/scripts/practice_unix_commands.sh) | Arash Iranzadeh |
+| **09:00** | *Introduction to command line interface* | [Notes](https://github.com/Arash-Iranzadeh/Microbial-Genomics/blob/main/docs/0_unix_command_line.pptx) [Practical](https://github.com/Arash-Iranzadeh/Microbial-Genomics/blob/main/scripts/practice_unix_commands.sh) | Arash Iranzadeh |
 | **11:00** | *Introduction High Performance Computing (HPC) – Ilifu* | [Notes](../day2/hpc-ilifu-training.md) • [Practical 1](../day2/slurm-practical-tutorial.md) • [Practical 2](../day2/unix-commands-pathogen-examples.md) | Mamana Mbiyavanga |
 | **11:30** | **Break** | | |
 | **12:00** | *Guest talk: MtB and co-infection* | | Bethlehem Adnew |
@@ -59,7 +59,7 @@ The 10-day intensive training course covers fundamental to advanced topics in mi
 | Time (CAT) | Topic | Links | Trainer |
 |------------|-------|-------|---------|
 | **09:00** | *Introduction High Performance Computing (HPC) – Ilifu* | [Notes](../day2/hpc-ilifu-training.md) • [Practical 1](../day2/slurm-practical-tutorial.md) • [Practical 2](../day2/unix-commands-pathogen-examples.md) | Mamana Mbiyavanga |
-| **10:00** | *Quality checking and control, as well as species identification* | [Practical](https://github.com/Arash-Iranzadeh/Microbial-Genomics/blob/main/scripts/qc_cleaning_detection.sh) | Arash Iranzadeh |
+| **10:00** | *Quality checking and control, as well as species identification* | [Note](https://github.com/Arash-Iranzadeh/Microbial-Genomics/blob/main/docs/1_QC_cleaning_speciesIdentification.pptx)[Practical](https://github.com/Arash-Iranzadeh/Microbial-Genomics/blob/main/scripts/1_qc_cleaning_detection_batch.sh) | Arash Iranzadeh |
 | **11:30** | **Break** | | |
 | **12:00** | *Genome assembly, quality assessment* |[Notes](../../day3/genome_assembly_notes.md). [Practical](../../day3/practical_genome_assmbly.md) | Ephifania Geza |
 
@@ -74,10 +74,10 @@ The 10-day intensive training course covers fundamental to advanced topics in mi
 
 | Time (CAT) | Topic | Links | Trainer |
 |------------|-------|-------|---------|
-| **09:00** | *Genome Annotation* | [Slides](https://github.com/Arash-Iranzadeh/Microbial-Genomics/blob/main/docs/bacterial_genome_annotation.pptx) [Notes](https://github.com/Arash-Iranzadeh/Microbial-Genomics/blob/main/scripts/de-novo_assembly_annotation.sh) | Arash Iranzadeh |
+| **09:00** | *Genome Annotation* | [Notes](https://github.com/Arash-Iranzadeh/Microbial-Genomics/blob/main/docs/2_bacterial_genome_annotation.pptx)[Practical](https://github.com/Arash-Iranzadeh/Microbial-Genomics/blob/main/scripts/2_de-novo_assembly_annotation.sh)| Arash Iranzadeh |
 | **10:00** | *Antimicrobial Resistance gene detection and resistance prediction* | | Ephifania Geza |
 | **11:30** | **Break** | | |
-| **12:00** | *Multi-locus sequence typing, and serotyping* | [Slides](https://github.com/Arash-Iranzadeh/Microbial-Genomics/blob/main/docs/sequence_typing.pptx) [Notes] (https://github.com/Arash-Iranzadeh/Microbial-Genomics/blob/main/scripts/sequence_typing_resistance_genes_identification.sh)| Arash Iranzadeh |
+| **12:00** | *Multi-locus sequence typing, and serotyping* | [Notes](https://github.com/Arash-Iranzadeh/Microbial-Genomics/blob/main/docs/3_sequence_typing.pptx) [Practical](https://github.com/Arash-Iranzadeh/Microbial-Genomics/blob/main/scripts/3_sequence_typing_resistance_genes_identification.sh)| Arash Iranzadeh |
 
 **Key Learning Outcomes**: AMR and virulence factors detection, MLST
 
@@ -185,7 +185,7 @@ The 10-day intensive training course covers fundamental to advanced topics in mi
 | Trainer | Role | Expertise |
 |---------|------|-----------|
 | **Ephifania Geza** | Lead Instructor | Genomic surveillance, AMR analysis, metagenomics |
-| **Arash Iranzadeh** | Technical Instructor | Command line, QC, assembly, phylogenomics |
+| **Arash Iranzadeh** | Technical Instructor | Command line, QC and species detection, assembly, annotation, sequence typing, pangenomics, variant calling phylogenomics |
 | **Sindiswa Lukhele** | Technical Instructor | Sequencing technologies, PubMLST |
 | **Mamana Mbiyavanga** | HPC/Workflow Specialist | High-performance computing, Nextflow pipelines |
 
