@@ -897,45 +897,43 @@
 </ol>
 <h3 id="ilifu-cluster-architecture">ILIFU Cluster Architecture<a class="headerlink" href="#ilifu-cluster-architecture" title="Permanent link">&para;</a></h3>
 <p>ILIFU (Inter-University Institute for Data Intensive Astronomy) is a cloud computing infrastructure designed for data-intensive research in astronomy, bioinformatics, and other computational sciences. The facility operates on an OpenStack platform with containerized workloads using Singularity and job scheduling through SLURM.</p>
-<p>```mermaid
-graph TB
+<pre class="mermaid"><code>graph TB
     subgraph "ILIFU Infrastructure"
         subgraph "Cloud Platform"
-            OS[OpenStack Cloud<br/>Infrastructure-as-a-Service]
-        end</p>
-<div class="language-text highlight"><pre><span></span><code>    subgraph &quot;Compute Resources&quot;
-        CN[Compute Nodes&lt;br/&gt;Max: 96 CPUs per job&lt;br/&gt;Max: 1500 GB RAM per job]
+            OS[OpenStack Cloud&lt;br/&gt;Infrastructure-as-a-Service]
+        end
+
+        subgraph "Compute Resources"
+            CN[Compute Nodes&lt;br/&gt;Max: 96 CPUs per job&lt;br/&gt;Max: 1500 GB RAM per job]
+        end
+
+        subgraph "Container Platform"
+            SP[Singularity Containers&lt;br/&gt;HPC-optimized&lt;br/&gt;Rootless execution]
+        end
+
+        subgraph "Job Scheduler"
+            SL[SLURM Workload Manager&lt;br/&gt;Max runtime: 336 hours]
+        end
     end
 
-    subgraph &quot;Container Platform&quot;
-        SP[Singularity Containers&lt;br/&gt;HPC-optimized&lt;br/&gt;Rootless execution]
+    subgraph "Research Domains"
+        AST[Astronomy&lt;br/&gt;MeerKAT, SKA]
+        BIO[Bioinformatics&lt;br/&gt;Genomics, Metagenomics]
+        DS[Data Science&lt;br/&gt;ML/AI Research]
     end
 
-    subgraph &quot;Job Scheduler&quot;
-        SL[SLURM Workload Manager&lt;br/&gt;Max runtime: 336 hours]
-    end
-end
+    OS --&gt; CN
+    CN --&gt; SP
+    SP --&gt; SL
 
-subgraph &quot;Research Domains&quot;
-    AST[Astronomy&lt;br/&gt;MeerKAT, SKA]
-    BIO[Bioinformatics&lt;br/&gt;Genomics, Metagenomics]
-    DS[Data Science&lt;br/&gt;ML/AI Research]
-end
+    AST --&gt; SL
+    BIO --&gt; SL
+    DS --&gt; SL
 
-OS --&gt; CN
-CN --&gt; SP
-SP --&gt; SL
-
-AST --&gt; SL
-BIO --&gt; SL
-DS --&gt; SL
-
-style OS fill:#e1f5fe
-style CN fill:#e8f5e9
-style SP fill:#fff3e0
-style SL fill:#f3e5f5
-</code></pre></div>
-<p>```</p>
+    style OS fill:#e1f5fe
+    style CN fill:#e8f5e9
+    style SP fill:#fff3e0
+    style SL fill:#f3e5f5</code></pre>
 <p><strong>Figure: ILIFU cloud infrastructure architecture supporting multiple research domains</strong></p>
 <h3 id="resource-specifications">Resource Specifications<a class="headerlink" href="#resource-specifications" title="Permanent link">&para;</a></h3>
 <p>Based on ILIFU's cloud infrastructure configuration:</p>
@@ -1046,63 +1044,61 @@ style SL fill:#f3e5f5
 <p>📚 <strong>For detailed SLURM tutorials and exercises, see: <a href="../slurm-practical-tutorial/">High Performance Computing with SLURM: Practical Tutorial</a></strong></p>
 </blockquote>
 <h3 id="what-is-slurm">What is SLURM?<a class="headerlink" href="#what-is-slurm" title="Permanent link">&para;</a></h3>
-<p>```mermaid
-graph TB
+<pre class="mermaid"><code>graph TB
     subgraph "Users"
         U1[User 1]
         U2[User 2]
         U3[User 3]
-    end</p>
-<div class="language-text highlight"><pre><span></span><code>subgraph &quot;Login Nodes&quot;
-    LN[Login Node&lt;br/&gt;- SSH Access&lt;br/&gt;- Job Submission&lt;br/&gt;- File Editing]
-end
+    end
 
-subgraph &quot;SLURM Controller&quot;
-    SC[SLURM Scheduler&lt;br/&gt;- Resource Allocation&lt;br/&gt;- Job Queuing&lt;br/&gt;- Priority Management]
-    DB[(Accounting&lt;br/&gt;Database)]
-end
+    subgraph "Login Nodes"
+        LN[Login Node&lt;br/&gt;- SSH Access&lt;br/&gt;- Job Submission&lt;br/&gt;- File Editing]
+    end
 
-subgraph &quot;Compute Nodes&quot;
-    CN1[Compute Node 1&lt;br/&gt;CPUs: 32&lt;br/&gt;RAM: 128GB]
-    CN2[Compute Node 2&lt;br/&gt;CPUs: 32&lt;br/&gt;RAM: 128GB]
-    CN3[Compute Node 3&lt;br/&gt;CPUs: 32&lt;br/&gt;RAM: 128GB]
-    CNN[... More Nodes]
-end
+    subgraph "SLURM Controller"
+        SC[SLURM Scheduler&lt;br/&gt;- Resource Allocation&lt;br/&gt;- Job Queuing&lt;br/&gt;- Priority Management]
+        DB[(Accounting&lt;br/&gt;Database)]
+    end
 
-subgraph &quot;Storage&quot;
-    FS[Shared Filesystem&lt;br/&gt;/home&lt;br/&gt;/scratch&lt;br/&gt;/data]
-end
+    subgraph "Compute Nodes"
+        CN1[Compute Node 1&lt;br/&gt;CPUs: 32&lt;br/&gt;RAM: 128GB]
+        CN2[Compute Node 2&lt;br/&gt;CPUs: 32&lt;br/&gt;RAM: 128GB]
+        CN3[Compute Node 3&lt;br/&gt;CPUs: 32&lt;br/&gt;RAM: 128GB]
+        CNN[... More Nodes]
+    end
 
-U1 --&gt; LN
-U2 --&gt; LN
-U3 --&gt; LN
+    subgraph "Storage"
+        FS[Shared Filesystem&lt;br/&gt;/home&lt;br/&gt;/scratch&lt;br/&gt;/data]
+    end
 
-LN --&gt;|sbatch/srun| SC
-SC --&gt; DB
-SC --&gt;|Allocates| CN1
-SC --&gt;|Allocates| CN2
-SC --&gt;|Allocates| CN3
-SC --&gt;|Allocates| CNN
+    U1 --&gt; LN
+    U2 --&gt; LN
+    U3 --&gt; LN
 
-CN1 --&gt; FS
-CN2 --&gt; FS
-CN3 --&gt; FS
-CNN --&gt; FS
-LN --&gt; FS
+    LN --&gt;|sbatch/srun| SC
+    SC --&gt; DB
+    SC --&gt;|Allocates| CN1
+    SC --&gt;|Allocates| CN2
+    SC --&gt;|Allocates| CN3
+    SC --&gt;|Allocates| CNN
 
-style U1 fill:#e1f5fe
-style U2 fill:#e1f5fe
-style U3 fill:#e1f5fe
-style LN fill:#fff3e0
-style SC fill:#f3e5f5
-style DB fill:#f3e5f5
-style CN1 fill:#e8f5e9
-style CN2 fill:#e8f5e9
-style CN3 fill:#e8f5e9
-style CNN fill:#e8f5e9
-style FS fill:#fce4ec
-</code></pre></div>
-<p>```</p>
+    CN1 --&gt; FS
+    CN2 --&gt; FS
+    CN3 --&gt; FS
+    CNN --&gt; FS
+    LN --&gt; FS
+
+    style U1 fill:#e1f5fe
+    style U2 fill:#e1f5fe
+    style U3 fill:#e1f5fe
+    style LN fill:#fff3e0
+    style SC fill:#f3e5f5
+    style DB fill:#f3e5f5
+    style CN1 fill:#e8f5e9
+    style CN2 fill:#e8f5e9
+    style CN3 fill:#e8f5e9
+    style CNN fill:#e8f5e9
+    style FS fill:#fce4ec</code></pre>
 <p><strong>Figure: HPC cluster architecture showing the relationship between users, login nodes, SLURM scheduler, compute nodes, and shared storage</strong></p>
 <h4 id="about-slurm">About SLURM<a class="headerlink" href="#about-slurm" title="Permanent link">&para;</a></h4>
 <p><strong>Simple Linux Utility for Resource Management (SLURM)</strong> is a job scheduling and cluster management tool that:</p>
@@ -1619,6 +1615,10 @@ style FS fill:#fce4ec
         <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
       
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="https://unpkg.com/mermaid@10.6.1/dist/mermaid.min.js"></script>
+      
+        <script src="../../javascripts/mermaid.js"></script>
       
     
   </body>

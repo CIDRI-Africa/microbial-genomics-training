@@ -1401,41 +1401,39 @@
 </span><span id="__span-34-15"><a id="__codelineno-34-15" name="__codelineno-34-15" href="#__codelineno-34-15"></a>mpirun<span class="w"> </span>./my_mpi_program<span class="w"> </span>input.dat
 </span></code></pre></div>
 <h3 id="4-interactive-job">4. Interactive Job<a class="headerlink" href="#4-interactive-job" title="Permanent link">&para;</a></h3>
-<p>```mermaid
-graph TB
+<pre class="mermaid"><code>graph TB
     subgraph "Interactive Jobs"
-        I1[User logs in] &rarr; I2[Request interactive session<br/>sinteractive/srun --pty]
-        I2 &rarr; I3[Wait for resources]
-        I3 &rarr; I4[Get shell on compute node]
-        I4 &rarr; I5[Run commands interactively]
-        I5 &rarr; I6[See output in real-time]
-        I6 &rarr; I7[Exit when done]</p>
-<div class="language-text highlight"><pre><span></span><code>    style I4 fill:#e8f5e9
-    style I5 fill:#e8f5e9
-    style I6 fill:#e8f5e9
-end
+        I1[User logs in] --&gt; I2[Request interactive session&lt;br/&gt;sinteractive/srun --pty]
+        I2 --&gt; I3[Wait for resources]
+        I3 --&gt; I4[Get shell on compute node]
+        I4 --&gt; I5[Run commands interactively]
+        I5 --&gt; I6[See output in real-time]
+        I6 --&gt; I7[Exit when done]
 
-subgraph &quot;Batch Jobs&quot;
-    B1[User logs in] --&gt; B2[Write job script]
-    B2 --&gt; B3[Submit with sbatch]
-    B3 --&gt; B4[Job queued]
-    B4 --&gt; B5[Job runs automatically]
-    B5 --&gt; B6[Output to files]
-    B6 --&gt; B7[Check results later]
+        style I4 fill:#e8f5e9
+        style I5 fill:#e8f5e9
+        style I6 fill:#e8f5e9
+    end
 
-    style B5 fill:#e1f5fe
-    style B6 fill:#e1f5fe
-end
+    subgraph "Batch Jobs"
+        B1[User logs in] --&gt; B2[Write job script]
+        B2 --&gt; B3[Submit with sbatch]
+        B3 --&gt; B4[Job queued]
+        B4 --&gt; B5[Job runs automatically]
+        B5 --&gt; B6[Output to files]
+        B6 --&gt; B7[Check results later]
 
-subgraph &quot;When to Use&quot;
-    UI[Interactive: Development,&lt;br/&gt;Testing, Debugging]
-    UB[Batch: Production runs,&lt;br/&gt;Long jobs, Multiple jobs]
-end
+        style B5 fill:#e1f5fe
+        style B6 fill:#e1f5fe
+    end
 
-I7 --&gt; UI
-B7 --&gt; UB
-</code></pre></div>
-<p>```</p>
+    subgraph "When to Use"
+        UI[Interactive: Development,&lt;br/&gt;Testing, Debugging]
+        UB[Batch: Production runs,&lt;br/&gt;Long jobs, Multiple jobs]
+    end
+
+    I7 --&gt; UI
+    B7 --&gt; UB</code></pre>
 <p><strong>Figure: Comparison between interactive and batch job workflows in SLURM</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-35-1"><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a><span class="c1"># Request interactive session using sinteractive (ILIFU-specific)</span>
 </span><span id="__span-35-2"><a id="__codelineno-35-2" name="__codelineno-35-2" href="#__codelineno-35-2"></a>sinteractive<span class="w"> </span>-c<span class="w"> </span><span class="m">1</span><span class="w"> </span>--time<span class="w"> </span><span class="m">03</span>:00<span class="w">                    </span><span class="c1"># 1 CPU for 3 hours (default)</span>
@@ -1892,6 +1890,10 @@ B7 --&gt; UB
         <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
       
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="https://unpkg.com/mermaid@10.6.1/dist/mermaid.min.js"></script>
+      
+        <script src="../../javascripts/mermaid.js"></script>
       
     
   </body>

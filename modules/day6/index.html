@@ -1029,7 +1029,7 @@
           <li class="md-nav__item">
   <a href="#how-workflow-management-systems-solve-traditional-problems" class="md-nav__link">
     <span class="md-ellipsis">
-      How Workflow Management Systems Solve Traditional Problems:
+      How Workflow Management Systems Solve Traditional Problems
     </span>
   </a>
   
@@ -1850,7 +1850,7 @@
           <li class="md-nav__item">
   <a href="#once-youre-comfortable-with-basic-pipelines" class="md-nav__link">
     <span class="md-ellipsis">
-      Once you're comfortable with basic pipelines:
+      Once you're comfortable with basic pipelines
     </span>
   </a>
   
@@ -1859,11 +1859,11 @@
           <li class="md-nav__item">
   <a href="#recommended-learning-path" class="md-nav__link">
     <span class="md-ellipsis">
-      Recommended Learning Path:
+      Recommended Learning Path
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Recommended Learning Path:">
+    <nav class="md-nav" aria-label="Recommended Learning Path">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -2626,7 +2626,7 @@
 </span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>nohup<span class="w"> </span><span class="nb">command</span><span class="w"> </span><span class="p">&amp;</span><span class="w">            </span><span class="c1"># Run in background</span>
 </span></code></pre></div>
 
-**Expected competency:** You should be comfortable with basic file operations, text processing, and process management.
+<b>Expected competency:</b> You should be comfortable with basic file operations, text processing, and process management.
 </div>
 
 <h3 id="software-installation-overview">Software Installation Overview<a class="headerlink" href="#software-installation-overview" title="Permanent link">&para;</a></h3>
@@ -2635,7 +2635,7 @@
 <div style="background: #e8f5e8; padding: 15px; border-radius: 8px; margin: 15px 0;">
 <h5>📦 Loading Required Software</h5>
 
-**All tools are pre-installed and available through the module system. No installation required!**
+<b>All tools are pre-installed and available through the module system. No installation required!</b>
 
 <b>Step 1: Check if module system is available</b>
 
@@ -2710,6 +2710,7 @@
 </span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="c1"># Then retry the module commands above</span>
 </span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>module<span class="w"> </span>--version
 </span></code></pre></div>
+
 </div>
 
 <h3 id="development-environment-setup">Development Environment Setup<a class="headerlink" href="#development-environment-setup" title="Permanent link">&para;</a></h3>
@@ -2751,7 +2752,7 @@
 </span><span id="__span-7-29"><a id="__codelineno-7-29" name="__codelineno-7-29" href="#__codelineno-7-29"></a><span class="c1"># Should show all 5 loaded modules</span>
 </span></code></pre></div>
 
-**If module command is not found:**
+<b>If module command is not found:</b>
 
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="c1"># Initialize module system (only if needed)</span>
 </span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="nb">source</span><span class="w"> </span>/opt/lmod/8.7/lmod/lmod/init/bash
@@ -2760,7 +2761,7 @@
 </span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>module<span class="w"> </span>--version
 </span></code></pre></div>
 
-**If modules are not available:**
+<b>If modules are not available:</b>
 
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="c1"># Search for modules with different names</span>
 </span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>module<span class="w"> </span>avail<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span>nextflow
@@ -2769,7 +2770,7 @@
 </span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="c1"># Contact system administrator if modules are missing</span>
 </span></code></pre></div>
 
-**Quick Setup Script:**
+<b>Quick Setup Script:</b>
 
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="c1"># Create a one-command setup (handles module initialization if needed)</span>
 </span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>cat<span class="w"> </span>&gt;<span class="w"> </span>~/setup_day6.sh<span class="w"> </span><span class="s">&lt;&lt; &#39;EOF&#39;</span>
@@ -2792,6 +2793,7 @@
 </span><span id="__span-10-19"><a id="__codelineno-10-19" name="__codelineno-10-19" href="#__codelineno-10-19"></a><span class="c1"># Use it anytime with:</span>
 </span><span id="__span-10-20"><a id="__codelineno-10-20" name="__codelineno-10-20" href="#__codelineno-10-20"></a><span class="nb">source</span><span class="w"> </span>~/setup_day6.sh
 </span></code></pre></div>
+
 </div>
 
 <h4 id="workspace-organization"><strong>Workspace Organization</strong><a class="headerlink" href="#workspace-organization" title="Permanent link">&para;</a></h4>
@@ -2924,56 +2926,52 @@
 <h2 id="the-workflow-management-solution">The Workflow Management Solution<a class="headerlink" href="#the-workflow-management-solution" title="Permanent link">&para;</a></h2>
 <h3 id="overview-of-workflow-management-systems">Overview of Workflow Management Systems<a class="headerlink" href="#overview-of-workflow-management-systems" title="Permanent link">&para;</a></h3>
 <p><strong>Workflow management systems (WMS)</strong> are specialized programming languages and frameworks designed specifically to address the challenges of complex, multi-step computational pipelines. They provide a higher-level abstraction that automatically handles the tedious and error-prone aspects of traditional shell scripting.</p>
-<h4 id="how-workflow-management-systems-solve-traditional-problems">How Workflow Management Systems Solve Traditional Problems:<a class="headerlink" href="#how-workflow-management-systems-solve-traditional-problems" title="Permanent link">&para;</a></h4>
+<h4 id="how-workflow-management-systems-solve-traditional-problems">How Workflow Management Systems Solve Traditional Problems<a class="headerlink" href="#how-workflow-management-systems-solve-traditional-problems" title="Permanent link">&para;</a></h4>
 <ul>
-<li>
-<p><strong>Automatic Parallelization</strong></p>
-<ul>
+<li><strong>Automatic Parallelization</strong></li>
 <li>Analyze task dependencies and run independent steps simultaneously</li>
 <li>Efficiently utilize all available CPU cores and computing nodes</li>
-<li>Scale from single machines to massive HPC clusters and cloud environments</li>
-</ul>
+<li>
+<p>Scale from single machines to massive HPC clusters and cloud environments</p>
 </li>
 <li>
 <p><strong>Built-in Error Recovery</strong></p>
-<ul>
+</li>
 <li>Automatic retry mechanisms for failed tasks</li>
 <li>Resume functionality to restart from failure points</li>
-<li>Intelligent caching to avoid re-running successful steps</li>
-</ul>
+<li>
+<p>Intelligent caching to avoid re-running successful steps</p>
 </li>
 <li>
 <p><strong>Resource Management</strong></p>
-<ul>
+</li>
 <li>Automatic CPU and memory allocation based on task requirements</li>
 <li>Integration with job schedulers (<a href="https://slurm.schedmd.com/documentation.html">SLURM</a>, <a href="https://gridscheduler.sourceforge.net/">SGE</a>)</li>
-<li>Dynamic scaling in cloud environments</li>
-</ul>
+<li>
+<p>Dynamic scaling in cloud environments</p>
 </li>
 <li>
 <p><strong>Reproducibility by Design</strong></p>
-<ul>
+</li>
 <li>Container integration (Docker, Singularity) for consistent environments</li>
 <li>Version tracking for all software dependencies</li>
-<li>Portable execution across different computing platforms</li>
-</ul>
+<li>
+<p>Portable execution across different computing platforms</p>
 </li>
 <li>
 <p><strong>Progress Monitoring</strong></p>
-<ul>
+</li>
 <li>Real-time pipeline execution tracking</li>
 <li>Detailed logging and reporting</li>
-<li>Performance metrics and resource usage statistics</li>
-</ul>
+<li>
+<p>Performance metrics and resource usage statistics</p>
 </li>
 <li>
 <p><strong>Modular Architecture</strong></p>
-<ul>
+</li>
 <li>Reusable workflow components</li>
 <li>Easy parameter configuration</li>
 <li>Clean separation of logic and execution</li>
-</ul>
-</li>
 </ul>
 <h3 id="comparison-of-popular-workflow-languages">Comparison of Popular Workflow Languages<a class="headerlink" href="#comparison-of-popular-workflow-languages" title="Permanent link">&para;</a></h3>
 <p>The bioinformatics community has developed several powerful workflow management systems, each with unique strengths and design philosophies:</p>
@@ -3262,33 +3260,31 @@
 <h3 id="the-big-picture-traditional-vs-modern-approaches">The Big Picture: Traditional vs Modern Approaches<a class="headerlink" href="#the-big-picture-traditional-vs-modern-approaches" title="Permanent link">&para;</a></h3>
 <p>To understand why workflow management systems like Nextflow are revolutionary, let's visualize the <strong>time difference</strong>:</p>
 <h4 id="traditional-shell-scripting-the-slow-way">Traditional Shell Scripting - The Slow Way<a class="headerlink" href="#traditional-shell-scripting-the-slow-way" title="Permanent link">&para;</a></h4>
-<p>```mermaid
-graph TD
-    A1[Sample 1] &rarr; B1[FastQC - 5 min]
-    B1 &rarr; C1[Trimming - 10 min]
-    C1 &rarr; D1[Assembly - 30 min]
-    D1 &rarr; E1[Annotation - 15 min]
-    E1 &rarr; F1[✓ Done - 60 min total]</p>
-<div class="language-text highlight"><pre><span></span><code>F1 --&gt; A2[Sample 2]
-A2 --&gt; B2[FastQC - 5 min]
-B2 --&gt; C2[Trimming - 10 min]
-C2 --&gt; D2[Assembly - 30 min]
-D2 --&gt; E2[Annotation - 15 min]
-E2 --&gt; F2[✓ Done - 120 min total]
+<pre class="mermaid"><code>flowchart TD
+    A1[Sample 1] --&gt; B1[FastQC - 5 min]
+    B1 --&gt; C1[Trimming - 10 min]
+    C1 --&gt; D1[Assembly - 30 min]
+    D1 --&gt; E1[Annotation - 15 min]
+    E1 --&gt; F1[✓ Done - 60 min total]
 
-F2 --&gt; A3[Sample 3]
-A3 --&gt; B3[FastQC - 5 min]
-B3 --&gt; C3[Trimming - 10 min]
-C3 --&gt; D3[Assembly - 30 min]
-D3 --&gt; E3[Annotation - 15 min]
-E3 --&gt; F3[✓ All Done - 180 min total]
+    F1 --&gt; A2[Sample 2]
+    A2 --&gt; B2[FastQC - 5 min]
+    B2 --&gt; C2[Trimming - 10 min]
+    C2 --&gt; D2[Assembly - 30 min]
+    D2 --&gt; E2[Annotation - 15 min]
+    E2 --&gt; F2[✓ Done - 120 min total]
 
-style A1 fill:#ffcccc
-style A2 fill:#ffcccc
-style A3 fill:#ffcccc
-style F3 fill:#ff9999
-</code></pre></div>
-<p>```</p>
+    F2 --&gt; A3[Sample 3]
+    A3 --&gt; B3[FastQC - 5 min]
+    B3 --&gt; C3[Trimming - 10 min]
+    C3 --&gt; D3[Assembly - 30 min]
+    D3 --&gt; E3[Annotation - 15 min]
+    E3 --&gt; F3[✓ All Done - 180 min total]
+
+    style A1 fill:#ffcccc
+    style A2 fill:#ffcccc
+    style A3 fill:#ffcccc
+    style F3 fill:#ff9999</code></pre>
 <p><strong>Problems with traditional approach:</strong></p>
 <ul>
 <li><strong>Sequential processing</strong>: Must wait for each sample to finish completely</li>
@@ -3297,35 +3293,33 @@ style F3 fill:#ff9999
 <li><strong>Scaling nightmare</strong>: 100 samples = 100 hours!</li>
 </ul>
 <h4 id="nextflow-the-fast-way">Nextflow - The Fast Way<a class="headerlink" href="#nextflow-the-fast-way" title="Permanent link">&para;</a></h4>
-<p>```mermaid
-graph TD
-    A4[Sample 1] &rarr; B4[FastQC - 5 min]
-    A5[Sample 2] &rarr; B5[FastQC - 5 min]
-    A6[Sample 3] &rarr; B6[FastQC - 5 min]</p>
-<div class="language-text highlight"><pre><span></span><code>B4 --&gt; C4[Trimming - 10 min]
-B5 --&gt; C5[Trimming - 10 min]
-B6 --&gt; C6[Trimming - 10 min]
+<pre class="mermaid"><code>flowchart TD
+    A4[Sample 1] --&gt; B4[FastQC - 5 min]
+    A5[Sample 2] --&gt; B5[FastQC - 5 min]
+    A6[Sample 3] --&gt; B6[FastQC - 5 min]
 
-C4 --&gt; D4[Assembly - 30 min]
-C5 --&gt; D5[Assembly - 30 min]
-C6 --&gt; D6[Assembly - 30 min]
+    B4 --&gt; C4[Trimming - 10 min]
+    B5 --&gt; C5[Trimming - 10 min]
+    B6 --&gt; C6[Trimming - 10 min]
 
-D4 --&gt; E4[Annotation - 15 min]
-D5 --&gt; E5[Annotation - 15 min]
-D6 --&gt; E6[Annotation - 15 min]
+    C4 --&gt; D4[Assembly - 30 min]
+    C5 --&gt; D5[Assembly - 30 min]
+    C6 --&gt; D6[Assembly - 30 min]
 
-E4 --&gt; F4[✓ All Done - 60 min total]
-E5 --&gt; F5[3x FASTER!]
-E6 --&gt; F6[Same time as 1 sample]
+    D4 --&gt; E4[Annotation - 15 min]
+    D5 --&gt; E5[Annotation - 15 min]
+    D6 --&gt; E6[Annotation - 15 min]
 
-style A4 fill:#ccffcc
-style A5 fill:#ccffcc
-style A6 fill:#ccffcc
-style F4 fill:#99ff99
-style F5 fill:#99ff99
-style F6 fill:#99ff99
-</code></pre></div>
-<p>```</p>
+    E4 --&gt; F4[✓ All Done - 60 min total]
+    E5 --&gt; F5[3x FASTER!]
+    E6 --&gt; F6[Same time as 1 sample]
+
+    style A4 fill:#ccffcc
+    style A5 fill:#ccffcc
+    style A6 fill:#ccffcc
+    style F4 fill:#99ff99
+    style F5 fill:#99ff99
+    style F6 fill:#99ff99</code></pre>
 <p><strong>Benefits of Nextflow approach:</strong></p>
 <ul>
 <li><strong>Parallel processing</strong>: All samples start simultaneously</li>
@@ -3436,20 +3430,18 @@ updateCalculator();
 <h3 id="what-is-nextflow">What is Nextflow?<a class="headerlink" href="#what-is-nextflow" title="Permanent link">&para;</a></h3>
 <p>Nextflow is a <strong>workflow management system</strong> that comprises both a runtime environment and a domain-specific language (DSL). It's designed specifically to manage computational data-analysis workflows in bioinformatics and other scientific fields.</p>
 <h3 id="core-nextflow-features">Core Nextflow Features<a class="headerlink" href="#core-nextflow-features" title="Permanent link">&para;</a></h3>
-<p>```mermaid
-graph LR
-    A[Fast Prototyping] &rarr; B[Simple Syntax]
-    C[Reproducibility] &rarr; D[Containers &amp; Conda]
-    E[Portability] &rarr; F[Run Anywhere]
-    G[Parallelism] &rarr; H[Automatic Scaling]
-    I[Checkpoints] &rarr; J[Resume from Failures]</p>
-<div class="language-text highlight"><pre><span></span><code>style A fill:#e1f5fe
-style C fill:#e8f5e8
-style E fill:#fff3e0
-style G fill:#f3e5f5
-style I fill:#fce4ec
-</code></pre></div>
-<p>```</p>
+<pre class="mermaid"><code>flowchart LR
+    A[Fast Prototyping] --&gt; B[Simple Syntax]
+    C[Reproducibility] --&gt; D[Containers &amp; Conda]
+    E[Portability] --&gt; F[Run Anywhere]
+    G[Parallelism] --&gt; H[Automatic Scaling]
+    I[Checkpoints] --&gt; J[Resume from Failures]
+
+    style A fill:#e1f5fe
+    style C fill:#e8f5e8
+    style E fill:#fff3e0
+    style G fill:#f3e5f5
+    style I fill:#fce4ec</code></pre>
 <p><strong>1. Fast Prototyping</strong></p>
 <ul>
 <li>Simple syntax that lets you reuse existing scripts and tools</li>
@@ -3513,10 +3505,12 @@ style I fill:#fce4ec
 </ul>
 </div>
 <h4 id="processes-in-detail"><strong>Processes in Detail</strong><a class="headerlink" href="#processes-in-detail" title="Permanent link">&para;</a></h4>
-<p>A <strong>process</strong> describes a task to be run. Think of it as a recipe that tells Nextflow:
-- What inputs it needs
-- What outputs it produces
-- What commands to run</p>
+<p>A <strong>process</strong> describes a task to be run. Think of it as a recipe that tells Nextflow:</p>
+<ul>
+<li>What inputs it needs</li>
+<li>What outputs it produces</li>
+<li>What commands to run</li>
+</ul>
 <div class="language-groovy highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="n">process</span><span class="w"> </span><span class="n">COUNT_READS</span><span class="w"> </span><span class="o">{</span>
 </span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a><span class="w">    </span><span class="c1">// Process directives (optional)</span>
 </span><span id="__span-20-3"><a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a><span class="w">    </span><span class="n">tag</span><span class="w"> </span><span class="s2">&quot;$sample_id&quot;</span><span class="w">           </span><span class="c1">// Label for this task</span>
@@ -3559,26 +3553,24 @@ style I fill:#fce4ec
 </span><span id="__span-21-14"><a id="__codelineno-21-14" name="__codelineno-21-14" href="#__codelineno-21-14"></a><span class="w">    </span><span class="o">.</span><span class="na">splitCsv</span><span class="o">(</span><span class="nl">header:</span><span class="w"> </span><span class="kc">true</span><span class="o">)</span>
 </span></code></pre></div>
 <p><strong>Channel Flow Example:</strong></p>
-<p>```mermaid
-graph LR
-    A[Input Files] &rarr; B[Channel]
-    B &rarr; C[Process 1]
-    C &rarr; D[Output Channel]
-    D &rarr; E[Process 2]
-    E &rarr; F[Final Results]</p>
-<div class="language-text highlight"><pre><span></span><code>%% Channels - Blue background
-style B fill:#e3f2fd,stroke:#1976d2,stroke-width:2px,color:#000
-style D fill:#e3f2fd,stroke:#1976d2,stroke-width:2px,color:#000
+<pre class="mermaid"><code>flowchart LR
+    A[Input Files] --&gt; B[Channel]
+    B --&gt; C[Process 1]
+    C --&gt; D[Output Channel]
+    D --&gt; E[Process 2]
+    E --&gt; F[Final Results]
 
-%% Processes - Green background
-style C fill:#e8f5e8,stroke:#388e3c,stroke-width:2px,color:#000
-style E fill:#e8f5e8,stroke:#388e3c,stroke-width:2px,color:#000
+    %% Channels - Blue background
+    style B fill:#e3f2fd,stroke:#1976d2,stroke-width:2px,color:#000
+    style D fill:#e3f2fd,stroke:#1976d2,stroke-width:2px,color:#000
 
-%% Input/Output - Light gray
-style A fill:#f5f5f5,stroke:#757575,stroke-width:1px,color:#000
-style F fill:#f5f5f5,stroke:#757575,stroke-width:1px,color:#000
-</code></pre></div>
-<p>```</p>
+    %% Processes - Green background
+    style C fill:#e8f5e8,stroke:#388e3c,stroke-width:2px,color:#000
+    style E fill:#e8f5e8,stroke:#388e3c,stroke-width:2px,color:#000
+
+    %% Input/Output - Light gray
+    style A fill:#f5f5f5,stroke:#757575,stroke-width:1px,color:#000
+    style F fill:#f5f5f5,stroke:#757575,stroke-width:1px,color:#000</code></pre>
 <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin: 15px 0; border-left: 4px solid #007bff;">
 <h5>🎨 Color Legend for Nextflow Diagrams</h5>
 <div style="display: flex; gap: 20px; flex-wrap: wrap; margin-top: 10px;">
@@ -3622,19 +3614,17 @@ style F fill:#f5f5f5,stroke:#757575,stroke-width:1px,color:#000
 <li><strong>Handle failures</strong>: Retries failed tasks or stops gracefully</li>
 <li><strong>Collect results</strong>: Gathers outputs in the specified locations</li>
 </ol>
-<p>```mermaid
-graph TD
-    A[Nextflow Script] &rarr; B[Parse &amp; Plan]
-    B &rarr; C[Submit Tasks]
-    C &rarr; D[Monitor Execution]
-    D &rarr; E{All Tasks Done?}
-    E &rarr;|No| F[Handle Failures]
-    F &rarr; C
-    E &rarr;|Yes| G[Collect Results]</p>
-<div class="language-text highlight"><pre><span></span><code>style A fill:#e1f5fe
-style G fill:#c8e6c9
-</code></pre></div>
-<p>```</p>
+<pre class="mermaid"><code>flowchart TD
+    A[Nextflow Script] --&gt; B[Parse &amp; Plan]
+    B --&gt; C[Submit Tasks]
+    C --&gt; D[Monitor Execution]
+    D --&gt; E{All Tasks Done?}
+    E --&gt;|No| F[Handle Failures]
+    F --&gt; C
+    E --&gt;|Yes| G[Collect Results]
+
+    style A fill:#e1f5fe
+    style G fill:#c8e6c9</code></pre>
 <h3 id="your-first-nextflow-script">Your First Nextflow Script<a class="headerlink" href="#your-first-nextflow-script" title="Permanent link">&para;</a></h3>
 <p>Let's look at a complete, simple example that counts lines in a file:</p>
 <div class="language-groovy highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="cp">#!/usr/bin/env nextflow</span>
@@ -3690,24 +3680,22 @@ style G fill:#c8e6c9
 <h3 id="workflow-execution-and-executors">Workflow Execution and Executors<a class="headerlink" href="#workflow-execution-and-executors" title="Permanent link">&para;</a></h3>
 <p>One of Nextflow's most powerful features is that it separates <strong>what</strong> your workflow does from <strong>where</strong> it runs.</p>
 <h4 id="executors-where-your-workflow-runs"><strong>Executors: Where Your Workflow Runs</strong><a class="headerlink" href="#executors-where-your-workflow-runs" title="Permanent link">&para;</a></h4>
-<p>```mermaid
-graph TD
-    A[Your Nextflow Script] &rarr; B{Choose Executor}
-    B &rarr; C[Local Computer]
-    B &rarr; D[SLURM Cluster]
-    B &rarr; E[AWS Cloud]
-    B &rarr; F[Google Cloud]
-    B &rarr; G[Azure Cloud]</p>
-<div class="language-text highlight"><pre><span></span><code>C --&gt; H[Same Workflow Code]
-D --&gt; H
-E --&gt; H
-F --&gt; H
-G --&gt; H
+<pre class="mermaid"><code>flowchart TD
+    A[Your Nextflow Script] --&gt; B{Choose Executor}
+    B --&gt; C[Local Computer]
+    B --&gt; D[SLURM Cluster]
+    B --&gt; E[AWS Cloud]
+    B --&gt; F[Google Cloud]
+    B --&gt; G[Azure Cloud]
 
-style A fill:#e1f5fe
-style H fill:#c8e6c9
-</code></pre></div>
-<p>```</p>
+    C --&gt; H[Same Workflow Code]
+    D --&gt; H
+    E --&gt; H
+    F --&gt; H
+    G --&gt; H
+
+    style A fill:#e1f5fe
+    style H fill:#c8e6c9</code></pre>
 <p><strong>Available Executors:</strong></p>
 <ul>
 <li><strong>Local</strong>: Your laptop/desktop (default, great for testing)</li>
@@ -3764,48 +3752,46 @@ style H fill:#c8e6c9
 <li><strong>User isolation</strong>: Each user has their own work space</li>
 <li><strong>Performance</strong>: Often faster storage for intensive I/O operations</li>
 </ul>
-<p>The configuration is set in <code>nextflow.config</code>:
+<p>The configuration is set in <code>nextflow.config</code>:</p>
 <div class="language-groovy highlight"><pre><span></span><code><span id="__span-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a><span class="c1">// Set work directory to user&#39;s data space</span>
 </span><span id="__span-29-2"><a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a><span class="n">workDir</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;/data/users/$USER/nextflow-training/work&quot;</span>
-</span></code></pre></div></p>
+</span></code></pre></div>
 <p>This means all task execution directories will be created under <code>/data/users/mamana/nextflow-training/work/</code> (or your username).</p>
 <h4 id="nextflow-directory-structure">Nextflow Directory Structure<a class="headerlink" href="#nextflow-directory-structure" title="Permanent link">&para;</a></h4>
 <p>When you run a Nextflow pipeline, several directories are automatically created:</p>
-<p>```mermaid
-graph TD
-    A[microbial-genomics-training/] &rarr; B[workflows/]
-    A &rarr; C[data/]
-    A &rarr; D[/data/users/<span class="arithmatex">\(USER/nextflow-training/work/]
-    A --&gt; E[/data/users/\)</span>USER/nextflow-training/results/]</p>
-<div class="language-text highlight"><pre><span></span><code>B --&gt; F[.nextflow/]
-B --&gt; G[.nextflow.log]
-B --&gt; H[*.nf files]
-B --&gt; I[nextflow.config]
+<pre class="mermaid"><code>flowchart TD
+    A[microbial-genomics-training/] --&gt; B[workflows/]
+    A --&gt; C[data/]
+    A --&gt; D[/data/users/$USER/nextflow-training/work/]
+    A --&gt; E[/data/users/$USER/nextflow-training/results/]
 
-D --&gt; J[Task Directories]
-J --&gt; K[5d/7dd7ae.../]
-K --&gt; L[.command.sh]
-K --&gt; M[.command.log]
-K --&gt; N[.command.err]
-K --&gt; O[Input Files]
-K --&gt; P[Output Files]
+    B --&gt; F[.nextflow/]
+    B --&gt; G[.nextflow.log]
+    B --&gt; H[*.nf files]
+    B --&gt; I[nextflow.config]
 
-E --&gt; Q[Published Results]
-E --&gt; R[fastqc_raw/]
-E --&gt; S[fastqc_trimmed/]
-E --&gt; T[trimmed/]
-E --&gt; U[assemblies/]
-E --&gt; V[annotation/]
+    D --&gt; J[Task Directories]
+    J --&gt; K[5d/7dd7ae.../]
+    K --&gt; L[.command.sh]
+    K --&gt; M[.command.log]
+    K --&gt; N[.command.err]
+    K --&gt; O[Input Files]
+    K --&gt; P[Output Files]
 
-C --&gt; W[Dataset_Mt_Vc/tb/raw_data/]
+    E --&gt; Q[Published Results]
+    E --&gt; R[fastqc_raw/]
+    E --&gt; S[fastqc_trimmed/]
+    E --&gt; T[trimmed/]
+    E --&gt; U[assemblies/]
+    E --&gt; V[annotation/]
 
-style A fill:#e1f5fe
-style B fill:#fff3e0
-style D fill:#fff3e0
-style E fill:#e8f5e8
-style F fill:#f3e5f5
-</code></pre></div>
-<p>```</p>
+    C --&gt; W[Dataset_Mt_Vc/tb/raw_data/]
+
+    style A fill:#e1f5fe
+    style B fill:#fff3e0
+    style D fill:#fff3e0
+    style E fill:#e8f5e8
+    style F fill:#f3e5f5</code></pre>
 <div id="folder-explorer" style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0;">
     <h4>📁 Interactive Folder Explorer</h4>
     <p>Click on folders to explore Nextflow's directory structure:</p>
@@ -4051,14 +4037,14 @@ document.querySelectorAll('.folder-item').forEach(item => {
 </div>
 
 <h4 id="common-directory-issues-and-solutions">Common Directory Issues and Solutions<a class="headerlink" href="#common-directory-issues-and-solutions" title="Permanent link">&para;</a></h4>
-<p><strong>Problem: "I can't find my results!"</strong>
+<p><strong>Problem: "I can't find my results!"</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-36-1"><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a><span class="c1"># Check if publishDir was used in your process</span>
 </span><span id="__span-36-2"><a id="__codelineno-36-2" name="__codelineno-36-2" href="#__codelineno-36-2"></a>grep<span class="w"> </span>-n<span class="w"> </span><span class="s2">&quot;publishDir&quot;</span><span class="w"> </span>*.nf
 </span><span id="__span-36-3"><a id="__codelineno-36-3" name="__codelineno-36-3" href="#__codelineno-36-3"></a>
 </span><span id="__span-36-4"><a id="__codelineno-36-4" name="__codelineno-36-4" href="#__codelineno-36-4"></a><span class="c1"># Look in the work directory</span>
 </span><span id="__span-36-5"><a id="__codelineno-36-5" name="__codelineno-36-5" href="#__codelineno-36-5"></a>find<span class="w"> </span>/data/users/<span class="nv">$USER</span>/nextflow-training/work/<span class="w"> </span>-name<span class="w"> </span><span class="s2">&quot;*.html&quot;</span><span class="w"> </span>-o<span class="w"> </span>-name<span class="w"> </span><span class="s2">&quot;*.txt&quot;</span><span class="w"> </span>-o<span class="w"> </span>-name<span class="w"> </span><span class="s2">&quot;*.fasta&quot;</span>
-</span></code></pre></div></p>
-<p><strong>Problem: "Pipeline failed, how do I debug?"</strong>
+</span></code></pre></div>
+<p><strong>Problem: "Pipeline failed, how do I debug?"</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-37-1"><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a><span class="c1"># Find failed tasks</span>
 </span><span id="__span-37-2"><a id="__codelineno-37-2" name="__codelineno-37-2" href="#__codelineno-37-2"></a>grep<span class="w"> </span><span class="s2">&quot;FAILED&quot;</span><span class="w"> </span>.nextflow.log
 </span><span id="__span-37-3"><a id="__codelineno-37-3" name="__codelineno-37-3" href="#__codelineno-37-3"></a>
@@ -4068,8 +4054,8 @@ document.querySelectorAll('.folder-item').forEach(item => {
 </span><span id="__span-37-7"><a id="__codelineno-37-7" name="__codelineno-37-7" href="#__codelineno-37-7"></a><span class="c1"># Navigate to that directory and investigate</span>
 </span><span id="__span-37-8"><a id="__codelineno-37-8" name="__codelineno-37-8" href="#__codelineno-37-8"></a><span class="nb">cd</span><span class="w"> </span>/data/users/<span class="nv">$USER</span>/nextflow-training/work/xx/yyyy...
 </span><span id="__span-37-9"><a id="__codelineno-37-9" name="__codelineno-37-9" href="#__codelineno-37-9"></a>cat<span class="w"> </span>.command.err
-</span></code></pre></div></p>
-<p><strong>Problem: "work directory is huge!"</strong>
+</span></code></pre></div>
+<p><strong>Problem: "work directory is huge!"</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-38-1"><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a><span class="c1"># Check work directory size</span>
 </span><span id="__span-38-2"><a id="__codelineno-38-2" name="__codelineno-38-2" href="#__codelineno-38-2"></a>du<span class="w"> </span>-sh<span class="w"> </span>/data/users/<span class="nv">$USER</span>/nextflow-training/work/
 </span><span id="__span-38-3"><a id="__codelineno-38-3" name="__codelineno-38-3" href="#__codelineno-38-3"></a>
@@ -4078,7 +4064,7 @@ document.querySelectorAll('.folder-item').forEach(item => {
 </span><span id="__span-38-6"><a id="__codelineno-38-6" name="__codelineno-38-6" href="#__codelineno-38-6"></a>
 </span><span id="__span-38-7"><a id="__codelineno-38-7" name="__codelineno-38-7" href="#__codelineno-38-7"></a><span class="c1"># Or use Nextflow&#39;s clean command</span>
 </span><span id="__span-38-8"><a id="__codelineno-38-8" name="__codelineno-38-8" href="#__codelineno-38-8"></a>nextflow<span class="w"> </span>clean<span class="w"> </span>-f
-</span></code></pre></div></p>
+</span></code></pre></div>
 <p>Now that you understand these fundamentals, let's put them into practice!</p>
 <div id="command-simulator" style="background: #1e1e1e; color: #00ff00; padding: 20px; border-radius: 8px; margin: 20px 0; font-family: 'Courier New', monospace;">
     <h4 style="color: #ffffff; margin-top: 0;">💻 Interactive Command Simulator</h4>
@@ -4217,35 +4203,33 @@ document.getElementById('command-input').addEventListener('keydown', function(e)
 
 <h3 id="your-first-genomics-pipeline">Your First Genomics Pipeline<a class="headerlink" href="#your-first-genomics-pipeline" title="Permanent link">&para;</a></h3>
 <p>Here's what a basic microbial genomics analysis looks like:</p>
-<p>```mermaid
-flowchart LR
-    A[Raw Sequencing Data<br/>FASTQ files] &rarr; B[Quality Control<br/>FastQC]
-    B &rarr; C[Read Trimming<br/>Trimmomatic]
-    C &rarr; D[Genome Assembly<br/>SPAdes]
-    D &rarr; E[Assembly Quality<br/>QUAST]
-    E &rarr; F[Gene Annotation<br/>Prokka]
-    F &rarr; G[Final Results<br/>Annotated Genome]</p>
-<div class="language-text highlight"><pre><span></span><code>B --&gt; H[Quality Report]
-E --&gt; I[Assembly Stats]
-F --&gt; J[Gene Predictions]
+<pre class="mermaid"><code>flowchart LR
+    A[Raw Sequencing Data&lt;br/&gt;FASTQ files] --&gt; B[Quality Control&lt;br/&gt;FastQC]
+    B --&gt; C[Read Trimming&lt;br/&gt;Trimmomatic]
+    C --&gt; D[Genome Assembly&lt;br/&gt;SPAdes]
+    D --&gt; E[Assembly Quality&lt;br/&gt;QUAST]
+    E --&gt; F[Gene Annotation&lt;br/&gt;Prokka]
+    F --&gt; G[Final Results&lt;br/&gt;Annotated Genome]
 
-%% Input/Output data - Gray
-style A fill:#f5f5f5,stroke:#757575,stroke-width:1px,color:#000
-style G fill:#f5f5f5,stroke:#757575,stroke-width:1px,color:#000
+    B --&gt; H[Quality Report]
+    E --&gt; I[Assembly Stats]
+    F --&gt; J[Gene Predictions]
 
-%% Processes (bioinformatics tools) - Green
-style B fill:#e8f5e8,stroke:#388e3c,stroke-width:2px,color:#000
-style C fill:#e8f5e8,stroke:#388e3c,stroke-width:2px,color:#000
-style D fill:#e8f5e8,stroke:#388e3c,stroke-width:2px,color:#000
-style E fill:#e8f5e8,stroke:#388e3c,stroke-width:2px,color:#000
-style F fill:#e8f5e8,stroke:#388e3c,stroke-width:2px,color:#000
+    %% Input/Output data - Gray
+    style A fill:#f5f5f5,stroke:#757575,stroke-width:1px,color:#000
+    style G fill:#f5f5f5,stroke:#757575,stroke-width:1px,color:#000
 
-%% Reports/Outputs - Light orange
-style H fill:#fff3e0,stroke:#f57c00,stroke-width:1px,color:#000
-style I fill:#fff3e0,stroke:#f57c00,stroke-width:1px,color:#000
-style J fill:#fff3e0,stroke:#f57c00,stroke-width:1px,color:#000
-</code></pre></div>
-<p>```</p>
+    %% Processes (bioinformatics tools) - Green
+    style B fill:#e8f5e8,stroke:#388e3c,stroke-width:2px,color:#000
+    style C fill:#e8f5e8,stroke:#388e3c,stroke-width:2px,color:#000
+    style D fill:#e8f5e8,stroke:#388e3c,stroke-width:2px,color:#000
+    style E fill:#e8f5e8,stroke:#388e3c,stroke-width:2px,color:#000
+    style F fill:#e8f5e8,stroke:#388e3c,stroke-width:2px,color:#000
+
+    %% Reports/Outputs - Light orange
+    style H fill:#fff3e0,stroke:#f57c00,stroke-width:1px,color:#000
+    style I fill:#fff3e0,stroke:#f57c00,stroke-width:1px,color:#000
+    style J fill:#fff3e0,stroke:#f57c00,stroke-width:1px,color:#000</code></pre>
 <p><strong>What Each Step Does:</strong></p>
 <ol>
 <li><strong>Quality Control</strong>: Check if your sequencing data is good quality</li>
@@ -4317,18 +4301,18 @@ style J fill:#fff3e0,stroke:#f57c00,stroke-width:1px,color:#000
 </span><span id="__span-40-36"><a id="__codelineno-40-36" name="__codelineno-40-36" href="#__codelineno-40-36"></a><span class="o">}</span>
 </span></code></pre></div>
 <p><strong>Step 2: Save and run the script</strong></p>
-<p>First, save the script to a file:
+<p>First, save the script to a file:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-41-1"><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a><span class="c1"># Create the file</span>
 </span><span id="__span-41-2"><a id="__codelineno-41-2" name="__codelineno-41-2" href="#__codelineno-41-2"></a>nano<span class="w"> </span>hello.nf
 </span><span id="__span-41-3"><a id="__codelineno-41-3" name="__codelineno-41-3" href="#__codelineno-41-3"></a><span class="c1"># Copy-paste the script above, then save and exit (Ctrl+X, Y, Enter)</span>
-</span></code></pre></div></p>
-<p>Now run your first Nextflow pipeline:
+</span></code></pre></div>
+<p>Now run your first Nextflow pipeline:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-42-1"><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a><span class="c1"># Navigate to workflows directory</span>
 </span><span id="__span-42-2"><a id="__codelineno-42-2" name="__codelineno-42-2" href="#__codelineno-42-2"></a><span class="nb">cd</span><span class="w"> </span>workflows
 </span><span id="__span-42-3"><a id="__codelineno-42-3" name="__codelineno-42-3" href="#__codelineno-42-3"></a>
 </span><span id="__span-42-4"><a id="__codelineno-42-4" name="__codelineno-42-4" href="#__codelineno-42-4"></a><span class="c1"># Run the hello workflow</span>
 </span><span id="__span-42-5"><a id="__codelineno-42-5" name="__codelineno-42-5" href="#__codelineno-42-5"></a>nextflow<span class="w"> </span>run<span class="w"> </span>hello.nf
-</span></code></pre></div></p>
+</span></code></pre></div>
 <details class="success">
 <summary>Expected output</summary>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-43-1"><a id="__codelineno-43-1" name="__codelineno-43-1" href="#__codelineno-43-1"></a>N E X T F L O W  ~  version 23.10.0
@@ -4435,7 +4419,7 @@ style J fill:#fff3e0,stroke:#f57c00,stroke-width:1px,color:#000
 </ul>
 <p>These are real sequencing data from <em>Mycobacterium tuberculosis</em> and <em>Vibrio cholerae</em> samples!</p>
 </div>
-<p><strong>Step 2: Create a sample sheet with real data</strong>
+<p><strong>Step 2: Create a sample sheet with real data</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-46-1"><a id="__codelineno-46-1" name="__codelineno-46-1" href="#__codelineno-46-1"></a><span class="c1"># Create a sample sheet with a few TB samples</span>
 </span><span id="__span-46-2"><a id="__codelineno-46-2" name="__codelineno-46-2" href="#__codelineno-46-2"></a>cat<span class="w"> </span>&gt;<span class="w"> </span>samplesheet.csv<span class="w"> </span><span class="s">&lt;&lt; &#39;EOF&#39;</span>
 </span><span id="__span-46-3"><a id="__codelineno-46-3" name="__codelineno-46-3" href="#__codelineno-46-3"></a><span class="s">sample,fastq_1,fastq_2</span>
@@ -4445,19 +4429,19 @@ style J fill:#fff3e0,stroke:#f57c00,stroke-width:1px,color:#000
 </span><span id="__span-46-7"><a id="__codelineno-46-7" name="__codelineno-46-7" href="#__codelineno-46-7"></a>
 </span><span id="__span-46-8"><a id="__codelineno-46-8" name="__codelineno-46-8" href="#__codelineno-46-8"></a><span class="c1"># Check the sample sheet</span>
 </span><span id="__span-46-9"><a id="__codelineno-46-9" name="__codelineno-46-9" href="#__codelineno-46-9"></a>cat<span class="w"> </span>samplesheet.csv
-</span></code></pre></div></p>
-<p><strong>Step 3: Update the script to use real data</strong>
+</span></code></pre></div>
+<p><strong>Step 3: Update the script to use real data</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-47-1"><a id="__codelineno-47-1" name="__codelineno-47-1" href="#__codelineno-47-1"></a><span class="c1"># Save the script as count_reads.nf</span>
 </span><span id="__span-47-2"><a id="__codelineno-47-2" name="__codelineno-47-2" href="#__codelineno-47-2"></a>nano<span class="w"> </span>count_reads.nf
 </span><span id="__span-47-3"><a id="__codelineno-47-3" name="__codelineno-47-3" href="#__codelineno-47-3"></a><span class="c1"># Copy-paste the script above, then save and exit</span>
-</span></code></pre></div></p>
-<p><strong>Step 4: Run the pipeline with real data</strong>
+</span></code></pre></div>
+<p><strong>Step 4: Run the pipeline with real data</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-48-1"><a id="__codelineno-48-1" name="__codelineno-48-1" href="#__codelineno-48-1"></a><span class="c1"># Navigate to workflows directory</span>
 </span><span id="__span-48-2"><a id="__codelineno-48-2" name="__codelineno-48-2" href="#__codelineno-48-2"></a><span class="nb">cd</span><span class="w"> </span>workflows
 </span><span id="__span-48-3"><a id="__codelineno-48-3" name="__codelineno-48-3" href="#__codelineno-48-3"></a>
 </span><span id="__span-48-4"><a id="__codelineno-48-4" name="__codelineno-48-4" href="#__codelineno-48-4"></a><span class="c1"># Run the count reads pipeline</span>
 </span><span id="__span-48-5"><a id="__codelineno-48-5" name="__codelineno-48-5" href="#__codelineno-48-5"></a>nextflow<span class="w"> </span>run<span class="w"> </span>count_reads.nf<span class="w"> </span>--input<span class="w"> </span>samplesheet.csv
-</span></code></pre></div></p>
+</span></code></pre></div>
 <details class="success">
 <summary>Expected output</summary>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-49-1"><a id="__codelineno-49-1" name="__codelineno-49-1" href="#__codelineno-49-1"></a>N E X T F L O W  ~  version 25.04.6
@@ -4468,7 +4452,7 @@ style J fill:#fff3e0,stroke:#f57c00,stroke-width:1px,color:#000
 </span><span id="__span-49-6"><a id="__codelineno-49-6" name="__codelineno-49-6" href="#__codelineno-49-6"></a>Read count file: /data/users/$USER/nextflow-training/results/ERR036223.count
 </span></code></pre></div>
 </details>
-<p><strong>Step 5: Check your results</strong>
+<p><strong>Step 5: Check your results</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-50-1"><a id="__codelineno-50-1" name="__codelineno-50-1" href="#__codelineno-50-1"></a><span class="c1"># Look at the results directory</span>
 </span><span id="__span-50-2"><a id="__codelineno-50-2" name="__codelineno-50-2" href="#__codelineno-50-2"></a>ls<span class="w"> </span>/data/users/<span class="nv">$USER</span>/nextflow-training/results/
 </span><span id="__span-50-3"><a id="__codelineno-50-3" name="__codelineno-50-3" href="#__codelineno-50-3"></a>
@@ -4478,7 +4462,7 @@ style J fill:#fff3e0,stroke:#f57c00,stroke-width:1px,color:#000
 </span><span id="__span-50-7"><a id="__codelineno-50-7" name="__codelineno-50-7" href="#__codelineno-50-7"></a>
 </span><span id="__span-50-8"><a id="__codelineno-50-8" name="__codelineno-50-8" href="#__codelineno-50-8"></a><span class="c1"># Compare file sizes</span>
 </span><span id="__span-50-9"><a id="__codelineno-50-9" name="__codelineno-50-9" href="#__codelineno-50-9"></a>ls<span class="w"> </span>-lh<span class="w"> </span>/data/Dataset_Mt_Vc/tb/raw_data/ERR036221_*.fastq.gz
-</span></code></pre></div></p>
+</span></code></pre></div>
 <details class="success">
 <summary>Expected output (✅ Tested with real data)</summary>
 <p><strong>Count files content:</strong>
@@ -4504,11 +4488,13 @@ style J fill:#fff3e0,stroke:#f57c00,stroke-width:1px,color:#000
 </span><span id="__span-52-8"><a id="__codelineno-52-8" name="__codelineno-52-8" href="#__codelineno-52-8"></a>3
 </span></code></pre></div></p>
 </details>
-<p><strong>What this pipeline does:</strong>
-1. Reads sample information from a CSV file
-2. Counts reads in paired FASTQ files (in parallel!)
-3. Saves results to the <code>/data/users/$USER/nextflow-training/results/</code> directory
-4. Each <code>.count</code> file contains detailed read statistics for that sample</p>
+<p><strong>What this pipeline does:</strong></p>
+<ol>
+<li>Reads sample information from a CSV file</li>
+<li>Counts reads in paired FASTQ files (in parallel!)</li>
+<li>Saves results to the <code>/data/users/$USER/nextflow-training/results/</code> directory</li>
+<li>Each <code>.count</code> file contains detailed read statistics for that sample</li>
+</ol>
 <h3 id="exercise-2b-real-world-scenarios-30-minutes">Exercise 2B: Real-World Scenarios (30 minutes)<a class="headerlink" href="#exercise-2b-real-world-scenarios-30-minutes" title="Permanent link">&para;</a></h3>
 <p>Now let's explore common real-world scenarios you'll encounter when using Nextflow:</p>
 <h4 id="scenario-1-adding-more-samples"><strong>Scenario 1: Adding More Samples</strong><a class="headerlink" href="#scenario-1-adding-more-samples" title="Permanent link">&para;</a></h4>
@@ -4576,7 +4562,7 @@ style J fill:#fff3e0,stroke:#f57c00,stroke-width:1px,color:#000
 </span></code></pre></div>
 </details>
 <h4 id="scenario-4-local-vs-cluster-execution"><strong>Scenario 4: Local vs Cluster Execution</strong><a class="headerlink" href="#scenario-4-local-vs-cluster-execution" title="Permanent link">&para;</a></h4>
-<p><strong>Local Execution (Current):</strong>
+<p><strong>Local Execution (Current):</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-58-1"><a id="__codelineno-58-1" name="__codelineno-58-1" href="#__codelineno-58-1"></a><span class="c1"># Running on local machine (default)</span>
 </span><span id="__span-58-2"><a id="__codelineno-58-2" name="__codelineno-58-2" href="#__codelineno-58-2"></a>nextflow<span class="w"> </span>run<span class="w"> </span>count_reads.nf<span class="w"> </span>--input<span class="w"> </span>samplesheet.csv<span class="w"> </span>-resume
 </span><span id="__span-58-3"><a id="__codelineno-58-3" name="__codelineno-58-3" href="#__codelineno-58-3"></a>
@@ -4585,8 +4571,8 @@ style J fill:#fff3e0,stroke:#f57c00,stroke-width:1px,color:#000
 </span><span id="__span-58-6"><a id="__codelineno-58-6" name="__codelineno-58-6" href="#__codelineno-58-6"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;- All available CPU cores on this machine&quot;</span>
 </span><span id="__span-58-7"><a id="__codelineno-58-7" name="__codelineno-58-7" href="#__codelineno-58-7"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;- Local memory and storage&quot;</span>
 </span><span id="__span-58-8"><a id="__codelineno-58-8" name="__codelineno-58-8" href="#__codelineno-58-8"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;- Processes run sequentially if cores are limited&quot;</span>
-</span></code></pre></div></p>
-<p><strong>Cluster Execution (Advanced):</strong>
+</span></code></pre></div>
+<p><strong>Cluster Execution (Advanced):</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-59-1"><a id="__codelineno-59-1" name="__codelineno-59-1" href="#__codelineno-59-1"></a><span class="c1"># Example cluster configuration (for reference)</span>
 </span><span id="__span-59-2"><a id="__codelineno-59-2" name="__codelineno-59-2" href="#__codelineno-59-2"></a>cat<span class="w"> </span>&gt;<span class="w"> </span>nextflow.config<span class="w"> </span><span class="s">&lt;&lt; &#39;EOF&#39;</span>
 </span><span id="__span-59-3"><a id="__codelineno-59-3" name="__codelineno-59-3" href="#__codelineno-59-3"></a><span class="s">process {</span>
@@ -4616,7 +4602,7 @@ style J fill:#fff3e0,stroke:#f57c00,stroke-width:1px,color:#000
 </span><span id="__span-59-27"><a id="__codelineno-59-27" name="__codelineno-59-27" href="#__codelineno-59-27"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;- Better resource management&quot;</span>
 </span><span id="__span-59-28"><a id="__codelineno-59-28" name="__codelineno-59-28" href="#__codelineno-59-28"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;- Automatic job queuing and scheduling&quot;</span>
 </span><span id="__span-59-29"><a id="__codelineno-59-29" name="__codelineno-59-29" href="#__codelineno-59-29"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;- Fault tolerance across nodes&quot;</span>
-</span></code></pre></div></p>
+</span></code></pre></div>
 <h4 id="scenario-5-monitoring-and-debugging"><strong>Scenario 5: Monitoring and Debugging</strong><a class="headerlink" href="#scenario-5-monitoring-and-debugging" title="Permanent link">&para;</a></h4>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-60-1"><a id="__codelineno-60-1" name="__codelineno-60-1" href="#__codelineno-60-1"></a><span class="c1"># Check what&#39;s in the work directory</span>
 </span><span id="__span-60-2"><a id="__codelineno-60-2" name="__codelineno-60-2" href="#__codelineno-60-2"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;=== Work Directory Structure ===&quot;</span>
@@ -5512,7 +5498,7 @@ showScenario('fresh');
 </ul>
 </div>
 <h4 id="cluster-configuration-examples"><strong>Cluster Configuration Examples</strong><a class="headerlink" href="#cluster-configuration-examples" title="Permanent link">&para;</a></h4>
-<p><strong>SLURM Configuration:</strong>
+<p><strong>SLURM Configuration:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-81-1"><a id="__codelineno-81-1" name="__codelineno-81-1" href="#__codelineno-81-1"></a><span class="c1"># Create a SLURM-specific config</span>
 </span><span id="__span-81-2"><a id="__codelineno-81-2" name="__codelineno-81-2" href="#__codelineno-81-2"></a>cat<span class="w"> </span>&gt;<span class="w"> </span>slurm.config<span class="w"> </span><span class="s">&lt;&lt; &#39;EOF&#39;</span>
 </span><span id="__span-81-3"><a id="__codelineno-81-3" name="__codelineno-81-3" href="#__codelineno-81-3"></a><span class="s">process {</span>
@@ -5529,7 +5515,7 @@ showScenario('fresh');
 </span><span id="__span-81-14"><a id="__codelineno-81-14" name="__codelineno-81-14" href="#__codelineno-81-14"></a>
 </span><span id="__span-81-15"><a id="__codelineno-81-15" name="__codelineno-81-15" href="#__codelineno-81-15"></a><span class="c1"># Run with custom config</span>
 </span><span id="__span-81-16"><a id="__codelineno-81-16" name="__codelineno-81-16" href="#__codelineno-81-16"></a>nextflow<span class="w"> </span>run<span class="w"> </span>qc_pipeline.nf<span class="w"> </span>-c<span class="w"> </span>slurm.config<span class="w"> </span>--input<span class="w"> </span>samplesheet.csv
-</span></code></pre></div></p>
+</span></code></pre></div>
 <div class="admonition tip">
 <p class="admonition-title">Key Learning Points from Exercise 3</p>
 <p><strong>Pipeline Design Concepts:</strong></p>
@@ -5614,13 +5600,13 @@ showScenario('fresh');
 <li>✅ <strong>Resume functionality</strong> for efficient re-runs</li>
 </ul>
 <p>This represents a <strong>publication-ready genomic analysis workflow</strong> that students can adapt for their own research projects!</p>
-<p><strong>Step 3: Run the pipeline with real data</strong>
+<p><strong>Step 3: Run the pipeline with real data</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-82-1"><a id="__codelineno-82-1" name="__codelineno-82-1" href="#__codelineno-82-1"></a><span class="c1"># Navigate to workflows directory</span>
 </span><span id="__span-82-2"><a id="__codelineno-82-2" name="__codelineno-82-2" href="#__codelineno-82-2"></a><span class="nb">cd</span><span class="w"> </span>workflows
 </span><span id="__span-82-3"><a id="__codelineno-82-3" name="__codelineno-82-3" href="#__codelineno-82-3"></a>
 </span><span id="__span-82-4"><a id="__codelineno-82-4" name="__codelineno-82-4" href="#__codelineno-82-4"></a><span class="c1"># Run the FastQC pipeline</span>
 </span><span id="__span-82-5"><a id="__codelineno-82-5" name="__codelineno-82-5" href="#__codelineno-82-5"></a>nextflow<span class="w"> </span>run<span class="w"> </span>qc_pipeline.nf<span class="w"> </span>--input<span class="w"> </span>samplesheet.csv
-</span></code></pre></div></p>
+</span></code></pre></div>
 <details class="success">
 <summary>Expected output</summary>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-83-1"><a id="__codelineno-83-1" name="__codelineno-83-1" href="#__codelineno-83-1"></a>N E X T F L O W  ~  version 25.04.6
@@ -5663,7 +5649,7 @@ showScenario('fresh');
 </span><span id="__span-83-38"><a id="__codelineno-83-38" name="__codelineno-83-38" href="#__codelineno-83-38"></a>Succeeded   : 10
 </span></code></pre></div>
 </details>
-<p><strong>Step 4: Check your results</strong>
+<p><strong>Step 4: Check your results</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-84-1"><a id="__codelineno-84-1" name="__codelineno-84-1" href="#__codelineno-84-1"></a><span class="c1"># Look at the results structure</span>
 </span><span id="__span-84-2"><a id="__codelineno-84-2" name="__codelineno-84-2" href="#__codelineno-84-2"></a>ls<span class="w"> </span>-la<span class="w"> </span>/data/users/<span class="nv">$USER</span>/nextflow-training/results/fastqc/
 </span><span id="__span-84-3"><a id="__codelineno-84-3" name="__codelineno-84-3" href="#__codelineno-84-3"></a>
@@ -5672,7 +5658,7 @@ showScenario('fresh');
 </span><span id="__span-84-6"><a id="__codelineno-84-6" name="__codelineno-84-6" href="#__codelineno-84-6"></a>
 </span><span id="__span-84-7"><a id="__codelineno-84-7" name="__codelineno-84-7" href="#__codelineno-84-7"></a><span class="c1"># Open an HTML report to see real quality metrics</span>
 </span><span id="__span-84-8"><a id="__codelineno-84-8" name="__codelineno-84-8" href="#__codelineno-84-8"></a><span class="c1"># firefox /data/users/$USER/nextflow-training/results/fastqc/ERR036221_1_fastqc.html &amp;</span>
-</span></code></pre></div></p>
+</span></code></pre></div>
 <details class="success">
 <summary>Expected output (✅ Tested and validated)</summary>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-85-1"><a id="__codelineno-85-1" name="__codelineno-85-1" href="#__codelineno-85-1"></a>/data/users/$USER/nextflow-training/results/
@@ -5917,9 +5903,9 @@ document.querySelectorAll('.results-btn').forEach(btn => {
 
 <h2 id="interactive-learning-checklist">Interactive Learning Checklist<a class="headerlink" href="#interactive-learning-checklist" title="Permanent link">&para;</a></h2>
 <h3 id="before-you-start-setup-checklist">Before You Start - Setup Checklist<a class="headerlink" href="#before-you-start-setup-checklist" title="Permanent link">&para;</a></h3>
-<p><strong>Check if Nextflow is installed:</strong>
+<p><strong>Check if Nextflow is installed:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-86-1"><a id="__codelineno-86-1" name="__codelineno-86-1" href="#__codelineno-86-1"></a>nextflow<span class="w"> </span>-version
-</span></code></pre></div></p>
+</span></code></pre></div>
 <details class="success">
 <summary>Expected output</summary>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-87-1"><a id="__codelineno-87-1" name="__codelineno-87-1" href="#__codelineno-87-1"></a>nextflow version 23.10.0.5889
@@ -5935,9 +5921,9 @@ document.querySelectorAll('.results-btn').forEach(btn => {
 </span><span id="__span-89-2"><a id="__codelineno-89-2" name="__codelineno-89-2" href="#__codelineno-89-2"></a>sudo<span class="w"> </span>mv<span class="w"> </span>nextflow<span class="w"> </span>/usr/local/bin/
 </span></code></pre></div></p>
 </details>
-<p><strong>Check if Docker is available:</strong>
+<p><strong>Check if Docker is available:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-90-1"><a id="__codelineno-90-1" name="__codelineno-90-1" href="#__codelineno-90-1"></a>docker<span class="w"> </span>--version
-</span></code></pre></div></p>
+</span></code></pre></div>
 <details class="success">
 <summary>Expected output</summary>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-91-1"><a id="__codelineno-91-1" name="__codelineno-91-1" href="#__codelineno-91-1"></a>Docker version 24.0.7, build afdd53b
@@ -5951,14 +5937,14 @@ document.querySelectorAll('.results-btn').forEach(btn => {
 <div class="language-text highlight"><pre><span></span><code><span id="__span-93-1"><a id="__codelineno-93-1" name="__codelineno-93-1" href="#__codelineno-93-1"></a>singularity-ce version 3.11.4
 </span></code></pre></div></p>
 </details>
-<p><strong>Create your workspace:</strong>
+<p><strong>Create your workspace:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-94-1"><a id="__codelineno-94-1" name="__codelineno-94-1" href="#__codelineno-94-1"></a><span class="c1"># Create a directory for today&#39;s exercises</span>
 </span><span id="__span-94-2"><a id="__codelineno-94-2" name="__codelineno-94-2" href="#__codelineno-94-2"></a>mkdir<span class="w"> </span>nextflow-training
 </span><span id="__span-94-3"><a id="__codelineno-94-3" name="__codelineno-94-3" href="#__codelineno-94-3"></a><span class="nb">cd</span><span class="w"> </span>nextflow-training
 </span><span id="__span-94-4"><a id="__codelineno-94-4" name="__codelineno-94-4" href="#__codelineno-94-4"></a>
 </span><span id="__span-94-5"><a id="__codelineno-94-5" name="__codelineno-94-5" href="#__codelineno-94-5"></a><span class="c1"># Create subdirectories (no data dir needed - using /data)</span>
 </span><span id="__span-94-6"><a id="__codelineno-94-6" name="__codelineno-94-6" href="#__codelineno-94-6"></a>mkdir<span class="w"> </span>scripts
-</span></code></pre></div></p>
+</span></code></pre></div>
 <details class="success">
 <summary>Expected output</summary>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-95-1"><a id="__codelineno-95-1" name="__codelineno-95-1" href="#__codelineno-95-1"></a># ls -la
@@ -6149,12 +6135,12 @@ document.querySelectorAll('.exercise-checkbox').forEach(checkbox => {
 <h2 id="common-beginner-questions-solutions">Common Beginner Questions &amp; Solutions<a class="headerlink" href="#common-beginner-questions-solutions" title="Permanent link">&para;</a></h2>
 <h3 id="my-pipeline-failed-what-do-i-do">"My pipeline failed - what do I do?"<a class="headerlink" href="#my-pipeline-failed-what-do-i-do" title="Permanent link">&para;</a></h3>
 <p><strong>Step 1: Check the error message</strong></p>
-<p>Look at the main Nextflow log:
+<p>Look at the main Nextflow log:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-96-1"><a id="__codelineno-96-1" name="__codelineno-96-1" href="#__codelineno-96-1"></a>cat<span class="w"> </span>.nextflow.log
-</span></code></pre></div></p>
-<p>Find specific errors:
+</span></code></pre></div>
+<p>Find specific errors:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-97-1"><a id="__codelineno-97-1" name="__codelineno-97-1" href="#__codelineno-97-1"></a>grep<span class="w"> </span>ERROR<span class="w"> </span>.nextflow.log
-</span></code></pre></div></p>
+</span></code></pre></div>
 <details class="example">
 <summary>Example error output</summary>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-98-1"><a id="__codelineno-98-1" name="__codelineno-98-1" href="#__codelineno-98-1"></a>ERROR ~ Error executing process &gt; &#39;fastqc (sample1)&#39;
@@ -6173,40 +6159,42 @@ document.querySelectorAll('.exercise-checkbox').forEach(checkbox => {
 </span></code></pre></div>
 </details>
 <p><strong>Step 2: Check the work directory</strong></p>
-<p>Navigate to the failed task's work directory:
+<p>Navigate to the failed task's work directory:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-99-1"><a id="__codelineno-99-1" name="__codelineno-99-1" href="#__codelineno-99-1"></a><span class="c1"># Use the work directory path from the error message</span>
 </span><span id="__span-99-2"><a id="__codelineno-99-2" name="__codelineno-99-2" href="#__codelineno-99-2"></a><span class="nb">cd</span><span class="w"> </span>/data/users/<span class="nv">$USER</span>/nextflow-training/work/a1/b2c3d4e5f6...
 </span><span id="__span-99-3"><a id="__codelineno-99-3" name="__codelineno-99-3" href="#__codelineno-99-3"></a>
 </span><span id="__span-99-4"><a id="__codelineno-99-4" name="__codelineno-99-4" href="#__codelineno-99-4"></a><span class="c1"># Check what the process tried to do</span>
 </span><span id="__span-99-5"><a id="__codelineno-99-5" name="__codelineno-99-5" href="#__codelineno-99-5"></a>cat<span class="w"> </span>.command.sh
-</span></code></pre></div></p>
+</span></code></pre></div>
 <details class="success">
 <summary>Expected output</summary>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-100-1"><a id="__codelineno-100-1" name="__codelineno-100-1" href="#__codelineno-100-1"></a><span class="ch">#!/bin/bash -ue</span>
 </span><span id="__span-100-2"><a id="__codelineno-100-2" name="__codelineno-100-2" href="#__codelineno-100-2"></a>fastqc<span class="w"> </span>sample1_R1.fastq<span class="w"> </span>sample1_R2.fastq
 </span></code></pre></div>
 </details>
-<p>Check for error messages:
+<p>Check for error messages:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-101-1"><a id="__codelineno-101-1" name="__codelineno-101-1" href="#__codelineno-101-1"></a>cat<span class="w"> </span>.command.err
-</span></code></pre></div></p>
+</span></code></pre></div>
 <details class="example">
 <summary>Example error content</summary>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-102-1"><a id="__codelineno-102-1" name="__codelineno-102-1" href="#__codelineno-102-1"></a>bash: fastqc: command not found
 </span></code></pre></div>
 </details>
-<p>Check standard output:
+<p>Check standard output:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-103-1"><a id="__codelineno-103-1" name="__codelineno-103-1" href="#__codelineno-103-1"></a>cat<span class="w"> </span>.command.out
-</span></code></pre></div></p>
+</span></code></pre></div>
 <p><strong>Step 3: Understanding the error</strong></p>
-<p>In this example:
-- <strong>Exit status 127</strong>: Command not found
-- <strong>Error message</strong>: "fastqc: command not found"
-- <strong>Solution</strong>: FastQC is not installed or not in PATH</p>
+<p>In this example:</p>
+<ul>
+<li><strong>Exit status 127</strong>: Command not found</li>
+<li><strong>Error message</strong>: "fastqc: command not found"</li>
+<li><strong>Solution</strong>: FastQC is not installed or not in PATH</li>
+</ul>
 <h3 id="how-do-i-know-if-my-pipeline-is-working">"How do I know if my pipeline is working?"<a class="headerlink" href="#how-do-i-know-if-my-pipeline-is-working" title="Permanent link">&para;</a></h3>
-<p><strong>Check pipeline status while running:</strong>
+<p><strong>Check pipeline status while running:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-104-1"><a id="__codelineno-104-1" name="__codelineno-104-1" href="#__codelineno-104-1"></a><span class="c1"># In another terminal, monitor the pipeline</span>
 </span><span id="__span-104-2"><a id="__codelineno-104-2" name="__codelineno-104-2" href="#__codelineno-104-2"></a>nextflow<span class="w"> </span>log
-</span></code></pre></div></p>
+</span></code></pre></div>
 <details class="success">
 <summary>Good signs - pipeline working correctly</summary>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-105-1"><a id="__codelineno-105-1" name="__codelineno-105-1" href="#__codelineno-105-1"></a>TIMESTAMP    DURATION  RUN NAME         STATUS   REVISION ID  SESSION ID                            COMMAND
@@ -6220,13 +6208,13 @@ document.querySelectorAll('.exercise-checkbox').forEach(checkbox => {
 <li><strong>Process completion</strong>: <code>[100%] X of X ✔</code></li>
 </ul>
 </details>
-<p><strong>Check your results:</strong>
+<p><strong>Check your results:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-106-1"><a id="__codelineno-106-1" name="__codelineno-106-1" href="#__codelineno-106-1"></a><span class="c1"># List output directory contents</span>
 </span><span id="__span-106-2"><a id="__codelineno-106-2" name="__codelineno-106-2" href="#__codelineno-106-2"></a>ls<span class="w"> </span>-la<span class="w"> </span>/data/users/<span class="nv">$USER</span>/nextflow-training/results/
 </span><span id="__span-106-3"><a id="__codelineno-106-3" name="__codelineno-106-3" href="#__codelineno-106-3"></a>
 </span><span id="__span-106-4"><a id="__codelineno-106-4" name="__codelineno-106-4" href="#__codelineno-106-4"></a><span class="c1"># Check if files were created</span>
 </span><span id="__span-106-5"><a id="__codelineno-106-5" name="__codelineno-106-5" href="#__codelineno-106-5"></a>find<span class="w"> </span>/data/users/<span class="nv">$USER</span>/nextflow-training/results/<span class="w"> </span>-type<span class="w"> </span>f<span class="w"> </span>-name<span class="w"> </span><span class="s2">&quot;*.html&quot;</span><span class="w"> </span>-o<span class="w"> </span>-name<span class="w"> </span><span class="s2">&quot;*.txt&quot;</span><span class="w"> </span>-o<span class="w"> </span>-name<span class="w"> </span><span class="s2">&quot;*.count&quot;</span>
-</span></code></pre></div></p>
+</span></code></pre></div>
 <details class="success">
 <summary>Expected successful output</summary>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-107-1"><a id="__codelineno-107-1" name="__codelineno-107-1" href="#__codelineno-107-1"></a># ls -la /data/users/$USER/nextflow-training/results/
@@ -6263,12 +6251,14 @@ document.querySelectorAll('.exercise-checkbox').forEach(checkbox => {
 </ul>
 </details>
 <h3 id="how-do-i-modify-the-pipeline-for-my-data">"How do I modify the pipeline for my data?"<a class="headerlink" href="#how-do-i-modify-the-pipeline-for-my-data" title="Permanent link">&para;</a></h3>
-<p><strong>Start simple:</strong>
-1. Change the <code>params.reads</code> path to point to your files
-2. Make sure your file names match the pattern (e.g., <code>*_{R1,R2}.fastq</code>)
-3. Test with just 1-2 samples first
-4. Once it works, add more samples</p>
-<p><strong>File naming examples:</strong>
+<p><strong>Start simple:</strong></p>
+<ol>
+<li>Change the <code>params.reads</code> path to point to your files</li>
+<li>Make sure your file names match the pattern (e.g., <code>*_{R1,R2}.fastq</code>)</li>
+<li>Test with just 1-2 samples first</li>
+<li>Once it works, add more samples</li>
+</ol>
+<p><strong>File naming examples:</strong></p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-109-1"><a id="__codelineno-109-1" name="__codelineno-109-1" href="#__codelineno-109-1"></a>Good:
 </span><span id="__span-109-2"><a id="__codelineno-109-2" name="__codelineno-109-2" href="#__codelineno-109-2"></a>sample1_R1.fastq, sample1_R2.fastq
 </span><span id="__span-109-3"><a id="__codelineno-109-3" name="__codelineno-109-3" href="#__codelineno-109-3"></a>sample2_R1.fastq, sample2_R2.fastq
@@ -6280,9 +6270,9 @@ document.querySelectorAll('.exercise-checkbox').forEach(checkbox => {
 </span><span id="__span-109-9"><a id="__codelineno-109-9" name="__codelineno-109-9" href="#__codelineno-109-9"></a>Won&#39;t work:
 </span><span id="__span-109-10"><a id="__codelineno-109-10" name="__codelineno-109-10" href="#__codelineno-109-10"></a>sample1_forward.fastq, sample1_reverse.fastq
 </span><span id="__span-109-11"><a id="__codelineno-109-11" name="__codelineno-109-11" href="#__codelineno-109-11"></a>sample1_1.fastq, sample1_2.fastq
-</span></code></pre></div></p>
+</span></code></pre></div>
 <h2 id="next-steps-for-beginners">Next Steps for Beginners<a class="headerlink" href="#next-steps-for-beginners" title="Permanent link">&para;</a></h2>
-<h3 id="once-youre-comfortable-with-basic-pipelines">Once you're comfortable with basic pipelines:<a class="headerlink" href="#once-youre-comfortable-with-basic-pipelines" title="Permanent link">&para;</a></h3>
+<h3 id="once-youre-comfortable-with-basic-pipelines">Once you're comfortable with basic pipelines<a class="headerlink" href="#once-youre-comfortable-with-basic-pipelines" title="Permanent link">&para;</a></h3>
 <ol>
 <li><strong>Add more processes</strong>: Try adding genome annotation with Prokka</li>
 <li><strong>Use parameters</strong>: Make your pipeline configurable</li>
@@ -6290,7 +6280,7 @@ document.querySelectorAll('.exercise-checkbox').forEach(checkbox => {
 <li><strong>Try nf-core</strong>: Use community-built pipelines</li>
 <li><strong>Document your work</strong>: Create clear documentation and examples</li>
 </ol>
-<h3 id="recommended-learning-path">Recommended Learning Path:<a class="headerlink" href="#recommended-learning-path" title="Permanent link">&para;</a></h3>
+<h3 id="recommended-learning-path">Recommended Learning Path<a class="headerlink" href="#recommended-learning-path" title="Permanent link">&para;</a></h3>
 <ol>
 <li><strong>Week 1</strong>: Master the basic exercises above</li>
 <li><strong>Week 2</strong>: Try the complete beginner pipeline</li>
@@ -6480,6 +6470,7 @@ document.querySelectorAll('.trouble-btn').forEach(btn => {
     });
 });
 </script>
+
 <div class="language-text highlight"><pre><span></span><code><span id="__span-110-1"><a id="__codelineno-110-1" name="__codelineno-110-1" href="#__codelineno-110-1"></a>### The Workflow Management Solution
 </span><span id="__span-110-2"><a id="__codelineno-110-2" name="__codelineno-110-2" href="#__codelineno-110-2"></a>
 </span><span id="__span-110-3"><a id="__codelineno-110-3" name="__codelineno-110-3" href="#__codelineno-110-3"></a>With Nextflow, you define the workflow once and it handles:
@@ -7045,6 +7036,10 @@ document.querySelectorAll('.trouble-btn').forEach(btn => {
         <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
       
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="https://unpkg.com/mermaid@10.6.1/dist/mermaid.min.js"></script>
+      
+        <script src="../../javascripts/mermaid.js"></script>
       
     
   </body>
