@@ -610,8 +610,7 @@
 <h2 id="1-overview">1. Overview<a class="headerlink" href="#1-overview" title="Permanent link">&para;</a></h2>
 <p>This section introduces <strong>core principles of metagenomics</strong>. Metagenomics is the study of genetic material recovered directly from environmental or clinical samples, allowing 
 analysis of <strong>entire microbial communities</strong> without the need for cultivation. This section includes conceptual notes, rationale for each step, practical commands, 
-and a <strong>mini toy dataset exercise</strong>. Unlike genomics (WGS) which focuses on analyzing individual genomes (such as bacterial isolate), metagenomics
-studies the collective genomes or markers from microbial communities.</p>
+and a <strong>mini toy dataset exercise</strong>. Unlike genomics (WGS) which focuses on analyzing individual genomes (such as bacterial isolate), metagenomics studies the collective genomes or markers from microbial communities.</p>
 <h3 id="genomics-vs-metagenomics">Genomics vs Metagenomics<a class="headerlink" href="#genomics-vs-metagenomics" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -685,31 +684,36 @@ studies the collective genomes or markers from microbial communities.</p>
 <li>Illumina (short reads): accurate, cost-effective, widely used for clinical metagenomics.</li>
 <li>ONT/PacBio (long reads): useful for resolving repeats, plasmids, MGEs.</li>
 </ul>
-<p>We'll use a publicly available mock community dataset: ZymoBIOMICS Gut Microbiome Standard, SRA: l. You can download from SRA using <code>ncbi-tools</code> tools
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># fasterq-dump SRR13827118 --progress --threads 8</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+<p>For this training we will use the data in <code>/data/users/user29/metagenomes/shotgun/</code> for shotgun metagenomics. It is important to note that, one can download shotgun metagenome sequences from NCBI-SRA using <code>ncbi-tools</code>. Install <code>ncbi-tools</code> and run</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1">## Fetch the data from NCBI-SRA</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="c1"># fasterq-dump SRR13827118 --progress --threads 8</span>
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>---
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="c1">### Step 2. Quality Control</span>
-</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>
-</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>-<span class="w"> </span>**Why**:<span class="w"> </span>To<span class="w"> </span>reduce<span class="w"> </span>the<span class="w"> </span>effects<span class="w"> </span>of<span class="w"> </span>sequencing<span class="w"> </span>errors,<span class="w"> </span>remove<span class="w"> </span>adapters,<span class="w"> </span>and<span class="w"> </span>low-quality<span class="w"> </span>
-</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>reads<span class="w"> </span>which<span class="w"> </span>may<span class="w"> </span>reduce<span class="w"> </span><span class="nb">false</span><span class="w"> </span>positives.
-</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>-<span class="w"> </span>**Tools**:<span class="w"> </span><span class="sb">`</span>fastqc<span class="sb">`</span>,<span class="w"> </span><span class="sb">`</span>multiqc<span class="sb">`</span>
-</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>
-</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="sb">```</span>bash
-</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="c1"># Load modules</span>
-</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>module<span class="w"> </span>load<span class="w"> </span>fastqc
-</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>module<span class="w"> </span>multiqc
-</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>
-</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="nv">indata</span><span class="o">=</span><span class="s2">&quot;/data/users/user24/metagenomes/shotgun/&quot;</span>
-</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="nv">outfastqc</span><span class="o">=</span><span class="s2">&quot;/data/users/</span><span class="si">${</span><span class="nv">USER</span><span class="si">}</span><span class="s2">/metagenomes/shotgun/data_analysis/01_qc/&quot;</span>
-</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>
-</span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>mkdir<span class="w"> </span>-p<span class="w"> </span><span class="si">${</span><span class="nv">outfastqc</span><span class="si">}</span>
-</span><span id="__span-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>
-</span><span id="__span-0-22"><a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a><span class="c1"># Run fastqc</span>
-</span><span id="__span-0-23"><a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a>fastqc<span class="w"> </span><span class="si">${</span><span class="nv">indata</span><span class="si">}</span>*.fastq.gz<span class="w"> </span>-o<span class="w"> </span><span class="si">${</span><span class="nv">outfastqc</span><span class="si">}</span>
-</span><span id="__span-0-24"><a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a>multiqc<span class="w"> </span><span class="si">${</span><span class="nv">outfastqc</span><span class="si">}</span><span class="w"> </span>-o<span class="w"> </span><span class="si">${</span><span class="nv">outfastqc</span><span class="si">}</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="c1">## Compress the files</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>gzip<span class="w"> </span>SRR13827118*.fastq
+</span></code></pre></div>
+<hr />
+<h3 id="step-2-quality-control">Step 2. Quality Control<a class="headerlink" href="#step-2-quality-control" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Why</strong>: To reduce the effects of sequencing errors, remove adapters, and low-quality 
+reads which may reduce false positives.</li>
+<li><strong>Tools</strong>: <code>fastqc</code>, <code>multiqc</code></li>
+</ul>
+<p><div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># Load modules</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>module<span class="w"> </span>load<span class="w"> </span>fastqc
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>module<span class="w"> </span>load<span class="w"> </span>multiqc
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="nv">indata</span><span class="o">=</span><span class="s2">&quot;/data/users/user29/metagenomes/shotgun/&quot;</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="c1">## Create Dir</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>mkdir<span class="w"> </span>-p<span class="w"> </span><span class="si">${</span><span class="nv">outfastqc</span><span class="si">}</span><span class="w"> </span>/data/users/user24/metagenomes/shotgun/scripts<span class="w"> </span>/data/users/user24/metagenomes/shotgun/logs
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="c1"># create a samplesheet.csv with three columns samplename,fastq_1,fastq_2</span>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>python<span class="w"> </span>/data/users/user24/metagenomes/shotgun/scripts/samplesheet_generator.py<span class="w"> </span><span class="si">${</span><span class="nv">indata</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="w">  </span>/data/users/<span class="si">${</span><span class="nv">USER</span><span class="si">}</span>/metagenomes/shotgun/samplesheet.csv
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>
+</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="c1"># Run raw QC</span>
+</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>nextflow<span class="w"> </span>run<span class="w"> </span>/data/users/user24/metagenomes/shotgun/scripts/qc_pipeline_v1.nf<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="w">  </span>--input<span class="w"> </span>/data/users/<span class="si">${</span><span class="nv">USER</span><span class="si">}</span>/metagenomes/shotgun/samplesheet.csv<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a><span class="w">  </span>--outdir<span class="w"> </span>/data/users/<span class="si">${</span><span class="nv">USER</span><span class="si">}</span>/metagenomes/shotgun/results/rawfastqc
 </span></code></pre></div>
 <strong>What to think about?</strong>
 - Which parts of the data are flagged as potentially problematic? GC% content of the dataset.
@@ -730,50 +734,50 @@ As such we consider this as normal given the biology of the system.
 reads (to standardize read lengths) that bias downstream analysis.</li>
 <li><strong>Tool</strong>: <code>fastp</code>, <code>trimmomatic</code>, <code>BBMap</code>, <code>sickle</code>, <code>cutadapt</code>, etc.</li>
 </ul>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="ch">#!/bin/bash</span>
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
-</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="c1"># Load required modules/tools</span>
-</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>module<span class="w"> </span>load<span class="w"> </span>fastp<span class="w"> </span>trimmomatic
-</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>
-</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="c1"># Define input and output dir</span>
-</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="nv">indata</span><span class="o">=</span><span class="s2">&quot;/data/users/user24/metagenomes/&quot;</span>
-</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="nv">wkdir</span><span class="o">=</span><span class="s2">&quot;/data/users/</span><span class="si">${</span><span class="nv">USER</span><span class="si">}</span><span class="s2">/metagenomics/shotgun/&quot;</span>
-</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="nv">outtrimmomatic</span><span class="o">=</span><span class="si">${</span><span class="nv">wkdir</span><span class="si">}</span><span class="s2">&quot;/data_analysis/02_trimmomatic&quot;</span>
-</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>
-</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>mkdir<span class="w"> </span>-p<span class="w"> </span><span class="si">${</span><span class="nv">outtrimmomatic</span><span class="si">}</span>
-</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>
-</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="c1"># Trimming with Trimmomatic</span>
-</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="k">for</span><span class="w"> </span>file<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="sb">`</span>ls<span class="w"> </span><span class="si">${</span><span class="nv">data</span><span class="si">}</span>*1.fastq.gz<span class="sb">`</span>
-</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a><span class="k">do</span>
-</span><span id="__span-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a><span class="w">  </span><span class="nv">sample</span><span class="o">=</span><span class="k">$(</span>basename<span class="w"> </span><span class="si">${</span><span class="nv">file</span><span class="si">}</span><span class="w"> </span>_1.fastq.gz<span class="k">)</span>
-</span><span id="__span-1-18"><a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a><span class="w">  </span>trimmomatic<span class="w"> </span>PE<span class="w"> </span>-threads<span class="w"> </span><span class="m">8</span><span class="w"> </span><span class="se">\</span>
-</span><span id="__span-1-19"><a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a><span class="w">      </span><span class="si">${</span><span class="nv">indata</span><span class="si">}${</span><span class="nv">sample</span><span class="si">}</span>_R1.fastq.gz<span class="w"> </span><span class="o">{</span>indata<span class="o">}</span><span class="si">${</span><span class="nv">sample</span><span class="si">}</span>_R2.fastq.gz<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-1-20"><a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a><span class="w">      </span><span class="si">${</span><span class="nv">outtrimmomatic</span><span class="si">}${</span><span class="nv">sample</span><span class="si">}</span>_R1.fastq.gz<span class="w"> </span><span class="si">${</span><span class="nv">outtrimmomatic</span><span class="si">}${</span><span class="nv">sample</span><span class="si">}</span>_R1_unpaired.fastq.gz<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-1-21"><a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a><span class="w">      </span><span class="si">${</span><span class="nv">outtrimmomatic</span><span class="si">}${</span><span class="nv">sample</span><span class="si">}</span>_R2.fastq.gz<span class="w"> </span><span class="si">${</span><span class="nv">outtrimmomatic</span><span class="si">}${</span><span class="nv">sample</span><span class="si">}</span>_R2_unpaired.fastq.gz<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-1-22"><a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a><span class="w">      </span>ILLUMINACLIP:adapters.fa:2:30:10<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-1-23"><a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a><span class="w">      </span>LEADING:3<span class="w"> </span>TRAILING:3<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-1-24"><a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a><span class="w">      </span>SLIDINGWINDOW:4:20<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-1-25"><a id="__codelineno-1-25" name="__codelineno-1-25" href="#__codelineno-1-25"></a><span class="w">      </span>MINLEN:50
-</span><span id="__span-1-26"><a id="__codelineno-1-26" name="__codelineno-1-26" href="#__codelineno-1-26"></a><span class="k">done</span>
-</span><span id="__span-1-27"><a id="__codelineno-1-27" name="__codelineno-1-27" href="#__codelineno-1-27"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Trimming with Trimmomatic completed&quot;</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="ch">#!/bin/bash</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="c1"># Load required modules/tools</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>module<span class="w"> </span>load<span class="w"> </span>trimmomatic
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="c1"># Define input and output dir</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="nv">indata</span><span class="o">=</span><span class="s2">&quot;/data/users/user24/metagenomes/&quot;</span>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="nv">wkdir</span><span class="o">=</span><span class="s2">&quot;/data/users/</span><span class="si">${</span><span class="nv">USER</span><span class="si">}</span><span class="s2">/metagenomics/shotgun/&quot;</span>
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="nv">outtrimmomatic</span><span class="o">=</span><span class="si">${</span><span class="nv">wkdir</span><span class="si">}</span><span class="s2">&quot;/data_analysis/02_trimmomatic&quot;</span>
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>mkdir<span class="w"> </span>-p<span class="w"> </span><span class="si">${</span><span class="nv">outtrimmomatic</span><span class="si">}</span>
+</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>
+</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="c1"># Trimming with Trimmomatic</span>
+</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a><span class="k">for</span><span class="w"> </span>file<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="sb">`</span>ls<span class="w"> </span><span class="si">${</span><span class="nv">data</span><span class="si">}</span>*1.fastq.gz<span class="sb">`</span>
+</span><span id="__span-2-16"><a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a><span class="k">do</span>
+</span><span id="__span-2-17"><a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a><span class="w">  </span><span class="nv">sample</span><span class="o">=</span><span class="k">$(</span>basename<span class="w"> </span><span class="si">${</span><span class="nv">file</span><span class="si">}</span><span class="w"> </span>_1.fastq.gz<span class="k">)</span>
+</span><span id="__span-2-18"><a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a><span class="w">  </span>trimmomatic<span class="w"> </span>PE<span class="w"> </span>-threads<span class="w"> </span><span class="m">8</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-2-19"><a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a><span class="w">      </span><span class="si">${</span><span class="nv">indata</span><span class="si">}${</span><span class="nv">sample</span><span class="si">}</span>_R1.fastq.gz<span class="w"> </span><span class="o">{</span>indata<span class="o">}</span><span class="si">${</span><span class="nv">sample</span><span class="si">}</span>_R2.fastq.gz<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-2-20"><a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a><span class="w">      </span><span class="si">${</span><span class="nv">outtrimmomatic</span><span class="si">}${</span><span class="nv">sample</span><span class="si">}</span>_R1.fastq.gz<span class="w"> </span><span class="si">${</span><span class="nv">outtrimmomatic</span><span class="si">}${</span><span class="nv">sample</span><span class="si">}</span>_R1_unpaired.fastq.gz<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-2-21"><a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a><span class="w">      </span><span class="si">${</span><span class="nv">outtrimmomatic</span><span class="si">}${</span><span class="nv">sample</span><span class="si">}</span>_R2.fastq.gz<span class="w"> </span><span class="si">${</span><span class="nv">outtrimmomatic</span><span class="si">}${</span><span class="nv">sample</span><span class="si">}</span>_R2_unpaired.fastq.gz<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-2-22"><a id="__codelineno-2-22" name="__codelineno-2-22" href="#__codelineno-2-22"></a><span class="w">      </span>ILLUMINACLIP:adapters.fa:2:30:10<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-2-23"><a id="__codelineno-2-23" name="__codelineno-2-23" href="#__codelineno-2-23"></a><span class="w">      </span>LEADING:3<span class="w"> </span>TRAILING:3<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-2-24"><a id="__codelineno-2-24" name="__codelineno-2-24" href="#__codelineno-2-24"></a><span class="w">      </span>SLIDINGWINDOW:4:20<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-2-25"><a id="__codelineno-2-25" name="__codelineno-2-25" href="#__codelineno-2-25"></a><span class="w">      </span>MINLEN:50
+</span><span id="__span-2-26"><a id="__codelineno-2-26" name="__codelineno-2-26" href="#__codelineno-2-26"></a><span class="k">done</span>
+</span><span id="__span-2-27"><a id="__codelineno-2-27" name="__codelineno-2-27" href="#__codelineno-2-27"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Trimming with Trimmomatic completed&quot;</span>
 </span></code></pre></div>
 <blockquote>
 <p><strong>Note:</strong> The trimming parameters in <code>trimmomatic</code> are processed in the order they are specified. For instance, </p>
 </blockquote>
 <hr />
-<p><div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">for</span><span class="w"> </span>file<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="sb">`</span>ls<span class="w"> </span><span class="si">${</span><span class="nv">data</span><span class="si">}</span>*1.fastq.gz<span class="sb">`</span>
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="k">do</span>
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">  </span><span class="nv">sample</span><span class="o">=</span><span class="k">$(</span>basename<span class="w"> </span><span class="si">${</span><span class="nv">file</span><span class="si">}</span><span class="w"> </span>_1.fastq.gz<span class="k">)</span>
-</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">  </span>trimmomatic<span class="w"> </span>PE<span class="w"> </span>-threads<span class="w"> </span><span class="m">8</span><span class="w"> </span><span class="se">\</span>
-</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">        </span><span class="si">${</span><span class="nv">indata</span><span class="si">}${</span><span class="nv">sample</span><span class="si">}</span>_R1.fastq.gz<span class="w"> </span><span class="o">{</span>indata<span class="o">}</span><span class="si">${</span><span class="nv">sample</span><span class="si">}</span>_R2.fastq.gz<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">        </span><span class="si">${</span><span class="nv">outtrimmomatic</span><span class="si">}${</span><span class="nv">sample</span><span class="si">}</span>_R1.fastq.gz<span class="w"> </span><span class="si">${</span><span class="nv">outtrimmomatic</span><span class="si">}${</span><span class="nv">sample</span><span class="si">}</span>_R1_unpaired.fastq.gz<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">        </span><span class="si">${</span><span class="nv">outtrimmomatic</span><span class="si">}${</span><span class="nv">sample</span><span class="si">}</span>_R2.fastq.gz<span class="w"> </span><span class="si">${</span><span class="nv">outtrimmomatic</span><span class="si">}${</span><span class="nv">sample</span><span class="si">}</span>_R2_unpaired.fastq.gz<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">        </span>ILLUMINACLIP:adapters.fa:2:30:10<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="w">        </span>LEADING:3<span class="w"> </span>TRAILING:3<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="w">        </span>MINLEN:50<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="w">        </span>SLIDINGWINDOW:4:20<span class="w"> </span>
-</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="k">done</span>
+<p><div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">for</span><span class="w"> </span>file<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="sb">`</span>ls<span class="w"> </span><span class="si">${</span><span class="nv">data</span><span class="si">}</span>*1.fastq.gz<span class="sb">`</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="k">do</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">  </span><span class="nv">sample</span><span class="o">=</span><span class="k">$(</span>basename<span class="w"> </span><span class="si">${</span><span class="nv">file</span><span class="si">}</span><span class="w"> </span>_1.fastq.gz<span class="k">)</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">  </span>trimmomatic<span class="w"> </span>PE<span class="w"> </span>-threads<span class="w"> </span><span class="m">8</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">        </span><span class="si">${</span><span class="nv">indata</span><span class="si">}${</span><span class="nv">sample</span><span class="si">}</span>_R1.fastq.gz<span class="w"> </span><span class="o">{</span>indata<span class="o">}</span><span class="si">${</span><span class="nv">sample</span><span class="si">}</span>_R2.fastq.gz<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">        </span><span class="si">${</span><span class="nv">outtrimmomatic</span><span class="si">}${</span><span class="nv">sample</span><span class="si">}</span>_R1.fastq.gz<span class="w"> </span><span class="si">${</span><span class="nv">outtrimmomatic</span><span class="si">}${</span><span class="nv">sample</span><span class="si">}</span>_R1_unpaired.fastq.gz<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w">        </span><span class="si">${</span><span class="nv">outtrimmomatic</span><span class="si">}${</span><span class="nv">sample</span><span class="si">}</span>_R2.fastq.gz<span class="w"> </span><span class="si">${</span><span class="nv">outtrimmomatic</span><span class="si">}${</span><span class="nv">sample</span><span class="si">}</span>_R2_unpaired.fastq.gz<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="w">        </span>ILLUMINACLIP:adapters.fa:2:30:10<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="w">        </span>LEADING:3<span class="w"> </span>TRAILING:3<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="w">        </span>MINLEN:50<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="w">        </span>SLIDINGWINDOW:4:20<span class="w"> </span>
+</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="k">done</span>
 </span></code></pre></div>
 means we remove sequences shorter than 50 bps and then qualiyty trim, thus if a sequence is trimmed to a length shorter than 50bps after trimming, the <code>MINLEN</code> filtering does not execute a second time.
 Parameter | Type |  Description
@@ -788,13 +792,13 @@ mock_R2.qc.fastq.gz / mock_s2.qc.fastq.gz | positional  | The reverse-sequence e
 ILLUMINACLIP:NexteraPE-PE.fa:1:25:7 |   positional |    Adapter trimming allowing for 1 seed mismatch, palindrome clip score threshold of 25, and simple clip score threshold of 7
 SLIDINGWINDOW:4:30  | positional    |Quality filtering command. Analyse each sequence in a 4 base pair sliding window and then truncate if the average quality drops below Q30
 MINLEN:50   | positional |  Length filtering command. Discard sequences that are shorter than 80 base pairs after trimming</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># Delete unnecessary files</span>
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>rm<span class="w"> </span>-rf<span class="w"> </span><span class="si">${</span><span class="nv">outtrimmomatic</span><span class="si">}</span>*<span class="si">${</span><span class="nv">sample</span><span class="si">}</span>*_unpaired.fastq.gz
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
-</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="c1"># Quality checking</span>
-</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>module<span class="w"> </span>load<span class="w"> </span>fastqc<span class="w"> </span>multiqc
-</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>fastqc<span class="w"> </span><span class="si">${</span><span class="nv">outtrimmomatic</span><span class="si">}</span>*<span class="w"> </span>-o<span class="w"> </span><span class="si">${</span><span class="nv">outtrimmomatic</span><span class="si">}</span>
-</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>multiqc<span class="w">  </span><span class="si">${</span><span class="nv">outtrimmomatic</span><span class="si">}</span><span class="w"> </span>-o<span class="w">  </span><span class="si">${</span><span class="nv">outtrimmomatic</span><span class="si">}</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># Delete unnecessary files</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>rm<span class="w"> </span>-rf<span class="w"> </span><span class="si">${</span><span class="nv">outtrimmomatic</span><span class="si">}</span>*<span class="si">${</span><span class="nv">sample</span><span class="si">}</span>*_unpaired.fastq.gz
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="c1"># Quality checking</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>module<span class="w"> </span>load<span class="w"> </span>fastqc<span class="w"> </span>multiqc
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>fastqc<span class="w"> </span><span class="si">${</span><span class="nv">outtrimmomatic</span><span class="si">}</span>*<span class="w"> </span>-o<span class="w"> </span><span class="si">${</span><span class="nv">outtrimmomatic</span><span class="si">}</span>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>multiqc<span class="w">  </span><span class="si">${</span><span class="nv">outtrimmomatic</span><span class="si">}</span><span class="w"> </span>-o<span class="w">  </span><span class="si">${</span><span class="nv">outtrimmomatic</span><span class="si">}</span>
 </span></code></pre></div>
 <hr />
 <h3 id="step-4-deduplication-host-dna-removal">Step 4. Deduplication &amp; Host DNA Removal<a class="headerlink" href="#step-4-deduplication-host-dna-removal" title="Permanent link">&para;</a></h3>
@@ -810,86 +814,86 @@ MINLEN:50   | positional |  Length filtering command. Discard sequences that are
 <p><strong>Tools</strong>: <code>clumpify</code> (dedup), <code>bowtie2</code> or <code>bwa mem</code> (host removal).</p>
 </li>
 </ul>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="ch">#!/bin/bash</span>
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="nb">set</span><span class="w"> </span>-e<span class="w">  </span><span class="c1"># Exit on error</span>
-</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>
-</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="c1"># Define dirs</span>
-</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="nv">genome_dir</span><span class="o">=</span><span class="s2">&quot;/data/users/user24/refs/human_reference/&quot;</span>
-</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>
-</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="c1">## Remove human contamination using BWA and SAMtools</span>
-</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="c1">## Create dir</span>
-</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>mkdir<span class="w"> </span>-p<span class="w"> </span><span class="si">${</span><span class="nv">genome_dir</span><span class="si">}</span>
-</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="c1"># Download the Human refence genome</span>
-</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="nb">cd</span><span class="w"> </span><span class="si">${</span><span class="nv">genome_dir</span><span class="si">}</span>
-</span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a>
-</span><span id="__span-4-13"><a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a><span class="c1"># Configuration</span>
-</span><span id="__span-4-14"><a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a><span class="nv">GENOME_VERSION</span><span class="o">=</span><span class="s2">&quot;GRCh38&quot;</span>
-</span><span id="__span-4-15"><a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a><span class="nv">BASE_URL</span><span class="o">=</span><span class="s2">&quot;https://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/000/001/405/GCA_000001405.15_GRCh38&quot;</span>
-</span><span id="__span-4-16"><a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a>
-</span><span id="__span-4-17"><a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;=== Downloading Human Reference Genome (</span><span class="si">${</span><span class="nv">GENOME_VERSION</span><span class="si">}</span><span class="s2">) ===&quot;</span>
-</span><span id="__span-4-18"><a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a>
-</span><span id="__span-4-19"><a id="__codelineno-4-19" name="__codelineno-4-19" href="#__codelineno-4-19"></a><span class="c1"># Option 1: Download complete genome assembly (recommended for most applications)</span>
-</span><span id="__span-4-20"><a id="__codelineno-4-20" name="__codelineno-4-20" href="#__codelineno-4-20"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Downloading complete genome assembly...&quot;</span>
-</span><span id="__span-4-21"><a id="__codelineno-4-21" name="__codelineno-4-21" href="#__codelineno-4-21"></a>wget<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">BASE_URL</span><span class="si">}</span><span class="s2">/GCA_000001405.15_GRCh38_genomic.fna.gz&quot;</span><span class="w"> </span><span class="se">\</span>
-</span><span id="__span-4-22"><a id="__codelineno-4-22" name="__codelineno-4-22" href="#__codelineno-4-22"></a><span class="w">     </span>-O<span class="w"> </span><span class="s2">&quot;GRCh38_genomic.fna.gz&quot;</span>
-</span><span id="__span-4-23"><a id="__codelineno-4-23" name="__codelineno-4-23" href="#__codelineno-4-23"></a><span class="c1"># Decompress</span>
-</span><span id="__span-4-24"><a id="__codelineno-4-24" name="__codelineno-4-24" href="#__codelineno-4-24"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Decompressing genome file...&quot;</span>
-</span><span id="__span-4-25"><a id="__codelineno-4-25" name="__codelineno-4-25" href="#__codelineno-4-25"></a>gunzip<span class="w"> </span>-f<span class="w"> </span>GRCh38_genomic.fna.gz
-</span><span id="__span-4-26"><a id="__codelineno-4-26" name="__codelineno-4-26" href="#__codelineno-4-26"></a>
-</span><span id="__span-4-27"><a id="__codelineno-4-27" name="__codelineno-4-27" href="#__codelineno-4-27"></a><span class="c1"># Option 2: Download chromosome-only version (excludes contigs/scaffolds)</span>
-</span><span id="__span-4-28"><a id="__codelineno-4-28" name="__codelineno-4-28" href="#__codelineno-4-28"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Downloading chromosome-only version...&quot;</span>
-</span><span id="__span-4-29"><a id="__codelineno-4-29" name="__codelineno-4-29" href="#__codelineno-4-29"></a>wget<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;https://hgdownload.soe.ucsc.edu/goldenPath/hg38/bigZips/hg38.fa.gz&quot;</span><span class="w"> </span><span class="se">\</span>
-</span><span id="__span-4-30"><a id="__codelineno-4-30" name="__codelineno-4-30" href="#__codelineno-4-30"></a><span class="w">     </span>-O<span class="w"> </span><span class="s2">&quot;hg38_chromosomes_only.fa.gz&quot;</span>
-</span><span id="__span-4-31"><a id="__codelineno-4-31" name="__codelineno-4-31" href="#__codelineno-4-31"></a>
-</span><span id="__span-4-32"><a id="__codelineno-4-32" name="__codelineno-4-32" href="#__codelineno-4-32"></a>gunzip<span class="w"> </span>-f<span class="w"> </span>hg38_chromosomes_only.fa.gz
-</span></code></pre></div>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="ch">#!/bin/bash</span>
-</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>
-</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="c1"># Load modules</span>
-</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>module<span class="w"> </span>load<span class="w"> </span>bwa
-</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>module<span class="w"> </span>load<span class="w"> </span>bowtie2
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="nb">set</span><span class="w"> </span>-e<span class="w">  </span><span class="c1"># Exit on error</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="c1"># Define dirs</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="nv">genome_dir</span><span class="o">=</span><span class="s2">&quot;/data/users/user24/refs/human_reference/&quot;</span>
 </span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>
-</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;=== Building BWA Index ===&quot;</span>
-</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="c1"># Build BWA index for alignment (required for host removal, one time set-up)</span>
-</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>bwa<span class="w"> </span>index<span class="w"> </span>GRCh38_genomic.fna
-</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>
-</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;=== Verifying Download ===&quot;</span>
-</span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a><span class="c1"># Check file integrity</span>
-</span><span id="__span-5-13"><a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Genome file size:&quot;</span>
-</span><span id="__span-5-14"><a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a>ls<span class="w"> </span>-lh<span class="w"> </span>*.fna
-</span><span id="__span-5-15"><a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a>
-</span><span id="__span-5-16"><a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Number of sequences:&quot;</span>
-</span><span id="__span-5-17"><a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a>grep<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;&gt;&quot;</span><span class="w"> </span>GRCh38_genomic.fna
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="c1">## Remove human contamination using BWA and SAMtools</span>
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="c1">## Create dir</span>
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>mkdir<span class="w"> </span>-p<span class="w"> </span><span class="si">${</span><span class="nv">genome_dir</span><span class="si">}</span>
+</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="c1"># Download the Human refence genome</span>
+</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="nb">cd</span><span class="w"> </span><span class="si">${</span><span class="nv">genome_dir</span><span class="si">}</span>
+</span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a>
+</span><span id="__span-5-13"><a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a><span class="c1"># Configuration</span>
+</span><span id="__span-5-14"><a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a><span class="nv">GENOME_VERSION</span><span class="o">=</span><span class="s2">&quot;GRCh38&quot;</span>
+</span><span id="__span-5-15"><a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a><span class="nv">BASE_URL</span><span class="o">=</span><span class="s2">&quot;https://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/000/001/405/GCA_000001405.15_GRCh38&quot;</span>
+</span><span id="__span-5-16"><a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a>
+</span><span id="__span-5-17"><a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;=== Downloading Human Reference Genome (</span><span class="si">${</span><span class="nv">GENOME_VERSION</span><span class="si">}</span><span class="s2">) ===&quot;</span>
 </span><span id="__span-5-18"><a id="__codelineno-5-18" name="__codelineno-5-18" href="#__codelineno-5-18"></a>
-</span><span id="__span-5-19"><a id="__codelineno-5-19" name="__codelineno-5-19" href="#__codelineno-5-19"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;First few sequence headers:&quot;</span>
-</span><span id="__span-5-20"><a id="__codelineno-5-20" name="__codelineno-5-20" href="#__codelineno-5-20"></a>grep<span class="w"> </span><span class="s2">&quot;&gt;&quot;</span><span class="w"> </span>GRCh38_genomic.fna<span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-10
-</span><span id="__span-5-21"><a id="__codelineno-5-21" name="__codelineno-5-21" href="#__codelineno-5-21"></a>
-</span><span id="__span-5-22"><a id="__codelineno-5-22" name="__codelineno-5-22" href="#__codelineno-5-22"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;=== Download Complete ===&quot;</span>
-</span><span id="__span-5-23"><a id="__codelineno-5-23" name="__codelineno-5-23" href="#__codelineno-5-23"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Reference genome files are ready in: </span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span><span class="s2">&quot;</span>
-</span><span id="__span-5-24"><a id="__codelineno-5-24" name="__codelineno-5-24" href="#__codelineno-5-24"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Main genome file: GRCh38_genomic.fna&quot;</span>
-</span><span id="__span-5-25"><a id="__codelineno-5-25" name="__codelineno-5-25" href="#__codelineno-5-25"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Chromosome-only file: hg38_chromosomes_only.fa&quot;</span>
-</span><span id="__span-5-26"><a id="__codelineno-5-26" name="__codelineno-5-26" href="#__codelineno-5-26"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;&quot;</span>
-</span><span id="__span-5-27"><a id="__codelineno-5-27" name="__codelineno-5-27" href="#__codelineno-5-27"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Files generated:&quot;</span>
-</span><span id="__span-5-28"><a id="__codelineno-5-28" name="__codelineno-5-28" href="#__codelineno-5-28"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;- GRCh38_genomic.fna (main reference)&quot;</span>
-</span><span id="__span-5-29"><a id="__codelineno-5-29" name="__codelineno-5-29" href="#__codelineno-5-29"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;- GRCh38_genomic.fna.amb, .ann, .bwt, .pac, .sa (BWA index)&quot;</span>
-</span><span id="__span-5-30"><a id="__codelineno-5-30" name="__codelineno-5-30" href="#__codelineno-5-30"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;- GRCh38_genomic.fna.fai (samtools index)&quot;</span>
+</span><span id="__span-5-19"><a id="__codelineno-5-19" name="__codelineno-5-19" href="#__codelineno-5-19"></a><span class="c1"># Option 1: Download complete genome assembly (recommended for most applications)</span>
+</span><span id="__span-5-20"><a id="__codelineno-5-20" name="__codelineno-5-20" href="#__codelineno-5-20"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Downloading complete genome assembly...&quot;</span>
+</span><span id="__span-5-21"><a id="__codelineno-5-21" name="__codelineno-5-21" href="#__codelineno-5-21"></a>wget<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">BASE_URL</span><span class="si">}</span><span class="s2">/GCA_000001405.15_GRCh38_genomic.fna.gz&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-5-22"><a id="__codelineno-5-22" name="__codelineno-5-22" href="#__codelineno-5-22"></a><span class="w">     </span>-O<span class="w"> </span><span class="s2">&quot;GRCh38_genomic.fna.gz&quot;</span>
+</span><span id="__span-5-23"><a id="__codelineno-5-23" name="__codelineno-5-23" href="#__codelineno-5-23"></a><span class="c1"># Decompress</span>
+</span><span id="__span-5-24"><a id="__codelineno-5-24" name="__codelineno-5-24" href="#__codelineno-5-24"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Decompressing genome file...&quot;</span>
+</span><span id="__span-5-25"><a id="__codelineno-5-25" name="__codelineno-5-25" href="#__codelineno-5-25"></a>gunzip<span class="w"> </span>-f<span class="w"> </span>GRCh38_genomic.fna.gz
+</span><span id="__span-5-26"><a id="__codelineno-5-26" name="__codelineno-5-26" href="#__codelineno-5-26"></a>
+</span><span id="__span-5-27"><a id="__codelineno-5-27" name="__codelineno-5-27" href="#__codelineno-5-27"></a><span class="c1"># Option 2: Download chromosome-only version (excludes contigs/scaffolds)</span>
+</span><span id="__span-5-28"><a id="__codelineno-5-28" name="__codelineno-5-28" href="#__codelineno-5-28"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Downloading chromosome-only version...&quot;</span>
+</span><span id="__span-5-29"><a id="__codelineno-5-29" name="__codelineno-5-29" href="#__codelineno-5-29"></a>wget<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;https://hgdownload.soe.ucsc.edu/goldenPath/hg38/bigZips/hg38.fa.gz&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-5-30"><a id="__codelineno-5-30" name="__codelineno-5-30" href="#__codelineno-5-30"></a><span class="w">     </span>-O<span class="w"> </span><span class="s2">&quot;hg38_chromosomes_only.fa.gz&quot;</span>
 </span><span id="__span-5-31"><a id="__codelineno-5-31" name="__codelineno-5-31" href="#__codelineno-5-31"></a>
-</span><span id="__span-5-32"><a id="__codelineno-5-32" name="__codelineno-5-32" href="#__codelineno-5-32"></a><span class="c1"># Align reads to human genome</span>
-</span><span id="__span-5-33"><a id="__codelineno-5-33" name="__codelineno-5-33" href="#__codelineno-5-33"></a><span class="k">for</span><span class="w"> </span>file<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="sb">`</span>ls<span class="w"> </span><span class="si">${</span><span class="nv">indata</span><span class="si">}</span>*1.fastq.gz<span class="sb">`</span>
-</span><span id="__span-5-34"><a id="__codelineno-5-34" name="__codelineno-5-34" href="#__codelineno-5-34"></a><span class="k">do</span>
-</span><span id="__span-5-35"><a id="__codelineno-5-35" name="__codelineno-5-35" href="#__codelineno-5-35"></a><span class="w">  </span><span class="nv">sample</span><span class="o">=</span><span class="k">$(</span>basename<span class="w"> </span><span class="si">${</span><span class="nv">file</span><span class="si">}</span><span class="w"> </span>_1.fastq.gz<span class="k">)</span>
-</span><span id="__span-5-36"><a id="__codelineno-5-36" name="__codelineno-5-36" href="#__codelineno-5-36"></a><span class="w">  </span>bowtie2<span class="w"> </span>-x<span class="w"> </span><span class="si">${</span><span class="nv">refs</span><span class="si">}</span>human_index<span class="w"> </span>-1<span class="w"> </span><span class="o">{</span>sample<span class="o">}</span><span class="si">${</span><span class="nv">data</span><span class="si">}</span>_trimmed_R1.fastq.gz<span class="w"> </span>-2<span class="w"> </span>sample_trimmed_R2.fastq.gz<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-5-37"><a id="__codelineno-5-37" name="__codelineno-5-37" href="#__codelineno-5-37"></a><span class="w">    </span>--un-conc<span class="w"> </span>sample_host_removed.fastq.gz<span class="w"> </span>-S<span class="w"> </span>/dev/null
-</span><span id="__span-5-38"><a id="__codelineno-5-38" name="__codelineno-5-38" href="#__codelineno-5-38"></a>
-</span><span id="__span-5-39"><a id="__codelineno-5-39" name="__codelineno-5-39" href="#__codelineno-5-39"></a>
-</span><span id="__span-5-40"><a id="__codelineno-5-40" name="__codelineno-5-40" href="#__codelineno-5-40"></a><span class="w">  </span>bwa<span class="w"> </span>mem<span class="w"> </span>-t<span class="w"> </span><span class="m">8</span><span class="w"> </span>human_reference.fasta<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-5-41"><a id="__codelineno-5-41" name="__codelineno-5-41" href="#__codelineno-5-41"></a><span class="w">      </span>trimmed_R1_paired.fastq.gz<span class="w"> </span>trimmed_R2_paired.fastq.gz<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-5-42"><a id="__codelineno-5-42" name="__codelineno-5-42" href="#__codelineno-5-42"></a><span class="w">      </span><span class="p">|</span><span class="w"> </span>samtools<span class="w"> </span>view<span class="w"> </span>-b<span class="w"> </span>-f<span class="w"> </span><span class="m">4</span><span class="w"> </span>-<span class="w"> </span>&gt;<span class="w"> </span>unmapped_reads.bam
-</span><span id="__span-5-43"><a id="__codelineno-5-43" name="__codelineno-5-43" href="#__codelineno-5-43"></a>
-</span><span id="__span-5-44"><a id="__codelineno-5-44" name="__codelineno-5-44" href="#__codelineno-5-44"></a><span class="w">  </span><span class="c1"># Convert unmapped reads back to FASTQ</span>
-</span><span id="__span-5-45"><a id="__codelineno-5-45" name="__codelineno-5-45" href="#__codelineno-5-45"></a><span class="w">  </span>samtools<span class="w"> </span>fastq<span class="w"> </span>-1<span class="w"> </span>dehosted_R1.fastq.gz<span class="w"> </span>-2<span class="w"> </span>dehosted_R2.fastq.gz<span class="w"> </span>unmapped_reads.bam
-</span><span id="__span-5-46"><a id="__codelineno-5-46" name="__codelineno-5-46" href="#__codelineno-5-46"></a>
-</span><span id="__span-5-47"><a id="__codelineno-5-47" name="__codelineno-5-47" href="#__codelineno-5-47"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Host removal completed&quot;</span>
+</span><span id="__span-5-32"><a id="__codelineno-5-32" name="__codelineno-5-32" href="#__codelineno-5-32"></a>gunzip<span class="w"> </span>-f<span class="w"> </span>hg38_chromosomes_only.fa.gz
+</span></code></pre></div>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="ch">#!/bin/bash</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="c1"># Load modules</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>module<span class="w"> </span>load<span class="w"> </span>bwa
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>module<span class="w"> </span>load<span class="w"> </span>bowtie2
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;=== Building BWA Index ===&quot;</span>
+</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="c1"># Build BWA index for alignment (required for host removal, one time set-up)</span>
+</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>bwa<span class="w"> </span>index<span class="w"> </span>GRCh38_genomic.fna
+</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>
+</span><span id="__span-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;=== Verifying Download ===&quot;</span>
+</span><span id="__span-6-12"><a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a><span class="c1"># Check file integrity</span>
+</span><span id="__span-6-13"><a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Genome file size:&quot;</span>
+</span><span id="__span-6-14"><a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a>ls<span class="w"> </span>-lh<span class="w"> </span>*.fna
+</span><span id="__span-6-15"><a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a>
+</span><span id="__span-6-16"><a id="__codelineno-6-16" name="__codelineno-6-16" href="#__codelineno-6-16"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Number of sequences:&quot;</span>
+</span><span id="__span-6-17"><a id="__codelineno-6-17" name="__codelineno-6-17" href="#__codelineno-6-17"></a>grep<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;&gt;&quot;</span><span class="w"> </span>GRCh38_genomic.fna
+</span><span id="__span-6-18"><a id="__codelineno-6-18" name="__codelineno-6-18" href="#__codelineno-6-18"></a>
+</span><span id="__span-6-19"><a id="__codelineno-6-19" name="__codelineno-6-19" href="#__codelineno-6-19"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;First few sequence headers:&quot;</span>
+</span><span id="__span-6-20"><a id="__codelineno-6-20" name="__codelineno-6-20" href="#__codelineno-6-20"></a>grep<span class="w"> </span><span class="s2">&quot;&gt;&quot;</span><span class="w"> </span>GRCh38_genomic.fna<span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-10
+</span><span id="__span-6-21"><a id="__codelineno-6-21" name="__codelineno-6-21" href="#__codelineno-6-21"></a>
+</span><span id="__span-6-22"><a id="__codelineno-6-22" name="__codelineno-6-22" href="#__codelineno-6-22"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;=== Download Complete ===&quot;</span>
+</span><span id="__span-6-23"><a id="__codelineno-6-23" name="__codelineno-6-23" href="#__codelineno-6-23"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Reference genome files are ready in: </span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span><span class="s2">&quot;</span>
+</span><span id="__span-6-24"><a id="__codelineno-6-24" name="__codelineno-6-24" href="#__codelineno-6-24"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Main genome file: GRCh38_genomic.fna&quot;</span>
+</span><span id="__span-6-25"><a id="__codelineno-6-25" name="__codelineno-6-25" href="#__codelineno-6-25"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Chromosome-only file: hg38_chromosomes_only.fa&quot;</span>
+</span><span id="__span-6-26"><a id="__codelineno-6-26" name="__codelineno-6-26" href="#__codelineno-6-26"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;&quot;</span>
+</span><span id="__span-6-27"><a id="__codelineno-6-27" name="__codelineno-6-27" href="#__codelineno-6-27"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Files generated:&quot;</span>
+</span><span id="__span-6-28"><a id="__codelineno-6-28" name="__codelineno-6-28" href="#__codelineno-6-28"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;- GRCh38_genomic.fna (main reference)&quot;</span>
+</span><span id="__span-6-29"><a id="__codelineno-6-29" name="__codelineno-6-29" href="#__codelineno-6-29"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;- GRCh38_genomic.fna.amb, .ann, .bwt, .pac, .sa (BWA index)&quot;</span>
+</span><span id="__span-6-30"><a id="__codelineno-6-30" name="__codelineno-6-30" href="#__codelineno-6-30"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;- GRCh38_genomic.fna.fai (samtools index)&quot;</span>
+</span><span id="__span-6-31"><a id="__codelineno-6-31" name="__codelineno-6-31" href="#__codelineno-6-31"></a>
+</span><span id="__span-6-32"><a id="__codelineno-6-32" name="__codelineno-6-32" href="#__codelineno-6-32"></a><span class="c1"># Align reads to human genome</span>
+</span><span id="__span-6-33"><a id="__codelineno-6-33" name="__codelineno-6-33" href="#__codelineno-6-33"></a><span class="k">for</span><span class="w"> </span>file<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="sb">`</span>ls<span class="w"> </span><span class="si">${</span><span class="nv">indata</span><span class="si">}</span>*1.fastq.gz<span class="sb">`</span>
+</span><span id="__span-6-34"><a id="__codelineno-6-34" name="__codelineno-6-34" href="#__codelineno-6-34"></a><span class="k">do</span>
+</span><span id="__span-6-35"><a id="__codelineno-6-35" name="__codelineno-6-35" href="#__codelineno-6-35"></a><span class="w">  </span><span class="nv">sample</span><span class="o">=</span><span class="k">$(</span>basename<span class="w"> </span><span class="si">${</span><span class="nv">file</span><span class="si">}</span><span class="w"> </span>_1.fastq.gz<span class="k">)</span>
+</span><span id="__span-6-36"><a id="__codelineno-6-36" name="__codelineno-6-36" href="#__codelineno-6-36"></a><span class="w">  </span>bowtie2<span class="w"> </span>-x<span class="w"> </span><span class="si">${</span><span class="nv">refs</span><span class="si">}</span>human_index<span class="w"> </span>-1<span class="w"> </span><span class="o">{</span>sample<span class="o">}</span><span class="si">${</span><span class="nv">data</span><span class="si">}</span>_trimmed_R1.fastq.gz<span class="w"> </span>-2<span class="w"> </span>sample_trimmed_R2.fastq.gz<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-6-37"><a id="__codelineno-6-37" name="__codelineno-6-37" href="#__codelineno-6-37"></a><span class="w">    </span>--un-conc<span class="w"> </span>sample_host_removed.fastq.gz<span class="w"> </span>-S<span class="w"> </span>/dev/null
+</span><span id="__span-6-38"><a id="__codelineno-6-38" name="__codelineno-6-38" href="#__codelineno-6-38"></a>
+</span><span id="__span-6-39"><a id="__codelineno-6-39" name="__codelineno-6-39" href="#__codelineno-6-39"></a>
+</span><span id="__span-6-40"><a id="__codelineno-6-40" name="__codelineno-6-40" href="#__codelineno-6-40"></a><span class="w">  </span>bwa<span class="w"> </span>mem<span class="w"> </span>-t<span class="w"> </span><span class="m">8</span><span class="w"> </span>human_reference.fasta<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-6-41"><a id="__codelineno-6-41" name="__codelineno-6-41" href="#__codelineno-6-41"></a><span class="w">      </span>trimmed_R1_paired.fastq.gz<span class="w"> </span>trimmed_R2_paired.fastq.gz<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-6-42"><a id="__codelineno-6-42" name="__codelineno-6-42" href="#__codelineno-6-42"></a><span class="w">      </span><span class="p">|</span><span class="w"> </span>samtools<span class="w"> </span>view<span class="w"> </span>-b<span class="w"> </span>-f<span class="w"> </span><span class="m">4</span><span class="w"> </span>-<span class="w"> </span>&gt;<span class="w"> </span>unmapped_reads.bam
+</span><span id="__span-6-43"><a id="__codelineno-6-43" name="__codelineno-6-43" href="#__codelineno-6-43"></a>
+</span><span id="__span-6-44"><a id="__codelineno-6-44" name="__codelineno-6-44" href="#__codelineno-6-44"></a><span class="w">  </span><span class="c1"># Convert unmapped reads back to FASTQ</span>
+</span><span id="__span-6-45"><a id="__codelineno-6-45" name="__codelineno-6-45" href="#__codelineno-6-45"></a><span class="w">  </span>samtools<span class="w"> </span>fastq<span class="w"> </span>-1<span class="w"> </span>dehosted_R1.fastq.gz<span class="w"> </span>-2<span class="w"> </span>dehosted_R2.fastq.gz<span class="w"> </span>unmapped_reads.bam
+</span><span id="__span-6-46"><a id="__codelineno-6-46" name="__codelineno-6-46" href="#__codelineno-6-46"></a>
+</span><span id="__span-6-47"><a id="__codelineno-6-47" name="__codelineno-6-47" href="#__codelineno-6-47"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Host removal completed&quot;</span>
 </span></code></pre></div>
 <hr />
 <h3 id="step-5-taxonomic-profiling-read-based">Step 5. Taxonomic Profiling (Read-Based)<a class="headerlink" href="#step-5-taxonomic-profiling-read-based" title="Permanent link">&para;</a></h3>
@@ -897,9 +901,9 @@ MINLEN:50   | positional |  Length filtering command. Discard sequences that are
 <li><strong>Why</strong>: Directly assigns taxonomy without assembly, faster and less computationally intensive.</li>
 <li><strong>Tools</strong>: Kraken2 + Bracken, MetaPhlAn</li>
 </ul>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>kraken2<span class="w"> </span>--db<span class="w"> </span>kraken2_db<span class="w"> </span>--paired<span class="w"> </span>sample_host_removed.1.fq.gz<span class="w"> </span>sample_host_removed.2.fq.gz<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">  </span>--output<span class="w"> </span>kraken2_output.txt<span class="w"> </span>--report<span class="w"> </span>kraken2_report.txt
-</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>bracken<span class="w"> </span>-d<span class="w"> </span>kraken2_db<span class="w"> </span>-i<span class="w"> </span>kraken2_report.txt<span class="w"> </span>-o<span class="w"> </span>bracken_species.txt<span class="w"> </span>-r<span class="w"> </span><span class="m">150</span><span class="w"> </span>-l<span class="w"> </span>S
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>kraken2<span class="w"> </span>--db<span class="w"> </span>kraken2_db<span class="w"> </span>--paired<span class="w"> </span>sample_host_removed.1.fq.gz<span class="w"> </span>sample_host_removed.2.fq.gz<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">  </span>--output<span class="w"> </span>kraken2_output.txt<span class="w"> </span>--report<span class="w"> </span>kraken2_report.txt
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>bracken<span class="w"> </span>-d<span class="w"> </span>kraken2_db<span class="w"> </span>-i<span class="w"> </span>kraken2_report.txt<span class="w"> </span>-o<span class="w"> </span>bracken_species.txt<span class="w"> </span>-r<span class="w"> </span><span class="m">150</span><span class="w"> </span>-l<span class="w"> </span>S
 </span></code></pre></div>
 <hr />
 <h3 id="step-6-functional-profiling-read-based">Step 6. Functional Profiling (Read-Based)<a class="headerlink" href="#step-6-functional-profiling-read-based" title="Permanent link">&para;</a></h3>
@@ -907,7 +911,7 @@ MINLEN:50   | positional |  Length filtering command. Discard sequences that are
 <li><strong>Why</strong>: Identifies pathways/genes present without needing assembly.</li>
 <li><strong>Tool</strong>: HUMAnN</li>
 </ul>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>humann<span class="w"> </span>--input<span class="w"> </span>sample_host_removed.fastq.gz<span class="w"> </span>--output<span class="w"> </span>humann_out/
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>humann<span class="w"> </span>--input<span class="w"> </span>sample_host_removed.fastq.gz<span class="w"> </span>--output<span class="w"> </span>humann_out/
 </span></code></pre></div>
 <hr />
 <h3 id="step-7-assembly-based-profiling">Step 7. Assembly-Based Profiling<a class="headerlink" href="#step-7-assembly-based-profiling" title="Permanent link">&para;</a></h3>
@@ -916,10 +920,10 @@ MINLEN:50   | positional |  Length filtering command. Discard sequences that are
 <li><strong>Tools</strong>: <strong>MEGAHIT</strong> or <strong>metaSPAdes</strong></li>
 </ul>
 <h4 id="megahit">MEGAHIT<a class="headerlink" href="#megahit" title="Permanent link">&para;</a></h4>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>megahit<span class="w"> </span>-1<span class="w"> </span>sample_host_removed.1.fq.gz<span class="w"> </span>-2<span class="w"> </span>sample_host_removed.2.fq.gz<span class="w"> </span>-o<span class="w"> </span>megahit_out/
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>megahit<span class="w"> </span>-1<span class="w"> </span>sample_host_removed.1.fq.gz<span class="w"> </span>-2<span class="w"> </span>sample_host_removed.2.fq.gz<span class="w"> </span>-o<span class="w"> </span>megahit_out/
 </span></code></pre></div>
 <h4 id="metaspades">metaSPAdes<a class="headerlink" href="#metaspades" title="Permanent link">&para;</a></h4>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>spades.py<span class="w"> </span>--meta<span class="w"> </span>-1<span class="w"> </span>sample_host_removed.1.fq.gz<span class="w"> </span>-2<span class="w"> </span>sample_host_removed.2.fq.gz<span class="w"> </span>-o<span class="w"> </span>metaspades_out/
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>spades.py<span class="w"> </span>--meta<span class="w"> </span>-1<span class="w"> </span>sample_host_removed.1.fq.gz<span class="w"> </span>-2<span class="w"> </span>sample_host_removed.2.fq.gz<span class="w"> </span>-o<span class="w"> </span>metaspades_out/
 </span></code></pre></div>
 <p><strong>MEGAHIT vs metaSPAdes:</strong></p>
 <ul>
@@ -939,8 +943,8 @@ MINLEN:50   | positional |  Length filtering command. Discard sequences that are
 <li><strong>Why</strong>: Group contigs into MAGs, quantify abundances.</li>
 <li><strong>Tools</strong>: <code>bowtie2</code>, <code>samtools</code>, <code>MetaBAT2</code></li>
 </ul>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>bowtie2<span class="w"> </span>-x<span class="w"> </span>megahit_out/final.contigs.fa<span class="w"> </span>-1<span class="w"> </span>sample_host_removed.1.fq.gz<span class="w"> </span>-2<span class="w"> </span>sample_host_removed.2.fq.gz<span class="w"> </span><span class="p">|</span><span class="w"> </span>samtools<span class="w"> </span>sort<span class="w"> </span>-o<span class="w"> </span>aln.bam
-</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>metabat2<span class="w"> </span>-i<span class="w"> </span>megahit_out/final.contigs.fa<span class="w"> </span>-a<span class="w"> </span>depth.txt<span class="w"> </span>-o<span class="w"> </span>bins_dir/bin
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>bowtie2<span class="w"> </span>-x<span class="w"> </span>megahit_out/final.contigs.fa<span class="w"> </span>-1<span class="w"> </span>sample_host_removed.1.fq.gz<span class="w"> </span>-2<span class="w"> </span>sample_host_removed.2.fq.gz<span class="w"> </span><span class="p">|</span><span class="w"> </span>samtools<span class="w"> </span>sort<span class="w"> </span>-o<span class="w"> </span>aln.bam
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>metabat2<span class="w"> </span>-i<span class="w"> </span>megahit_out/final.contigs.fa<span class="w"> </span>-a<span class="w"> </span>depth.txt<span class="w"> </span>-o<span class="w"> </span>bins_dir/bin
 </span></code></pre></div>
 <hr />
 <h3 id="step-9-mag-quality-control">Step 9. MAG Quality Control<a class="headerlink" href="#step-9-mag-quality-control" title="Permanent link">&para;</a></h3>
@@ -948,7 +952,7 @@ MINLEN:50   | positional |  Length filtering command. Discard sequences that are
 <li><strong>Why</strong>: Ensures completeness &amp; contamination are acceptable.</li>
 <li><strong>Tool</strong>: CheckM</li>
 </ul>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>checkm<span class="w"> </span>lineage_wf<span class="w"> </span>bins_dir/<span class="w"> </span>checkm_out/
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>checkm<span class="w"> </span>lineage_wf<span class="w"> </span>bins_dir/<span class="w"> </span>checkm_out/
 </span></code></pre></div>
 <hr />
 <h3 id="step-10-annotation-specialized-analyses">Step 10. Annotation &amp; Specialized Analyses<a class="headerlink" href="#step-10-annotation-specialized-analyses" title="Permanent link">&para;</a></h3>
@@ -961,7 +965,7 @@ MINLEN:50   | positional |  Length filtering command. Discard sequences that are
 <li><strong>Swap in DRAM</strong> in place of Prokka/Bakta for <strong>functional annotation of MAGs</strong>.</li>
 <li>DRAM produces detailed metabolic profiles, pathway reconstruction, and microbial ecology insights.</li>
 </ul>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>DRAM.py<span class="w"> </span>annotate<span class="w"> </span>-i<span class="w"> </span>bins_dir/<span class="w"> </span>-o<span class="w"> </span>dram_out/<span class="w"> </span>--threads<span class="w"> </span><span class="m">16</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>DRAM.py<span class="w"> </span>annotate<span class="w"> </span>-i<span class="w"> </span>bins_dir/<span class="w"> </span>-o<span class="w"> </span>dram_out/<span class="w"> </span>--threads<span class="w"> </span><span class="m">16</span>
 </span></code></pre></div>
 <hr />
 <h3 id="step-11-abundance-estimation-visualization">Step 11. Abundance Estimation &amp; Visualization<a class="headerlink" href="#step-11-abundance-estimation-visualization" title="Permanent link">&para;</a></h3>
@@ -969,7 +973,7 @@ MINLEN:50   | positional |  Length filtering command. Discard sequences that are
 <li><strong>Why</strong>: Quantifies taxa/genes b links to clinical or epidemiological metadata.</li>
 <li><strong>Tools</strong>: CoverM, Krona, R for plots.</li>
 </ul>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>coverm<span class="w"> </span>contig<span class="w"> </span>--bam-files<span class="w"> </span>aln.bam<span class="w"> </span>--reference<span class="w"> </span>megahit_out/final.contigs.fa<span class="w"> </span>--methods<span class="w"> </span>tpm<span class="w"> </span>&gt;<span class="w"> </span>coverm_tpm.tsv
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>coverm<span class="w"> </span>contig<span class="w"> </span>--bam-files<span class="w"> </span>aln.bam<span class="w"> </span>--reference<span class="w"> </span>megahit_out/final.contigs.fa<span class="w"> </span>--methods<span class="w"> </span>tpm<span class="w"> </span>&gt;<span class="w"> </span>coverm_tpm.tsv
 </span></code></pre></div>
 <hr />
 <h3 id="step-12-reporting-reproducibility">Step 12. Reporting &amp; Reproducibility<a class="headerlink" href="#step-12-reporting-reproducibility" title="Permanent link">&para;</a></h3>
