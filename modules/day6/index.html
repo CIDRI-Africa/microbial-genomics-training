@@ -3108,7 +3108,7 @@
 <h4 id="traditional-shell-script-for-comparison"><strong>Traditional Shell Script</strong> (for comparison)<a class="headerlink" href="#traditional-shell-script-for-comparison" title="Permanent link">&para;</a></h4>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="c1"># Manual approach - sequential processing</span>
 </span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="k">for</span><span class="w"> </span>sample<span class="w"> </span><span class="k">in</span><span class="w"> </span>sample1<span class="w"> </span>sample2<span class="w"> </span>sample3<span class="p">;</span><span class="w"> </span><span class="k">do</span>
-</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="w">    </span>fastqc<span class="w"> </span><span class="si">${</span><span class="nv">sample</span><span class="si">}</span>_R1.fastq.gz<span class="w"> </span><span class="si">${</span><span class="nv">sample</span><span class="si">}</span>_R2.fastq.gz<span class="w"> </span>-o<span class="w"> </span>results/
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="w">    </span>fastqc<span class="w"> </span><span class="si">${</span><span class="nv">sample</span><span class="si">}</span>_R1.fastq.gz<span class="w"> </span><span class="si">${</span><span class="nv">sample</span><span class="si">}</span>_R2.fastq.gz<span class="w"> </span>-o<span class="w"> </span>/data/users/<span class="nv">$USER</span>/nextflow-training/results/
 </span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="nv">$?</span><span class="w"> </span>-ne<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;FastQC failed for </span><span class="nv">$sample</span><span class="s2">&quot;</span><span class="p">;</span><span class="w"> </span><span class="nb">exit</span><span class="w"> </span><span class="m">1</span><span class="p">;</span><span class="w"> </span><span class="k">fi</span>
 </span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="k">done</span>
 </span></code></pre></div>
@@ -3120,7 +3120,7 @@
 </span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a><span class="c1">// FastQC process</span>
 </span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a><span class="n">process</span><span class="w"> </span><span class="n">fastqc</span><span class="w"> </span><span class="o">{</span>
 </span><span id="__span-14-7"><a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a><span class="w">    </span><span class="n">container</span><span class="w"> </span><span class="s1">&#39;biocontainers/fastqc:v0.11.9&#39;</span>
-</span><span id="__span-14-8"><a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a><span class="w">    </span><span class="n">publishDir</span><span class="w"> </span><span class="s1">&#39;results/&#39;</span><span class="o">,</span><span class="w"> </span><span class="nl">mode:</span><span class="w"> </span><span class="s1">&#39;copy&#39;</span>
+</span><span id="__span-14-8"><a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a><span class="w">    </span><span class="n">publishDir</span><span class="w"> </span><span class="s1">&#39;/data/users/$USER/nextflow-training/results/&#39;</span><span class="o">,</span><span class="w"> </span><span class="nl">mode:</span><span class="w"> </span><span class="s1">&#39;copy&#39;</span>
 </span><span id="__span-14-9"><a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a>
 </span><span id="__span-14-10"><a id="__codelineno-14-10" name="__codelineno-14-10" href="#__codelineno-14-10"></a><span class="w">    </span><span class="nl">input:</span>
 </span><span id="__span-14-11"><a id="__codelineno-14-11" name="__codelineno-14-11" href="#__codelineno-14-11"></a><span class="w">    </span><span class="n">tuple</span><span class="w"> </span><span class="n">val</span><span class="o">(</span><span class="n">sample_id</span><span class="o">),</span><span class="w"> </span><span class="n">path</span><span class="o">(</span><span class="n">reads</span><span class="o">)</span>
@@ -3149,19 +3149,19 @@
 </span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>
 </span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="n">rule</span> <span class="nb">all</span><span class="p">:</span>
 </span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a>    <span class="nb">input</span><span class="p">:</span>
-</span><span id="__span-15-6"><a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a>        <span class="n">expand</span><span class="p">(</span><span class="s2">&quot;results/</span><span class="si">{sample}</span><span class="s2">_</span><span class="si">{read}</span><span class="s2">_fastqc.html&quot;</span><span class="p">,</span>
+</span><span id="__span-15-6"><a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a>        <span class="n">expand</span><span class="p">(</span><span class="s2">&quot;/data/users/$USER/nextflow-training/results/</span><span class="si">{sample}</span><span class="s2">_</span><span class="si">{read}</span><span class="s2">_fastqc.html&quot;</span><span class="p">,</span>
 </span><span id="__span-15-7"><a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a>               <span class="n">sample</span><span class="o">=</span><span class="n">SAMPLES</span><span class="p">,</span> <span class="n">read</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;R1&quot;</span><span class="p">,</span> <span class="s2">&quot;R2&quot;</span><span class="p">])</span>
 </span><span id="__span-15-8"><a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a>
 </span><span id="__span-15-9"><a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a><span class="n">rule</span> <span class="n">fastqc</span><span class="p">:</span>
 </span><span id="__span-15-10"><a id="__codelineno-15-10" name="__codelineno-15-10" href="#__codelineno-15-10"></a>    <span class="nb">input</span><span class="p">:</span>
 </span><span id="__span-15-11"><a id="__codelineno-15-11" name="__codelineno-15-11" href="#__codelineno-15-11"></a>        <span class="s2">&quot;data/</span><span class="si">{sample}</span><span class="s2">_</span><span class="si">{read}</span><span class="s2">.fastq&quot;</span>
 </span><span id="__span-15-12"><a id="__codelineno-15-12" name="__codelineno-15-12" href="#__codelineno-15-12"></a>    <span class="n">output</span><span class="p">:</span>
-</span><span id="__span-15-13"><a id="__codelineno-15-13" name="__codelineno-15-13" href="#__codelineno-15-13"></a>        <span class="n">html</span><span class="o">=</span><span class="s2">&quot;results/</span><span class="si">{sample}</span><span class="s2">_</span><span class="si">{read}</span><span class="s2">_fastqc.html&quot;</span><span class="p">,</span>
-</span><span id="__span-15-14"><a id="__codelineno-15-14" name="__codelineno-15-14" href="#__codelineno-15-14"></a>        <span class="nb">zip</span><span class="o">=</span><span class="s2">&quot;results/</span><span class="si">{sample}</span><span class="s2">_</span><span class="si">{read}</span><span class="s2">_fastqc.zip&quot;</span>
+</span><span id="__span-15-13"><a id="__codelineno-15-13" name="__codelineno-15-13" href="#__codelineno-15-13"></a>        <span class="n">html</span><span class="o">=</span><span class="s2">&quot;/data/users/$USER/nextflow-training/results/</span><span class="si">{sample}</span><span class="s2">_</span><span class="si">{read}</span><span class="s2">_fastqc.html&quot;</span><span class="p">,</span>
+</span><span id="__span-15-14"><a id="__codelineno-15-14" name="__codelineno-15-14" href="#__codelineno-15-14"></a>        <span class="nb">zip</span><span class="o">=</span><span class="s2">&quot;/data/users/$USER/nextflow-training/results/</span><span class="si">{sample}</span><span class="s2">_</span><span class="si">{read}</span><span class="s2">_fastqc.zip&quot;</span>
 </span><span id="__span-15-15"><a id="__codelineno-15-15" name="__codelineno-15-15" href="#__codelineno-15-15"></a>    <span class="n">container</span><span class="p">:</span>
 </span><span id="__span-15-16"><a id="__codelineno-15-16" name="__codelineno-15-16" href="#__codelineno-15-16"></a>        <span class="s2">&quot;docker://biocontainers/fastqc:v0.11.9&quot;</span>
 </span><span id="__span-15-17"><a id="__codelineno-15-17" name="__codelineno-15-17" href="#__codelineno-15-17"></a>    <span class="n">shell</span><span class="p">:</span>
-</span><span id="__span-15-18"><a id="__codelineno-15-18" name="__codelineno-15-18" href="#__codelineno-15-18"></a>        <span class="s2">&quot;fastqc </span><span class="si">{input}</span><span class="s2"> -o results/&quot;</span>
+</span><span id="__span-15-18"><a id="__codelineno-15-18" name="__codelineno-15-18" href="#__codelineno-15-18"></a>        <span class="s2">&quot;fastqc </span><span class="si">{input}</span><span class="s2"> -o /data/users/$USER/nextflow-training/results/&quot;</span>
 </span></code></pre></div>
 <h4 id="cwl-implementation"><strong>CWL Implementation</strong><a class="headerlink" href="#cwl-implementation" title="Permanent link">&para;</a></h4>
 <div class="language-yaml highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="c1"># fastqc-workflow.cwl</span>
@@ -3262,38 +3262,33 @@
 <h3 id="the-big-picture-traditional-vs-modern-approaches">The Big Picture: Traditional vs Modern Approaches<a class="headerlink" href="#the-big-picture-traditional-vs-modern-approaches" title="Permanent link">&para;</a></h3>
 <p>To understand why workflow management systems like Nextflow are revolutionary, let's visualize the <strong>time difference</strong>:</p>
 <h4 id="traditional-shell-scripting-the-slow-way">Traditional Shell Scripting - The Slow Way<a class="headerlink" href="#traditional-shell-scripting-the-slow-way" title="Permanent link">&para;</a></h4>
-<div align="center">
-
-```mermaid
+<p>```mermaid
 graph TD
-    A1[Sample 1] --> B1[FastQC - 5 min]
-    B1 --> C1[Trimming - 10 min]
-    C1 --> D1[Assembly - 30 min]
-    D1 --> E1[Annotation - 15 min]
-    E1 --> F1[✓ Done - 60 min total]
+    A1[Sample 1] &rarr; B1[FastQC - 5 min]
+    B1 &rarr; C1[Trimming - 10 min]
+    C1 &rarr; D1[Assembly - 30 min]
+    D1 &rarr; E1[Annotation - 15 min]
+    E1 &rarr; F1[✓ Done - 60 min total]</p>
+<div class="language-text highlight"><pre><span></span><code>F1 --&gt; A2[Sample 2]
+A2 --&gt; B2[FastQC - 5 min]
+B2 --&gt; C2[Trimming - 10 min]
+C2 --&gt; D2[Assembly - 30 min]
+D2 --&gt; E2[Annotation - 15 min]
+E2 --&gt; F2[✓ Done - 120 min total]
 
-    F1 --> A2[Sample 2]
-    A2 --> B2[FastQC - 5 min]
-    B2 --> C2[Trimming - 10 min]
-    C2 --> D2[Assembly - 30 min]
-    D2 --> E2[Annotation - 15 min]
-    E2 --> F2[✓ Done - 120 min total]
+F2 --&gt; A3[Sample 3]
+A3 --&gt; B3[FastQC - 5 min]
+B3 --&gt; C3[Trimming - 10 min]
+C3 --&gt; D3[Assembly - 30 min]
+D3 --&gt; E3[Annotation - 15 min]
+E3 --&gt; F3[✓ All Done - 180 min total]
 
-    F2 --> A3[Sample 3]
-    A3 --> B3[FastQC - 5 min]
-    B3 --> C3[Trimming - 10 min]
-    C3 --> D3[Assembly - 30 min]
-    D3 --> E3[Annotation - 15 min]
-    E3 --> F3[✓ All Done - 180 min total]
-
-    style A1 fill:#ffcccc
-    style A2 fill:#ffcccc
-    style A3 fill:#ffcccc
-    style F3 fill:#ff9999
-```
-
-</div>
-
+style A1 fill:#ffcccc
+style A2 fill:#ffcccc
+style A3 fill:#ffcccc
+style F3 fill:#ff9999
+</code></pre></div>
+<p>```</p>
 <p><strong>Problems with traditional approach:</strong></p>
 <ul>
 <li><strong>Sequential processing</strong>: Must wait for each sample to finish completely</li>
@@ -3302,40 +3297,35 @@ graph TD
 <li><strong>Scaling nightmare</strong>: 100 samples = 100 hours!</li>
 </ul>
 <h4 id="nextflow-the-fast-way">Nextflow - The Fast Way<a class="headerlink" href="#nextflow-the-fast-way" title="Permanent link">&para;</a></h4>
-<div align="center">
-
-```mermaid
+<p>```mermaid
 graph TD
-    A4[Sample 1] --> B4[FastQC - 5 min]
-    A5[Sample 2] --> B5[FastQC - 5 min]
-    A6[Sample 3] --> B6[FastQC - 5 min]
+    A4[Sample 1] &rarr; B4[FastQC - 5 min]
+    A5[Sample 2] &rarr; B5[FastQC - 5 min]
+    A6[Sample 3] &rarr; B6[FastQC - 5 min]</p>
+<div class="language-text highlight"><pre><span></span><code>B4 --&gt; C4[Trimming - 10 min]
+B5 --&gt; C5[Trimming - 10 min]
+B6 --&gt; C6[Trimming - 10 min]
 
-    B4 --> C4[Trimming - 10 min]
-    B5 --> C5[Trimming - 10 min]
-    B6 --> C6[Trimming - 10 min]
+C4 --&gt; D4[Assembly - 30 min]
+C5 --&gt; D5[Assembly - 30 min]
+C6 --&gt; D6[Assembly - 30 min]
 
-    C4 --> D4[Assembly - 30 min]
-    C5 --> D5[Assembly - 30 min]
-    C6 --> D6[Assembly - 30 min]
+D4 --&gt; E4[Annotation - 15 min]
+D5 --&gt; E5[Annotation - 15 min]
+D6 --&gt; E6[Annotation - 15 min]
 
-    D4 --> E4[Annotation - 15 min]
-    D5 --> E5[Annotation - 15 min]
-    D6 --> E6[Annotation - 15 min]
+E4 --&gt; F4[✓ All Done - 60 min total]
+E5 --&gt; F5[3x FASTER!]
+E6 --&gt; F6[Same time as 1 sample]
 
-    E4 --> F4[✓ All Done - 60 min total]
-    E5 --> F5[3x FASTER!]
-    E6 --> F6[Same time as 1 sample]
-
-    style A4 fill:#ccffcc
-    style A5 fill:#ccffcc
-    style A6 fill:#ccffcc
-    style F4 fill:#99ff99
-    style F5 fill:#99ff99
-    style F6 fill:#99ff99
-```
-
-</div>
-
+style A4 fill:#ccffcc
+style A5 fill:#ccffcc
+style A6 fill:#ccffcc
+style F4 fill:#99ff99
+style F5 fill:#99ff99
+style F6 fill:#99ff99
+</code></pre></div>
+<p>```</p>
 <p><strong>Benefits of Nextflow approach:</strong></p>
 <ul>
 <li><strong>Parallel processing</strong>: All samples start simultaneously</li>
@@ -3446,25 +3436,20 @@ updateCalculator();
 <h3 id="what-is-nextflow">What is Nextflow?<a class="headerlink" href="#what-is-nextflow" title="Permanent link">&para;</a></h3>
 <p>Nextflow is a <strong>workflow management system</strong> that comprises both a runtime environment and a domain-specific language (DSL). It's designed specifically to manage computational data-analysis workflows in bioinformatics and other scientific fields.</p>
 <h3 id="core-nextflow-features">Core Nextflow Features<a class="headerlink" href="#core-nextflow-features" title="Permanent link">&para;</a></h3>
-<div align="center">
-
-```mermaid
+<p>```mermaid
 graph LR
-    A[Fast Prototyping] --> B[Simple Syntax]
-    C[Reproducibility] --> D[Containers & Conda]
-    E[Portability] --> F[Run Anywhere]
-    G[Parallelism] --> H[Automatic Scaling]
-    I[Checkpoints] --> J[Resume from Failures]
-
-    style A fill:#e1f5fe
-    style C fill:#e8f5e8
-    style E fill:#fff3e0
-    style G fill:#f3e5f5
-    style I fill:#fce4ec
-```
-
-</div>
-
+    A[Fast Prototyping] &rarr; B[Simple Syntax]
+    C[Reproducibility] &rarr; D[Containers &amp; Conda]
+    E[Portability] &rarr; F[Run Anywhere]
+    G[Parallelism] &rarr; H[Automatic Scaling]
+    I[Checkpoints] &rarr; J[Resume from Failures]</p>
+<div class="language-text highlight"><pre><span></span><code>style A fill:#e1f5fe
+style C fill:#e8f5e8
+style E fill:#fff3e0
+style G fill:#f3e5f5
+style I fill:#fce4ec
+</code></pre></div>
+<p>```</p>
 <p><strong>1. Fast Prototyping</strong></p>
 <ul>
 <li>Simple syntax that lets you reuse existing scripts and tools</li>
@@ -3535,7 +3520,7 @@ graph LR
 <div class="language-groovy highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="n">process</span><span class="w"> </span><span class="n">COUNT_READS</span><span class="w"> </span><span class="o">{</span>
 </span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a><span class="w">    </span><span class="c1">// Process directives (optional)</span>
 </span><span id="__span-20-3"><a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a><span class="w">    </span><span class="n">tag</span><span class="w"> </span><span class="s2">&quot;$sample_id&quot;</span><span class="w">           </span><span class="c1">// Label for this task</span>
-</span><span id="__span-20-4"><a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a><span class="w">    </span><span class="n">publishDir</span><span class="w"> </span><span class="s2">&quot;results/&quot;</span><span class="w">      </span><span class="c1">// Where to save outputs</span>
+</span><span id="__span-20-4"><a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a><span class="w">    </span><span class="n">publishDir</span><span class="w"> </span><span class="s2">&quot;/data/users/$USER/nextflow-training/results/&quot;</span><span class="w">      </span><span class="c1">// Where to save outputs</span>
 </span><span id="__span-20-5"><a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a>
 </span><span id="__span-20-6"><a id="__codelineno-20-6" name="__codelineno-20-6" href="#__codelineno-20-6"></a><span class="w">    </span><span class="nl">input:</span>
 </span><span id="__span-20-7"><a id="__codelineno-20-7" name="__codelineno-20-7" href="#__codelineno-20-7"></a><span class="w">    </span><span class="n">tuple</span><span class="w"> </span><span class="n">val</span><span class="o">(</span><span class="n">sample_id</span><span class="o">),</span><span class="w"> </span><span class="n">path</span><span class="o">(</span><span class="n">reads</span><span class="o">)</span><span class="w">  </span><span class="c1">// What this process needs</span>
@@ -3574,31 +3559,26 @@ graph LR
 </span><span id="__span-21-14"><a id="__codelineno-21-14" name="__codelineno-21-14" href="#__codelineno-21-14"></a><span class="w">    </span><span class="o">.</span><span class="na">splitCsv</span><span class="o">(</span><span class="nl">header:</span><span class="w"> </span><span class="kc">true</span><span class="o">)</span>
 </span></code></pre></div>
 <p><strong>Channel Flow Example:</strong></p>
-<div align="center">
-
-```mermaid
+<p>```mermaid
 graph LR
-    A[Input Files] --> B[Channel]
-    B --> C[Process 1]
-    C --> D[Output Channel]
-    D --> E[Process 2]
-    E --> F[Final Results]
+    A[Input Files] &rarr; B[Channel]
+    B &rarr; C[Process 1]
+    C &rarr; D[Output Channel]
+    D &rarr; E[Process 2]
+    E &rarr; F[Final Results]</p>
+<div class="language-text highlight"><pre><span></span><code>%% Channels - Blue background
+style B fill:#e3f2fd,stroke:#1976d2,stroke-width:2px,color:#000
+style D fill:#e3f2fd,stroke:#1976d2,stroke-width:2px,color:#000
 
-    %% Channels - Blue background
-    style B fill:#e3f2fd,stroke:#1976d2,stroke-width:2px,color:#000
-    style D fill:#e3f2fd,stroke:#1976d2,stroke-width:2px,color:#000
+%% Processes - Green background
+style C fill:#e8f5e8,stroke:#388e3c,stroke-width:2px,color:#000
+style E fill:#e8f5e8,stroke:#388e3c,stroke-width:2px,color:#000
 
-    %% Processes - Green background
-    style C fill:#e8f5e8,stroke:#388e3c,stroke-width:2px,color:#000
-    style E fill:#e8f5e8,stroke:#388e3c,stroke-width:2px,color:#000
-
-    %% Input/Output - Light gray
-    style A fill:#f5f5f5,stroke:#757575,stroke-width:1px,color:#000
-    style F fill:#f5f5f5,stroke:#757575,stroke-width:1px,color:#000
-```
-
-</div>
-
+%% Input/Output - Light gray
+style A fill:#f5f5f5,stroke:#757575,stroke-width:1px,color:#000
+style F fill:#f5f5f5,stroke:#757575,stroke-width:1px,color:#000
+</code></pre></div>
+<p>```</p>
 <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin: 15px 0; border-left: 4px solid #007bff;">
 <h5>🎨 Color Legend for Nextflow Diagrams</h5>
 <div style="display: flex; gap: 20px; flex-wrap: wrap; margin-top: 10px;">
@@ -3642,24 +3622,19 @@ graph LR
 <li><strong>Handle failures</strong>: Retries failed tasks or stops gracefully</li>
 <li><strong>Collect results</strong>: Gathers outputs in the specified locations</li>
 </ol>
-<div align="center">
-
-```mermaid
+<p>```mermaid
 graph TD
-    A[Nextflow Script] --> B[Parse & Plan]
-    B --> C[Submit Tasks]
-    C --> D[Monitor Execution]
-    D --> E{All Tasks Done?}
-    E -->|No| F[Handle Failures]
-    F --> C
-    E -->|Yes| G[Collect Results]
-
-    style A fill:#e1f5fe
-    style G fill:#c8e6c9
-```
-
-</div>
-
+    A[Nextflow Script] &rarr; B[Parse &amp; Plan]
+    B &rarr; C[Submit Tasks]
+    C &rarr; D[Monitor Execution]
+    D &rarr; E{All Tasks Done?}
+    E &rarr;|No| F[Handle Failures]
+    F &rarr; C
+    E &rarr;|Yes| G[Collect Results]</p>
+<div class="language-text highlight"><pre><span></span><code>style A fill:#e1f5fe
+style G fill:#c8e6c9
+</code></pre></div>
+<p>```</p>
 <h3 id="your-first-nextflow-script">Your First Nextflow Script<a class="headerlink" href="#your-first-nextflow-script" title="Permanent link">&para;</a></h3>
 <p>Let's look at a complete, simple example that counts lines in a file:</p>
 <div class="language-groovy highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="cp">#!/usr/bin/env nextflow</span>
@@ -3715,29 +3690,24 @@ graph TD
 <h3 id="workflow-execution-and-executors">Workflow Execution and Executors<a class="headerlink" href="#workflow-execution-and-executors" title="Permanent link">&para;</a></h3>
 <p>One of Nextflow's most powerful features is that it separates <strong>what</strong> your workflow does from <strong>where</strong> it runs.</p>
 <h4 id="executors-where-your-workflow-runs"><strong>Executors: Where Your Workflow Runs</strong><a class="headerlink" href="#executors-where-your-workflow-runs" title="Permanent link">&para;</a></h4>
-<div align="center">
-
-```mermaid
+<p>```mermaid
 graph TD
-    A[Your Nextflow Script] --> B{Choose Executor}
-    B --> C[Local Computer]
-    B --> D[SLURM Cluster]
-    B --> E[AWS Cloud]
-    B --> F[Google Cloud]
-    B --> G[Azure Cloud]
+    A[Your Nextflow Script] &rarr; B{Choose Executor}
+    B &rarr; C[Local Computer]
+    B &rarr; D[SLURM Cluster]
+    B &rarr; E[AWS Cloud]
+    B &rarr; F[Google Cloud]
+    B &rarr; G[Azure Cloud]</p>
+<div class="language-text highlight"><pre><span></span><code>C --&gt; H[Same Workflow Code]
+D --&gt; H
+E --&gt; H
+F --&gt; H
+G --&gt; H
 
-    C --> H[Same Workflow Code]
-    D --> H
-    E --> H
-    F --> H
-    G --> H
-
-    style A fill:#e1f5fe
-    style H fill:#c8e6c9
-```
-
-</div>
-
+style A fill:#e1f5fe
+style H fill:#c8e6c9
+</code></pre></div>
+<p>```</p>
 <p><strong>Available Executors:</strong></p>
 <ul>
 <li><strong>Local</strong>: Your laptop/desktop (default, great for testing)</li>
@@ -3801,46 +3771,41 @@ graph TD
 <p>This means all task execution directories will be created under <code>/data/users/mamana/nextflow-training/work/</code> (or your username).</p>
 <h4 id="nextflow-directory-structure">Nextflow Directory Structure<a class="headerlink" href="#nextflow-directory-structure" title="Permanent link">&para;</a></h4>
 <p>When you run a Nextflow pipeline, several directories are automatically created:</p>
-<div align="center">
-
-```mermaid
+<p>```mermaid
 graph TD
-    A[microbial-genomics-training/] --> B[workflows/]
-    A --> C[data/]
-    A --> D[/data/users/$USER/nextflow-training/work/]
-    A --> H[/data/users/$USER/nextflow-training/results/]
+    A[microbial-genomics-training/] &rarr; B[workflows/]
+    A &rarr; C[data/]
+    A &rarr; D[/data/users/<span class="arithmatex">\(USER/nextflow-training/work/]
+    A --&gt; E[/data/users/\)</span>USER/nextflow-training/results/]</p>
+<div class="language-text highlight"><pre><span></span><code>B --&gt; F[.nextflow/]
+B --&gt; G[.nextflow.log]
+B --&gt; H[*.nf files]
+B --&gt; I[nextflow.config]
 
-    B --> F[.nextflow/]
-    B --> G[.nextflow.log]
-    B --> H[*.nf files]
-    B --> I[nextflow.config]
+D --&gt; J[Task Directories]
+J --&gt; K[5d/7dd7ae.../]
+K --&gt; L[.command.sh]
+K --&gt; M[.command.log]
+K --&gt; N[.command.err]
+K --&gt; O[Input Files]
+K --&gt; P[Output Files]
 
-    D --> J[Task Directories]
-    J --> K[5d/7dd7ae.../]
-    K --> L[.command.sh]
-    K --> M[.command.log]
-    K --> N[.command.err]
-    K --> O[Input Files]
-    K --> P[Output Files]
+E --&gt; Q[Published Results]
+E --&gt; R[fastqc_raw/]
+E --&gt; S[fastqc_trimmed/]
+E --&gt; T[trimmed/]
+E --&gt; U[assemblies/]
+E --&gt; V[annotation/]
 
-    E --> Q[Published Results]
-    E --> R[fastqc_raw/]
-    E --> S[fastqc_trimmed/]
-    E --> T[trimmed/]
-    E --> U[assemblies/]
-    E --> V[annotation/]
+C --&gt; W[Dataset_Mt_Vc/tb/raw_data/]
 
-    C --> W[Dataset_Mt_Vc/tb/raw_data/]
-
-    style A fill:#e1f5fe
-    style B fill:#fff3e0
-    style D fill:#fff3e0
-    style E fill:#e8f5e8
-    style F fill:#f3e5f5
-```
-
-</div>
-
+style A fill:#e1f5fe
+style B fill:#fff3e0
+style D fill:#fff3e0
+style E fill:#e8f5e8
+style F fill:#f3e5f5
+</code></pre></div>
+<p>```</p>
 <div id="folder-explorer" style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0;">
     <h4>📁 Interactive Folder Explorer</h4>
     <p>Click on folders to explore Nextflow's directory structure:</p>
@@ -4149,13 +4114,13 @@ executor >  local (3)
 Hello from sample1!
 Hello from sample2!
 Hello from sample3!`,
-    'ls': 'data/  results/  scripts/  hello.nf',
+    'ls': 'data/  scripts/  hello.nf',
     'ls -la': `total 16
 drwxr-xr-x 5 user user 4096 Jan 15 09:00 .
 drwxr-xr-x 3 user user 4096 Jan 15 09:00 ..
 drwxr-xr-x 2 user user 4096 Jan 15 09:00 data
 -rw-r--r-- 1 user user  456 Jan 15 09:15 hello.nf
-drwxr-xr-x 2 user user 4096 Jan 15 09:00 results
+drwxr-xr-x 2 user user 4096 Jan 15 09:00 scripts
 drwxr-xr-x 2 user user 4096 Jan 15 09:00 scripts`,
     'pwd': '/home/user/nextflow-training',
     'mkdir test': 'Directory created: test/',
@@ -4253,40 +4218,35 @@ document.getElementById('command-input').addEventListener('keydown', function(e)
 </span></code></pre></div>
 <h3 id="your-first-genomics-pipeline">Your First Genomics Pipeline<a class="headerlink" href="#your-first-genomics-pipeline" title="Permanent link">&para;</a></h3>
 <p>Here's what a basic microbial genomics analysis looks like:</p>
-<div align="center">
-
-```mermaid
+<p>```mermaid
 flowchart LR
-    A[Raw Sequencing Data<br/>FASTQ files] --> B[Quality Control<br/>FastQC]
-    B --> C[Read Trimming<br/>Trimmomatic]
-    C --> D[Genome Assembly<br/>SPAdes]
-    D --> E[Assembly Quality<br/>QUAST]
-    E --> F[Gene Annotation<br/>Prokka]
-    F --> G[Final Results<br/>Annotated Genome]
+    A[Raw Sequencing Data<br/>FASTQ files] &rarr; B[Quality Control<br/>FastQC]
+    B &rarr; C[Read Trimming<br/>Trimmomatic]
+    C &rarr; D[Genome Assembly<br/>SPAdes]
+    D &rarr; E[Assembly Quality<br/>QUAST]
+    E &rarr; F[Gene Annotation<br/>Prokka]
+    F &rarr; G[Final Results<br/>Annotated Genome]</p>
+<div class="language-text highlight"><pre><span></span><code>B --&gt; H[Quality Report]
+E --&gt; I[Assembly Stats]
+F --&gt; J[Gene Predictions]
 
-    B --> H[Quality Report]
-    E --> I[Assembly Stats]
-    F --> J[Gene Predictions]
+%% Input/Output data - Gray
+style A fill:#f5f5f5,stroke:#757575,stroke-width:1px,color:#000
+style G fill:#f5f5f5,stroke:#757575,stroke-width:1px,color:#000
 
-    %% Input/Output data - Gray
-    style A fill:#f5f5f5,stroke:#757575,stroke-width:1px,color:#000
-    style G fill:#f5f5f5,stroke:#757575,stroke-width:1px,color:#000
+%% Processes (bioinformatics tools) - Green
+style B fill:#e8f5e8,stroke:#388e3c,stroke-width:2px,color:#000
+style C fill:#e8f5e8,stroke:#388e3c,stroke-width:2px,color:#000
+style D fill:#e8f5e8,stroke:#388e3c,stroke-width:2px,color:#000
+style E fill:#e8f5e8,stroke:#388e3c,stroke-width:2px,color:#000
+style F fill:#e8f5e8,stroke:#388e3c,stroke-width:2px,color:#000
 
-    %% Processes (bioinformatics tools) - Green
-    style B fill:#e8f5e8,stroke:#388e3c,stroke-width:2px,color:#000
-    style C fill:#e8f5e8,stroke:#388e3c,stroke-width:2px,color:#000
-    style D fill:#e8f5e8,stroke:#388e3c,stroke-width:2px,color:#000
-    style E fill:#e8f5e8,stroke:#388e3c,stroke-width:2px,color:#000
-    style F fill:#e8f5e8,stroke:#388e3c,stroke-width:2px,color:#000
-
-    %% Reports/Outputs - Light orange
-    style H fill:#fff3e0,stroke:#f57c00,stroke-width:1px,color:#000
-    style I fill:#fff3e0,stroke:#f57c00,stroke-width:1px,color:#000
-    style J fill:#fff3e0,stroke:#f57c00,stroke-width:1px,color:#000
-```
-
-</div>
-
+%% Reports/Outputs - Light orange
+style H fill:#fff3e0,stroke:#f57c00,stroke-width:1px,color:#000
+style I fill:#fff3e0,stroke:#f57c00,stroke-width:1px,color:#000
+style J fill:#fff3e0,stroke:#f57c00,stroke-width:1px,color:#000
+</code></pre></div>
+<p>```</p>
 <p><strong>What Each Step Does:</strong></p>
 <ol>
 <li><strong>Quality Control</strong>: Check if your sequencing data is good quality</li>
@@ -4505,17 +4465,17 @@ flowchart LR
 </span><span id="__span-50-2"><a id="__codelineno-50-2" name="__codelineno-50-2" href="#__codelineno-50-2"></a>Launching `count_reads.nf` [clever_volta] - revision: 5e6f7g8h
 </span><span id="__span-50-3"><a id="__codelineno-50-3" name="__codelineno-50-3" href="#__codelineno-50-3"></a>executor &gt;  local (2)
 </span><span id="__span-50-4"><a id="__codelineno-50-4" name="__codelineno-50-4" href="#__codelineno-50-4"></a>[c1/d2e3f4] process &gt; countReads (ERR036221) [100%] 2 of 2 ✔
-</span><span id="__span-50-5"><a id="__codelineno-50-5" name="__codelineno-50-5" href="#__codelineno-50-5"></a>Read count file: /path/to/results/ERR036221.count
-</span><span id="__span-50-6"><a id="__codelineno-50-6" name="__codelineno-50-6" href="#__codelineno-50-6"></a>Read count file: /path/to/results/ERR036223.count
+</span><span id="__span-50-5"><a id="__codelineno-50-5" name="__codelineno-50-5" href="#__codelineno-50-5"></a>Read count file: /data/users/$USER/nextflow-training/results/ERR036221.count
+</span><span id="__span-50-6"><a id="__codelineno-50-6" name="__codelineno-50-6" href="#__codelineno-50-6"></a>Read count file: /data/users/$USER/nextflow-training/results/ERR036223.count
 </span></code></pre></div>
 </details>
 <p><strong>Step 5: Check your results</strong>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-51-1"><a id="__codelineno-51-1" name="__codelineno-51-1" href="#__codelineno-51-1"></a><span class="c1"># Look at the results directory</span>
-</span><span id="__span-51-2"><a id="__codelineno-51-2" name="__codelineno-51-2" href="#__codelineno-51-2"></a>ls<span class="w"> </span>results/
+</span><span id="__span-51-2"><a id="__codelineno-51-2" name="__codelineno-51-2" href="#__codelineno-51-2"></a>ls<span class="w"> </span>/data/users/<span class="nv">$USER</span>/nextflow-training/results/
 </span><span id="__span-51-3"><a id="__codelineno-51-3" name="__codelineno-51-3" href="#__codelineno-51-3"></a>
 </span><span id="__span-51-4"><a id="__codelineno-51-4" name="__codelineno-51-4" href="#__codelineno-51-4"></a><span class="c1"># Check the read counts for real TB data</span>
-</span><span id="__span-51-5"><a id="__codelineno-51-5" name="__codelineno-51-5" href="#__codelineno-51-5"></a>cat<span class="w"> </span>results/ERR036221.count
-</span><span id="__span-51-6"><a id="__codelineno-51-6" name="__codelineno-51-6" href="#__codelineno-51-6"></a>cat<span class="w"> </span>results/ERR036223.count
+</span><span id="__span-51-5"><a id="__codelineno-51-5" name="__codelineno-51-5" href="#__codelineno-51-5"></a>cat<span class="w"> </span>/data/users/<span class="nv">$USER</span>/nextflow-training/results/ERR036221.count
+</span><span id="__span-51-6"><a id="__codelineno-51-6" name="__codelineno-51-6" href="#__codelineno-51-6"></a>cat<span class="w"> </span>/data/users/<span class="nv">$USER</span>/nextflow-training/results/ERR036223.count
 </span><span id="__span-51-7"><a id="__codelineno-51-7" name="__codelineno-51-7" href="#__codelineno-51-7"></a>
 </span><span id="__span-51-8"><a id="__codelineno-51-8" name="__codelineno-51-8" href="#__codelineno-51-8"></a><span class="c1"># Compare file sizes</span>
 </span><span id="__span-51-9"><a id="__codelineno-51-9" name="__codelineno-51-9" href="#__codelineno-51-9"></a>ls<span class="w"> </span>-lh<span class="w"> </span>/data/Dataset_Mt_Vc/tb/raw_data/ERR036221_*.fastq.gz
@@ -4535,20 +4495,20 @@ flowchart LR
 </span><span id="__span-52-10"><a id="__codelineno-52-10" name="__codelineno-52-10" href="#__codelineno-52-10"></a>Reverse reads: 4188521
 </span><span id="__span-52-11"><a id="__codelineno-52-11" name="__codelineno-52-11" href="#__codelineno-52-11"></a>Total read pairs: 4188521
 </span></code></pre></div>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-53-1"><a id="__codelineno-53-1" name="__codelineno-53-1" href="#__codelineno-53-1"></a># ls results/
+<div class="language-text highlight"><pre><span></span><code><span id="__span-53-1"><a id="__codelineno-53-1" name="__codelineno-53-1" href="#__codelineno-53-1"></a># ls /data/users/$USER/nextflow-training/results/
 </span><span id="__span-53-2"><a id="__codelineno-53-2" name="__codelineno-53-2" href="#__codelineno-53-2"></a>sample1.count  sample2.count
 </span><span id="__span-53-3"><a id="__codelineno-53-3" name="__codelineno-53-3" href="#__codelineno-53-3"></a>
-</span><span id="__span-53-4"><a id="__codelineno-53-4" name="__codelineno-53-4" href="#__codelineno-53-4"></a># cat results/sample1.count
+</span><span id="__span-53-4"><a id="__codelineno-53-4" name="__codelineno-53-4" href="#__codelineno-53-4"></a># cat /data/users/$USER/nextflow-training/results/sample1.count
 </span><span id="__span-53-5"><a id="__codelineno-53-5" name="__codelineno-53-5" href="#__codelineno-53-5"></a>2
 </span><span id="__span-53-6"><a id="__codelineno-53-6" name="__codelineno-53-6" href="#__codelineno-53-6"></a>
-</span><span id="__span-53-7"><a id="__codelineno-53-7" name="__codelineno-53-7" href="#__codelineno-53-7"></a># cat results/sample2.count
+</span><span id="__span-53-7"><a id="__codelineno-53-7" name="__codelineno-53-7" href="#__codelineno-53-7"></a># cat /data/users/$USER/nextflow-training/results/sample2.count
 </span><span id="__span-53-8"><a id="__codelineno-53-8" name="__codelineno-53-8" href="#__codelineno-53-8"></a>3
 </span></code></pre></div></p>
 </details>
 <p><strong>What this pipeline does:</strong>
 1. Reads sample information from a CSV file
 2. Counts reads in paired FASTQ files (in parallel!)
-3. Saves results to the <code>results/</code> directory
+3. Saves results to the <code>/data/users/$USER/nextflow-training/results/</code> directory
 4. Each <code>.count</code> file contains detailed read statistics for that sample</p>
 <h3 id="exercise-2b-real-world-scenarios-30-minutes">Exercise 2B: Real-World Scenarios (30 minutes)<a class="headerlink" href="#exercise-2b-real-world-scenarios-30-minutes" title="Permanent link">&para;</a></h3>
 <p>Now let's explore common real-world scenarios you'll encounter when using Nextflow:</p>
@@ -4569,7 +4529,7 @@ flowchart LR
 </span></code></pre></div>
 <h4 id="scenario-2-running-without-resume-fresh-start"><strong>Scenario 2: Running Without Resume (Fresh Start)</strong><a class="headerlink" href="#scenario-2-running-without-resume-fresh-start" title="Permanent link">&para;</a></h4>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-55-1"><a id="__codelineno-55-1" name="__codelineno-55-1" href="#__codelineno-55-1"></a><span class="c1"># Clean previous results</span>
-</span><span id="__span-55-2"><a id="__codelineno-55-2" name="__codelineno-55-2" href="#__codelineno-55-2"></a>rm<span class="w"> </span>-rf<span class="w"> </span>results/<span class="w"> </span>/data/users/<span class="nv">$USER</span>/nextflow-training/work/*
+</span><span id="__span-55-2"><a id="__codelineno-55-2" name="__codelineno-55-2" href="#__codelineno-55-2"></a>rm<span class="w"> </span>-rf<span class="w"> </span>/data/users/<span class="nv">$USER</span>/nextflow-training/results/*<span class="w"> </span>/data/users/<span class="nv">$USER</span>/nextflow-training/work/*
 </span><span id="__span-55-3"><a id="__codelineno-55-3" name="__codelineno-55-3" href="#__codelineno-55-3"></a>
 </span><span id="__span-55-4"><a id="__codelineno-55-4" name="__codelineno-55-4" href="#__codelineno-55-4"></a><span class="c1"># Run pipeline fresh (all processes will execute)</span>
 </span><span id="__span-55-5"><a id="__codelineno-55-5" name="__codelineno-55-5" href="#__codelineno-55-5"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;=== Running WITHOUT -resume ===&quot;</span>
@@ -4711,7 +4671,7 @@ flowchart LR
 </span><span id="__span-62-3"><a id="__codelineno-62-3" name="__codelineno-62-3" href="#__codelineno-62-3"></a>
 </span><span id="__span-62-4"><a id="__codelineno-62-4" name="__codelineno-62-4" href="#__codelineno-62-4"></a><span class="c1"># 1. Fresh run timing</span>
 </span><span id="__span-62-5"><a id="__codelineno-62-5" name="__codelineno-62-5" href="#__codelineno-62-5"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;1. Measuring fresh run time...&quot;</span>
-</span><span id="__span-62-6"><a id="__codelineno-62-6" name="__codelineno-62-6" href="#__codelineno-62-6"></a>rm<span class="w"> </span>-rf<span class="w"> </span>/data/users/<span class="nv">$USER</span>/nextflow-training/work/*<span class="w"> </span>results/
+</span><span id="__span-62-6"><a id="__codelineno-62-6" name="__codelineno-62-6" href="#__codelineno-62-6"></a>rm<span class="w"> </span>-rf<span class="w"> </span>/data/users/<span class="nv">$USER</span>/nextflow-training/work/*<span class="w"> </span>/data/users/<span class="nv">$USER</span>/nextflow-training/results/*
 </span><span id="__span-62-7"><a id="__codelineno-62-7" name="__codelineno-62-7" href="#__codelineno-62-7"></a><span class="nb">time</span><span class="w"> </span>nextflow<span class="w"> </span>run<span class="w"> </span>count_reads.nf<span class="w"> </span>--input<span class="w"> </span>samplesheet.csv<span class="w"> </span>&gt;<span class="w"> </span>fresh_run.log<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span>
 </span><span id="__span-62-8"><a id="__codelineno-62-8" name="__codelineno-62-8" href="#__codelineno-62-8"></a>
 </span><span id="__span-62-9"><a id="__codelineno-62-9" name="__codelineno-62-9" href="#__codelineno-62-9"></a><span class="c1"># 2. Resume run timing (no changes)</span>
@@ -5131,15 +5091,15 @@ showScenario('fresh');
 </span><span id="__span-68-13"><a id="__codelineno-68-13" name="__codelineno-68-13" href="#__codelineno-68-13"></a>[m4/n5o6p7] process &gt; prokka_annotation (ERR036223) [100%] 2 of 2 ✔
 </span><span id="__span-68-14"><a id="__codelineno-68-14" name="__codelineno-68-14" href="#__codelineno-68-14"></a>[y5/z6a7b8] process &gt; multiqc                       [100%] 1 of 1 ✔
 </span><span id="__span-68-15"><a id="__codelineno-68-15" name="__codelineno-68-15" href="#__codelineno-68-15"></a>
-</span><span id="__span-68-16"><a id="__codelineno-68-16" name="__codelineno-68-16" href="#__codelineno-68-16"></a>Assembly completed: /path/to/results/assemblies/ERR036221_assembly
-</span><span id="__span-68-17"><a id="__codelineno-68-17" name="__codelineno-68-17" href="#__codelineno-68-17"></a>Contigs file: /path/to/results/assemblies/ERR036221_assembly/contigs.fasta
-</span><span id="__span-68-18"><a id="__codelineno-68-18" name="__codelineno-68-18" href="#__codelineno-68-18"></a>Assembly completed: /path/to/results/assemblies/ERR036223_assembly
-</span><span id="__span-68-19"><a id="__codelineno-68-19" name="__codelineno-68-19" href="#__codelineno-68-19"></a>Contigs file: /path/to/results/assemblies/ERR036223_assembly/contigs.fasta
-</span><span id="__span-68-20"><a id="__codelineno-68-20" name="__codelineno-68-20" href="#__codelineno-68-20"></a>Annotation completed: /path/to/results/annotation/ERR036221_annotation
-</span><span id="__span-68-21"><a id="__codelineno-68-21" name="__codelineno-68-21" href="#__codelineno-68-21"></a>GFF file: /path/to/results/annotation/ERR036221_annotation/ERR036221.gff
-</span><span id="__span-68-22"><a id="__codelineno-68-22" name="__codelineno-68-22" href="#__codelineno-68-22"></a>Annotation completed: /path/to/results/annotation/ERR036223_annotation
-</span><span id="__span-68-23"><a id="__codelineno-68-23" name="__codelineno-68-23" href="#__codelineno-68-23"></a>GFF file: /path/to/results/annotation/ERR036223_annotation/ERR036223.gff
-</span><span id="__span-68-24"><a id="__codelineno-68-24" name="__codelineno-68-24" href="#__codelineno-68-24"></a>MultiQC report created: /path/to/results/multiqc_report.html
+</span><span id="__span-68-16"><a id="__codelineno-68-16" name="__codelineno-68-16" href="#__codelineno-68-16"></a>Assembly completed: /data/users/$USER/nextflow-training/results/assemblies/ERR036221_assembly
+</span><span id="__span-68-17"><a id="__codelineno-68-17" name="__codelineno-68-17" href="#__codelineno-68-17"></a>Contigs file: /data/users/$USER/nextflow-training/results/assemblies/ERR036221_assembly/contigs.fasta
+</span><span id="__span-68-18"><a id="__codelineno-68-18" name="__codelineno-68-18" href="#__codelineno-68-18"></a>Assembly completed: /data/users/$USER/nextflow-training/results/assemblies/ERR036223_assembly
+</span><span id="__span-68-19"><a id="__codelineno-68-19" name="__codelineno-68-19" href="#__codelineno-68-19"></a>Contigs file: /data/users/$USER/nextflow-training/results/assemblies/ERR036223_assembly/contigs.fasta
+</span><span id="__span-68-20"><a id="__codelineno-68-20" name="__codelineno-68-20" href="#__codelineno-68-20"></a>Annotation completed: /data/users/$USER/nextflow-training/results/annotation/ERR036221_annotation
+</span><span id="__span-68-21"><a id="__codelineno-68-21" name="__codelineno-68-21" href="#__codelineno-68-21"></a>GFF file: /data/users/$USER/nextflow-training/results/annotation/ERR036221_annotation/ERR036221.gff
+</span><span id="__span-68-22"><a id="__codelineno-68-22" name="__codelineno-68-22" href="#__codelineno-68-22"></a>Annotation completed: /data/users/$USER/nextflow-training/results/annotation/ERR036223_annotation
+</span><span id="__span-68-23"><a id="__codelineno-68-23" name="__codelineno-68-23" href="#__codelineno-68-23"></a>GFF file: /data/users/$USER/nextflow-training/results/annotation/ERR036223_annotation/ERR036223.gff
+</span><span id="__span-68-24"><a id="__codelineno-68-24" name="__codelineno-68-24" href="#__codelineno-68-24"></a>MultiQC report created: /data/users/$USER/nextflow-training/results/multiqc_report.html
 </span></code></pre></div>
 </details>
 <h4 id="step-3-running-on-cluster-with-configuration-files"><strong>Step 3: Running on Cluster with Configuration Files</strong><a class="headerlink" href="#step-3-running-on-cluster-with-configuration-files" title="Permanent link">&para;</a></h4>
@@ -5256,10 +5216,10 @@ showScenario('fresh');
 </span><span id="__span-72-13"><a id="__codelineno-72-13" name="__codelineno-72-13" href="#__codelineno-72-13"></a>[m4/n5o6p7] process &gt; prokka_annotation (ERR036223) [100%] 2 of 2 ✔
 </span><span id="__span-72-14"><a id="__codelineno-72-14" name="__codelineno-72-14" href="#__codelineno-72-14"></a>[y5/z6a7b8] process &gt; multiqc                       [100%] 1 of 1 ✔
 </span><span id="__span-72-15"><a id="__codelineno-72-15" name="__codelineno-72-15" href="#__codelineno-72-15"></a>
-</span><span id="__span-72-16"><a id="__codelineno-72-16" name="__codelineno-72-16" href="#__codelineno-72-16"></a>Assembly completed: /path/to/results_cluster/assemblies/ERR036221_assembly
-</span><span id="__span-72-17"><a id="__codelineno-72-17" name="__codelineno-72-17" href="#__codelineno-72-17"></a>Contigs file: /path/to/results_cluster/assemblies/ERR036221_assembly/contigs.fasta
-</span><span id="__span-72-18"><a id="__codelineno-72-18" name="__codelineno-72-18" href="#__codelineno-72-18"></a>Annotation completed: /path/to/results_cluster/annotation/ERR036221_annotation
-</span><span id="__span-72-19"><a id="__codelineno-72-19" name="__codelineno-72-19" href="#__codelineno-72-19"></a>GFF file: /path/to/results_cluster/annotation/ERR036221_annotation/ERR036221.gff
+</span><span id="__span-72-16"><a id="__codelineno-72-16" name="__codelineno-72-16" href="#__codelineno-72-16"></a>Assembly completed: /data/users/$USER/nextflow-training/results_cluster/assemblies/ERR036221_assembly
+</span><span id="__span-72-17"><a id="__codelineno-72-17" name="__codelineno-72-17" href="#__codelineno-72-17"></a>Contigs file: /data/users/$USER/nextflow-training/results_cluster/assemblies/ERR036221_assembly/contigs.fasta
+</span><span id="__span-72-18"><a id="__codelineno-72-18" name="__codelineno-72-18" href="#__codelineno-72-18"></a>Annotation completed: /data/users/$USER/nextflow-training/results_cluster/annotation/ERR036221_annotation
+</span><span id="__span-72-19"><a id="__codelineno-72-19" name="__codelineno-72-19" href="#__codelineno-72-19"></a>GFF file: /data/users/$USER/nextflow-training/results_cluster/annotation/ERR036221_annotation/ERR036221.gff
 </span><span id="__span-72-20"><a id="__codelineno-72-20" name="__codelineno-72-20" href="#__codelineno-72-20"></a>
 </span><span id="__span-72-21"><a id="__codelineno-72-21" name="__codelineno-72-21" href="#__codelineno-72-21"></a>Completed at: 09-Dec-2024 14:30:15
 </span><span id="__span-72-22"><a id="__codelineno-72-22" name="__codelineno-72-22" href="#__codelineno-72-22"></a>Duration    : 45m 23s
@@ -5275,10 +5235,10 @@ showScenario('fresh');
 </span><span id="__span-73-5"><a id="__codelineno-73-5" name="__codelineno-73-5" href="#__codelineno-73-5"></a>nextflow<span class="w"> </span>log<span class="w"> </span>-f<span class="w"> </span>trace
 </span><span id="__span-73-6"><a id="__codelineno-73-6" name="__codelineno-73-6" href="#__codelineno-73-6"></a>
 </span><span id="__span-73-7"><a id="__codelineno-73-7" name="__codelineno-73-7" href="#__codelineno-73-7"></a><span class="c1"># View detailed execution report</span>
-</span><span id="__span-73-8"><a id="__codelineno-73-8" name="__codelineno-73-8" href="#__codelineno-73-8"></a>firefox<span class="w"> </span>results_cluster/pipeline_report.html
+</span><span id="__span-73-8"><a id="__codelineno-73-8" name="__codelineno-73-8" href="#__codelineno-73-8"></a>firefox<span class="w"> </span>/data/users/<span class="nv">$USER</span>/nextflow-training/results_cluster/pipeline_report.html
 </span><span id="__span-73-9"><a id="__codelineno-73-9" name="__codelineno-73-9" href="#__codelineno-73-9"></a>
 </span><span id="__span-73-10"><a id="__codelineno-73-10" name="__codelineno-73-10" href="#__codelineno-73-10"></a><span class="c1"># Check timeline visualization</span>
-</span><span id="__span-73-11"><a id="__codelineno-73-11" name="__codelineno-73-11" href="#__codelineno-73-11"></a>firefox<span class="w"> </span>results_cluster/pipeline_timeline.html
+</span><span id="__span-73-11"><a id="__codelineno-73-11" name="__codelineno-73-11" href="#__codelineno-73-11"></a>firefox<span class="w"> </span>/data/users/<span class="nv">$USER</span>/nextflow-training/results_cluster/pipeline_timeline.html
 </span></code></pre></div>
 <p><strong>Scaling up for production analysis:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-74-1"><a id="__codelineno-74-1" name="__codelineno-74-1" href="#__codelineno-74-1"></a><span class="c1"># Create extended sample sheet with more samples</span>
@@ -5317,34 +5277,34 @@ showScenario('fresh');
 <h4 id="step-4-pipeline-scenarios-and-comparisons"><strong>Step 4: Pipeline Scenarios and Comparisons</strong><a class="headerlink" href="#step-4-pipeline-scenarios-and-comparisons" title="Permanent link">&para;</a></h4>
 <p><strong>Scenario A: Compare Before and After Trimming</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-75-1"><a id="__codelineno-75-1" name="__codelineno-75-1" href="#__codelineno-75-1"></a><span class="c1"># Check the complete results structure</span>
-</span><span id="__span-75-2"><a id="__codelineno-75-2" name="__codelineno-75-2" href="#__codelineno-75-2"></a>tree<span class="w"> </span>results/
+</span><span id="__span-75-2"><a id="__codelineno-75-2" name="__codelineno-75-2" href="#__codelineno-75-2"></a>tree<span class="w"> </span>/data/users/<span class="nv">$USER</span>/nextflow-training/results/
 </span><span id="__span-75-3"><a id="__codelineno-75-3" name="__codelineno-75-3" href="#__codelineno-75-3"></a>
 </span><span id="__span-75-4"><a id="__codelineno-75-4" name="__codelineno-75-4" href="#__codelineno-75-4"></a><span class="c1"># Explore each output directory</span>
 </span><span id="__span-75-5"><a id="__codelineno-75-5" name="__codelineno-75-5" href="#__codelineno-75-5"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;=== Raw Data Quality Reports ===&quot;</span>
-</span><span id="__span-75-6"><a id="__codelineno-75-6" name="__codelineno-75-6" href="#__codelineno-75-6"></a>ls<span class="w"> </span>-la<span class="w"> </span>results/fastqc_raw/
+</span><span id="__span-75-6"><a id="__codelineno-75-6" name="__codelineno-75-6" href="#__codelineno-75-6"></a>ls<span class="w"> </span>-la<span class="w"> </span>/data/users/<span class="nv">$USER</span>/nextflow-training/results/fastqc_raw/
 </span><span id="__span-75-7"><a id="__codelineno-75-7" name="__codelineno-75-7" href="#__codelineno-75-7"></a>
 </span><span id="__span-75-8"><a id="__codelineno-75-8" name="__codelineno-75-8" href="#__codelineno-75-8"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;=== Trimmed Data Quality Reports ===&quot;</span>
-</span><span id="__span-75-9"><a id="__codelineno-75-9" name="__codelineno-75-9" href="#__codelineno-75-9"></a>ls<span class="w"> </span>-la<span class="w"> </span>results/fastqc_trimmed/
+</span><span id="__span-75-9"><a id="__codelineno-75-9" name="__codelineno-75-9" href="#__codelineno-75-9"></a>ls<span class="w"> </span>-la<span class="w"> </span>/data/users/<span class="nv">$USER</span>/nextflow-training/results/fastqc_trimmed/
 </span><span id="__span-75-10"><a id="__codelineno-75-10" name="__codelineno-75-10" href="#__codelineno-75-10"></a>
 </span><span id="__span-75-11"><a id="__codelineno-75-11" name="__codelineno-75-11" href="#__codelineno-75-11"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;=== Trimmed FASTQ Files ===&quot;</span>
-</span><span id="__span-75-12"><a id="__codelineno-75-12" name="__codelineno-75-12" href="#__codelineno-75-12"></a>ls<span class="w"> </span>-la<span class="w"> </span>results/trimmed/
+</span><span id="__span-75-12"><a id="__codelineno-75-12" name="__codelineno-75-12" href="#__codelineno-75-12"></a>ls<span class="w"> </span>-la<span class="w"> </span>/data/users/<span class="nv">$USER</span>/nextflow-training/results/trimmed/
 </span><span id="__span-75-13"><a id="__codelineno-75-13" name="__codelineno-75-13" href="#__codelineno-75-13"></a>
 </span><span id="__span-75-14"><a id="__codelineno-75-14" name="__codelineno-75-14" href="#__codelineno-75-14"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;=== Genome Assemblies ===&quot;</span>
-</span><span id="__span-75-15"><a id="__codelineno-75-15" name="__codelineno-75-15" href="#__codelineno-75-15"></a>ls<span class="w"> </span>-la<span class="w"> </span>results/assemblies/
+</span><span id="__span-75-15"><a id="__codelineno-75-15" name="__codelineno-75-15" href="#__codelineno-75-15"></a>ls<span class="w"> </span>-la<span class="w"> </span>/data/users/<span class="nv">$USER</span>/nextflow-training/results/assemblies/
 </span><span id="__span-75-16"><a id="__codelineno-75-16" name="__codelineno-75-16" href="#__codelineno-75-16"></a>
 </span><span id="__span-75-17"><a id="__codelineno-75-17" name="__codelineno-75-17" href="#__codelineno-75-17"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;=== Genome Annotations ===&quot;</span>
-</span><span id="__span-75-18"><a id="__codelineno-75-18" name="__codelineno-75-18" href="#__codelineno-75-18"></a>ls<span class="w"> </span>-la<span class="w"> </span>results/annotation/
+</span><span id="__span-75-18"><a id="__codelineno-75-18" name="__codelineno-75-18" href="#__codelineno-75-18"></a>ls<span class="w"> </span>-la<span class="w"> </span>/data/users/<span class="nv">$USER</span>/nextflow-training/results/annotation/
 </span><span id="__span-75-19"><a id="__codelineno-75-19" name="__codelineno-75-19" href="#__codelineno-75-19"></a>
 </span><span id="__span-75-20"><a id="__codelineno-75-20" name="__codelineno-75-20" href="#__codelineno-75-20"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;=== MultiQC Summary Report ===&quot;</span>
-</span><span id="__span-75-21"><a id="__codelineno-75-21" name="__codelineno-75-21" href="#__codelineno-75-21"></a>ls<span class="w"> </span>-la<span class="w"> </span>results/multiqc_report.html
+</span><span id="__span-75-21"><a id="__codelineno-75-21" name="__codelineno-75-21" href="#__codelineno-75-21"></a>ls<span class="w"> </span>-la<span class="w"> </span>/data/users/<span class="nv">$USER</span>/nextflow-training/results/multiqc_report.html
 </span><span id="__span-75-22"><a id="__codelineno-75-22" name="__codelineno-75-22" href="#__codelineno-75-22"></a>
 </span><span id="__span-75-23"><a id="__codelineno-75-23" name="__codelineno-75-23" href="#__codelineno-75-23"></a><span class="c1"># Check assembly statistics</span>
 </span><span id="__span-75-24"><a id="__codelineno-75-24" name="__codelineno-75-24" href="#__codelineno-75-24"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;=== Assembly Statistics ===&quot;</span>
 </span><span id="__span-75-25"><a id="__codelineno-75-25" name="__codelineno-75-25" href="#__codelineno-75-25"></a><span class="k">for</span><span class="w"> </span>sample<span class="w"> </span><span class="k">in</span><span class="w"> </span>ERR036221<span class="w"> </span>ERR036223<span class="p">;</span><span class="w"> </span><span class="k">do</span>
 </span><span id="__span-75-26"><a id="__codelineno-75-26" name="__codelineno-75-26" href="#__codelineno-75-26"></a><span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Sample: </span><span class="nv">$sample</span><span class="s2">&quot;</span>
-</span><span id="__span-75-27"><a id="__codelineno-75-27" name="__codelineno-75-27" href="#__codelineno-75-27"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>-f<span class="w"> </span><span class="s2">&quot;results/assemblies/</span><span class="si">${</span><span class="nv">sample</span><span class="si">}</span><span class="s2">_assembly/contigs.fasta&quot;</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
-</span><span id="__span-75-28"><a id="__codelineno-75-28" name="__codelineno-75-28" href="#__codelineno-75-28"></a><span class="w">        </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;  Contigs: </span><span class="k">$(</span>grep<span class="w"> </span>-c<span class="w"> </span><span class="s1">&#39;&gt;&#39;</span><span class="w"> </span>results/assemblies/<span class="si">${</span><span class="nv">sample</span><span class="si">}</span>_assembly/contigs.fasta<span class="k">)</span><span class="s2">&quot;</span>
-</span><span id="__span-75-29"><a id="__codelineno-75-29" name="__codelineno-75-29" href="#__codelineno-75-29"></a><span class="w">        </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;  Total size: </span><span class="k">$(</span>grep<span class="w"> </span>-v<span class="w"> </span><span class="s1">&#39;&gt;&#39;</span><span class="w"> </span>results/assemblies/<span class="si">${</span><span class="nv">sample</span><span class="si">}</span>_assembly/contigs.fasta<span class="w"> </span><span class="p">|</span><span class="w"> </span>wc<span class="w"> </span>-c<span class="k">)</span><span class="s2"> bp&quot;</span>
+</span><span id="__span-75-27"><a id="__codelineno-75-27" name="__codelineno-75-27" href="#__codelineno-75-27"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>-f<span class="w"> </span><span class="s2">&quot;/data/users/</span><span class="nv">$USER</span><span class="s2">/nextflow-training/results/assemblies/</span><span class="si">${</span><span class="nv">sample</span><span class="si">}</span><span class="s2">_assembly/contigs.fasta&quot;</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+</span><span id="__span-75-28"><a id="__codelineno-75-28" name="__codelineno-75-28" href="#__codelineno-75-28"></a><span class="w">        </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;  Contigs: </span><span class="k">$(</span>grep<span class="w"> </span>-c<span class="w"> </span><span class="s1">&#39;&gt;&#39;</span><span class="w"> </span>/data/users/<span class="nv">$USER</span>/nextflow-training/results/assemblies/<span class="si">${</span><span class="nv">sample</span><span class="si">}</span>_assembly/contigs.fasta<span class="k">)</span><span class="s2">&quot;</span>
+</span><span id="__span-75-29"><a id="__codelineno-75-29" name="__codelineno-75-29" href="#__codelineno-75-29"></a><span class="w">        </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;  Total size: </span><span class="k">$(</span>grep<span class="w"> </span>-v<span class="w"> </span><span class="s1">&#39;&gt;&#39;</span><span class="w"> </span>/data/users/<span class="nv">$USER</span>/nextflow-training/results/assemblies/<span class="si">${</span><span class="nv">sample</span><span class="si">}</span>_assembly/contigs.fasta<span class="w"> </span><span class="p">|</span><span class="w"> </span>wc<span class="w"> </span>-c<span class="k">)</span><span class="s2"> bp&quot;</span>
 </span><span id="__span-75-30"><a id="__codelineno-75-30" name="__codelineno-75-30" href="#__codelineno-75-30"></a><span class="w">    </span><span class="k">fi</span>
 </span><span id="__span-75-31"><a id="__codelineno-75-31" name="__codelineno-75-31" href="#__codelineno-75-31"></a><span class="k">done</span>
 </span><span id="__span-75-32"><a id="__codelineno-75-32" name="__codelineno-75-32" href="#__codelineno-75-32"></a>
@@ -5352,10 +5312,10 @@ showScenario('fresh');
 </span><span id="__span-75-34"><a id="__codelineno-75-34" name="__codelineno-75-34" href="#__codelineno-75-34"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;=== Annotation Statistics ===&quot;</span>
 </span><span id="__span-75-35"><a id="__codelineno-75-35" name="__codelineno-75-35" href="#__codelineno-75-35"></a><span class="k">for</span><span class="w"> </span>sample<span class="w"> </span><span class="k">in</span><span class="w"> </span>ERR036221<span class="w"> </span>ERR036223<span class="p">;</span><span class="w"> </span><span class="k">do</span>
 </span><span id="__span-75-36"><a id="__codelineno-75-36" name="__codelineno-75-36" href="#__codelineno-75-36"></a><span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Sample: </span><span class="nv">$sample</span><span class="s2">&quot;</span>
-</span><span id="__span-75-37"><a id="__codelineno-75-37" name="__codelineno-75-37" href="#__codelineno-75-37"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>-f<span class="w"> </span><span class="s2">&quot;results/annotation/</span><span class="si">${</span><span class="nv">sample</span><span class="si">}</span><span class="s2">_annotation/</span><span class="si">${</span><span class="nv">sample</span><span class="si">}</span><span class="s2">.gff&quot;</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
-</span><span id="__span-75-38"><a id="__codelineno-75-38" name="__codelineno-75-38" href="#__codelineno-75-38"></a><span class="w">        </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;  Total features: </span><span class="k">$(</span>grep<span class="w"> </span>-v<span class="w"> </span><span class="s1">&#39;^#&#39;</span><span class="w"> </span>results/annotation/<span class="si">${</span><span class="nv">sample</span><span class="si">}</span>_annotation/<span class="si">${</span><span class="nv">sample</span><span class="si">}</span>.gff<span class="w"> </span><span class="p">|</span><span class="w"> </span>wc<span class="w"> </span>-l<span class="k">)</span><span class="s2">&quot;</span>
-</span><span id="__span-75-39"><a id="__codelineno-75-39" name="__codelineno-75-39" href="#__codelineno-75-39"></a><span class="w">        </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;  CDS features: </span><span class="k">$(</span>grep<span class="w"> </span>-v<span class="w"> </span><span class="s1">&#39;^#&#39;</span><span class="w"> </span>results/annotation/<span class="si">${</span><span class="nv">sample</span><span class="si">}</span>_annotation/<span class="si">${</span><span class="nv">sample</span><span class="si">}</span>.gff<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="s1">&#39;CDS&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>wc<span class="w"> </span>-l<span class="k">)</span><span class="s2">&quot;</span>
-</span><span id="__span-75-40"><a id="__codelineno-75-40" name="__codelineno-75-40" href="#__codelineno-75-40"></a><span class="w">        </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;  Gene features: </span><span class="k">$(</span>grep<span class="w"> </span>-v<span class="w"> </span><span class="s1">&#39;^#&#39;</span><span class="w"> </span>results/annotation/<span class="si">${</span><span class="nv">sample</span><span class="si">}</span>_annotation/<span class="si">${</span><span class="nv">sample</span><span class="si">}</span>.gff<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="s1">&#39;gene&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>wc<span class="w"> </span>-l<span class="k">)</span><span class="s2">&quot;</span>
+</span><span id="__span-75-37"><a id="__codelineno-75-37" name="__codelineno-75-37" href="#__codelineno-75-37"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>-f<span class="w"> </span><span class="s2">&quot;/data/users/</span><span class="nv">$USER</span><span class="s2">/nextflow-training/results/annotation/</span><span class="si">${</span><span class="nv">sample</span><span class="si">}</span><span class="s2">_annotation/</span><span class="si">${</span><span class="nv">sample</span><span class="si">}</span><span class="s2">.gff&quot;</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+</span><span id="__span-75-38"><a id="__codelineno-75-38" name="__codelineno-75-38" href="#__codelineno-75-38"></a><span class="w">        </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;  Total features: </span><span class="k">$(</span>grep<span class="w"> </span>-v<span class="w"> </span><span class="s1">&#39;^#&#39;</span><span class="w"> </span>/data/users/<span class="nv">$USER</span>/nextflow-training/results/annotation/<span class="si">${</span><span class="nv">sample</span><span class="si">}</span>_annotation/<span class="si">${</span><span class="nv">sample</span><span class="si">}</span>.gff<span class="w"> </span><span class="p">|</span><span class="w"> </span>wc<span class="w"> </span>-l<span class="k">)</span><span class="s2">&quot;</span>
+</span><span id="__span-75-39"><a id="__codelineno-75-39" name="__codelineno-75-39" href="#__codelineno-75-39"></a><span class="w">        </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;  CDS features: </span><span class="k">$(</span>grep<span class="w"> </span>-v<span class="w"> </span><span class="s1">&#39;^#&#39;</span><span class="w"> </span>/data/users/<span class="nv">$USER</span>/nextflow-training/results/annotation/<span class="si">${</span><span class="nv">sample</span><span class="si">}</span>_annotation/<span class="si">${</span><span class="nv">sample</span><span class="si">}</span>.gff<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="s1">&#39;CDS&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>wc<span class="w"> </span>-l<span class="k">)</span><span class="s2">&quot;</span>
+</span><span id="__span-75-40"><a id="__codelineno-75-40" name="__codelineno-75-40" href="#__codelineno-75-40"></a><span class="w">        </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;  Gene features: </span><span class="k">$(</span>grep<span class="w"> </span>-v<span class="w"> </span><span class="s1">&#39;^#&#39;</span><span class="w"> </span>/data/users/<span class="nv">$USER</span>/nextflow-training/results/annotation/<span class="si">${</span><span class="nv">sample</span><span class="si">}</span>_annotation/<span class="si">${</span><span class="nv">sample</span><span class="si">}</span>.gff<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="s1">&#39;gene&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>wc<span class="w"> </span>-l<span class="k">)</span><span class="s2">&quot;</span>
 </span><span id="__span-75-41"><a id="__codelineno-75-41" name="__codelineno-75-41" href="#__codelineno-75-41"></a><span class="w">    </span><span class="k">fi</span>
 </span><span id="__span-75-42"><a id="__codelineno-75-42" name="__codelineno-75-42" href="#__codelineno-75-42"></a><span class="k">done</span>
 </span><span id="__span-75-43"><a id="__codelineno-75-43" name="__codelineno-75-43" href="#__codelineno-75-43"></a>
@@ -5364,7 +5324,7 @@ showScenario('fresh');
 </span><span id="__span-75-46"><a id="__codelineno-75-46" name="__codelineno-75-46" href="#__codelineno-75-46"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Original files:&quot;</span>
 </span><span id="__span-75-47"><a id="__codelineno-75-47" name="__codelineno-75-47" href="#__codelineno-75-47"></a>ls<span class="w"> </span>-lh<span class="w"> </span>/data/Dataset_Mt_Vc/tb/raw_data/ERR036221_*.fastq.gz
 </span><span id="__span-75-48"><a id="__codelineno-75-48" name="__codelineno-75-48" href="#__codelineno-75-48"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Trimmed files:&quot;</span>
-</span><span id="__span-75-49"><a id="__codelineno-75-49" name="__codelineno-75-49" href="#__codelineno-75-49"></a>ls<span class="w"> </span>-lh<span class="w"> </span>results/trimmed/ERR036221_*_paired.fastq.gz
+</span><span id="__span-75-49"><a id="__codelineno-75-49" name="__codelineno-75-49" href="#__codelineno-75-49"></a>ls<span class="w"> </span>-lh<span class="w"> </span>/data/users/<span class="nv">$USER</span>/nextflow-training/results/trimmed/ERR036221_*_paired.fastq.gz
 </span></code></pre></div>
 <details class="success">
 <summary>Expected directory structure (✅ Tested and validated)</summary>
@@ -5373,7 +5333,7 @@ showScenario('fresh');
 </span><span id="__span-76-3"><a id="__codelineno-76-3" name="__codelineno-76-3" href="#__codelineno-76-3"></a>├── qc_pipeline.nf                  # Full genomics pipeline
 </span><span id="__span-76-4"><a id="__codelineno-76-4" name="__codelineno-76-4" href="#__codelineno-76-4"></a>├── samplesheet.csv                 # Sample metadata
 </span><span id="__span-76-5"><a id="__codelineno-76-5" name="__codelineno-76-5" href="#__codelineno-76-5"></a>├── nextflow.config                 # Configuration file
-</span><span id="__span-76-6"><a id="__codelineno-76-6" name="__codelineno-76-6" href="#__codelineno-76-6"></a>├── results/                        # Published outputs
+</span><span id="__span-76-6"><a id="__codelineno-76-6" name="__codelineno-76-6" href="#__codelineno-76-6"></a>├── /data/users/$USER/nextflow-training/results/  # Published outputs
 </span><span id="__span-76-7"><a id="__codelineno-76-7" name="__codelineno-76-7" href="#__codelineno-76-7"></a>│   ├── fastqc_raw/                 # Raw data QC (✅ tested)
 </span><span id="__span-76-8"><a id="__codelineno-76-8" name="__codelineno-76-8" href="#__codelineno-76-8"></a>│   │   ├── ERR036221_1_fastqc.html # 707KB quality report
 </span><span id="__span-76-9"><a id="__codelineno-76-9" name="__codelineno-76-9" href="#__codelineno-76-9"></a>│   │   ├── ERR036221_1_fastqc.zip  # 432KB data archive
@@ -5488,9 +5448,9 @@ showScenario('fresh');
 </span><span id="__span-78-27"><a id="__codelineno-78-27" name="__codelineno-78-27" href="#__codelineno-78-27"></a><span class="c1"># Compare results</span>
 </span><span id="__span-78-28"><a id="__codelineno-78-28" name="__codelineno-78-28" href="#__codelineno-78-28"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;=== Comparing trimming strategies ===&quot;</span>
 </span><span id="__span-78-29"><a id="__codelineno-78-29" name="__codelineno-78-29" href="#__codelineno-78-29"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Strict trimming results:&quot;</span>
-</span><span id="__span-78-30"><a id="__codelineno-78-30" name="__codelineno-78-30" href="#__codelineno-78-30"></a>ls<span class="w"> </span>-la<span class="w"> </span>results_strict/trimmed/
+</span><span id="__span-78-30"><a id="__codelineno-78-30" name="__codelineno-78-30" href="#__codelineno-78-30"></a>ls<span class="w"> </span>-la<span class="w"> </span>/data/users/<span class="nv">$USER</span>/nextflow-training/results_strict/trimmed/
 </span><span id="__span-78-31"><a id="__codelineno-78-31" name="__codelineno-78-31" href="#__codelineno-78-31"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Lenient trimming results:&quot;</span>
-</span><span id="__span-78-32"><a id="__codelineno-78-32" name="__codelineno-78-32" href="#__codelineno-78-32"></a>ls<span class="w"> </span>-la<span class="w"> </span>results_lenient/trimmed/
+</span><span id="__span-78-32"><a id="__codelineno-78-32" name="__codelineno-78-32" href="#__codelineno-78-32"></a>ls<span class="w"> </span>-la<span class="w"> </span>/data/users/<span class="nv">$USER</span>/nextflow-training/results_lenient/trimmed/
 </span></code></pre></div>
 <h4 id="step-4-cluster-execution-advanced"><strong>Step 4: Cluster Execution (Advanced)</strong><a class="headerlink" href="#step-4-cluster-execution-advanced" title="Permanent link">&para;</a></h4>
 <p>Now let's see how to run the same pipeline on an HPC cluster:</p>
@@ -5521,11 +5481,11 @@ showScenario('fresh');
 </span><span id="__span-81-3"><a id="__codelineno-81-3" name="__codelineno-81-3" href="#__codelineno-81-3"></a>
 </span><span id="__span-81-4"><a id="__codelineno-81-4" name="__codelineno-81-4" href="#__codelineno-81-4"></a><span class="c1"># Check the generated reports</span>
 </span><span id="__span-81-5"><a id="__codelineno-81-5" name="__codelineno-81-5" href="#__codelineno-81-5"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;=== Pipeline Reports Generated ===&quot;</span>
-</span><span id="__span-81-6"><a id="__codelineno-81-6" name="__codelineno-81-6" href="#__codelineno-81-6"></a>ls<span class="w"> </span>-la<span class="w"> </span>results/pipeline_*
+</span><span id="__span-81-6"><a id="__codelineno-81-6" name="__codelineno-81-6" href="#__codelineno-81-6"></a>ls<span class="w"> </span>-la<span class="w"> </span>/data/users/<span class="nv">$USER</span>/nextflow-training/results/pipeline_*
 </span><span id="__span-81-7"><a id="__codelineno-81-7" name="__codelineno-81-7" href="#__codelineno-81-7"></a>
 </span><span id="__span-81-8"><a id="__codelineno-81-8" name="__codelineno-81-8" href="#__codelineno-81-8"></a><span class="c1"># View resource usage</span>
 </span><span id="__span-81-9"><a id="__codelineno-81-9" name="__codelineno-81-9" href="#__codelineno-81-9"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;=== Resource Usage Summary ===&quot;</span>
-</span><span id="__span-81-10"><a id="__codelineno-81-10" name="__codelineno-81-10" href="#__codelineno-81-10"></a>cat<span class="w"> </span>results/pipeline_trace.txt<span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-10
+</span><span id="__span-81-10"><a id="__codelineno-81-10" name="__codelineno-81-10" href="#__codelineno-81-10"></a>cat<span class="w"> </span>/data/users/<span class="nv">$USER</span>/nextflow-training/results/pipeline_trace.txt<span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-10
 </span></code></pre></div>
 <div class="admonition info">
 <p class="admonition-title">Local vs Cluster Execution Comparison</p>
@@ -5677,26 +5637,26 @@ showScenario('fresh');
 </span><span id="__span-84-11"><a id="__codelineno-84-11" name="__codelineno-84-11" href="#__codelineno-84-11"></a>[cc/b9c188] fastqc (ERR036232) [100%] 10 of 10 ✔
 </span><span id="__span-84-12"><a id="__codelineno-84-12" name="__codelineno-84-12" href="#__codelineno-84-12"></a>[67/56bda4] fastqc (ERR10112846) [100%] 10 of 10 ✔
 </span><span id="__span-84-13"><a id="__codelineno-84-13" name="__codelineno-84-13" href="#__codelineno-84-13"></a>[6e/b4786c] fastqc (ERR10112851) [100%] 10 of 10 ✔
-</span><span id="__span-84-14"><a id="__codelineno-84-14" name="__codelineno-84-14" href="#__codelineno-84-14"></a>FastQC report: /path/to/results/fastqc/ERR036221_1_fastqc.html
-</span><span id="__span-84-15"><a id="__codelineno-84-15" name="__codelineno-84-15" href="#__codelineno-84-15"></a>FastQC report: /path/to/results/fastqc/ERR036221_2_fastqc.html
-</span><span id="__span-84-16"><a id="__codelineno-84-16" name="__codelineno-84-16" href="#__codelineno-84-16"></a>FastQC report: /path/to/results/fastqc/ERR036223_1_fastqc.html
-</span><span id="__span-84-17"><a id="__codelineno-84-17" name="__codelineno-84-17" href="#__codelineno-84-17"></a>FastQC report: /path/to/results/fastqc/ERR036223_2_fastqc.html
-</span><span id="__span-84-18"><a id="__codelineno-84-18" name="__codelineno-84-18" href="#__codelineno-84-18"></a>FastQC report: /path/to/results/fastqc/ERR036226_1_fastqc.html
-</span><span id="__span-84-19"><a id="__codelineno-84-19" name="__codelineno-84-19" href="#__codelineno-84-19"></a>FastQC report: /path/to/results/fastqc/ERR036226_2_fastqc.html
-</span><span id="__span-84-20"><a id="__codelineno-84-20" name="__codelineno-84-20" href="#__codelineno-84-20"></a>FastQC report: /path/to/results/fastqc/ERR036227_1_fastqc.html
-</span><span id="__span-84-21"><a id="__codelineno-84-21" name="__codelineno-84-21" href="#__codelineno-84-21"></a>FastQC report: /path/to/results/fastqc/ERR036227_2_fastqc.html
-</span><span id="__span-84-22"><a id="__codelineno-84-22" name="__codelineno-84-22" href="#__codelineno-84-22"></a>FastQC report: /path/to/results/fastqc/ERR036232_1_fastqc.html
-</span><span id="__span-84-23"><a id="__codelineno-84-23" name="__codelineno-84-23" href="#__codelineno-84-23"></a>FastQC report: /path/to/results/fastqc/ERR036232_2_fastqc.html
-</span><span id="__span-84-24"><a id="__codelineno-84-24" name="__codelineno-84-24" href="#__codelineno-84-24"></a>FastQC report: /path/to/results/fastqc/ERR036234_1_fastqc.html
-</span><span id="__span-84-25"><a id="__codelineno-84-25" name="__codelineno-84-25" href="#__codelineno-84-25"></a>FastQC report: /path/to/results/fastqc/ERR036234_2_fastqc.html
-</span><span id="__span-84-26"><a id="__codelineno-84-26" name="__codelineno-84-26" href="#__codelineno-84-26"></a>FastQC report: /path/to/results/fastqc/ERR036249_1_fastqc.html
-</span><span id="__span-84-27"><a id="__codelineno-84-27" name="__codelineno-84-27" href="#__codelineno-84-27"></a>FastQC report: /path/to/results/fastqc/ERR036249_2_fastqc.html
-</span><span id="__span-84-28"><a id="__codelineno-84-28" name="__codelineno-84-28" href="#__codelineno-84-28"></a>FastQC report: /path/to/results/fastqc/ERR10112845_1_fastqc.html
-</span><span id="__span-84-29"><a id="__codelineno-84-29" name="__codelineno-84-29" href="#__codelineno-84-29"></a>FastQC report: /path/to/results/fastqc/ERR10112845_2_fastqc.html
-</span><span id="__span-84-30"><a id="__codelineno-84-30" name="__codelineno-84-30" href="#__codelineno-84-30"></a>FastQC report: /path/to/results/fastqc/ERR10112846_1_fastqc.html
-</span><span id="__span-84-31"><a id="__codelineno-84-31" name="__codelineno-84-31" href="#__codelineno-84-31"></a>FastQC report: /path/to/results/fastqc/ERR10112846_2_fastqc.html
-</span><span id="__span-84-32"><a id="__codelineno-84-32" name="__codelineno-84-32" href="#__codelineno-84-32"></a>FastQC report: /path/to/results/fastqc/ERR10112851_1_fastqc.html
-</span><span id="__span-84-33"><a id="__codelineno-84-33" name="__codelineno-84-33" href="#__codelineno-84-33"></a>FastQC report: /path/to/results/fastqc/ERR10112851_2_fastqc.html
+</span><span id="__span-84-14"><a id="__codelineno-84-14" name="__codelineno-84-14" href="#__codelineno-84-14"></a>FastQC report: /data/users/$USER/nextflow-training/results/fastqc/ERR036221_1_fastqc.html
+</span><span id="__span-84-15"><a id="__codelineno-84-15" name="__codelineno-84-15" href="#__codelineno-84-15"></a>FastQC report: /data/users/$USER/nextflow-training/results/fastqc/ERR036221_2_fastqc.html
+</span><span id="__span-84-16"><a id="__codelineno-84-16" name="__codelineno-84-16" href="#__codelineno-84-16"></a>FastQC report: /data/users/$USER/nextflow-training/results/fastqc/ERR036223_1_fastqc.html
+</span><span id="__span-84-17"><a id="__codelineno-84-17" name="__codelineno-84-17" href="#__codelineno-84-17"></a>FastQC report: /data/users/$USER/nextflow-training/results/fastqc/ERR036223_2_fastqc.html
+</span><span id="__span-84-18"><a id="__codelineno-84-18" name="__codelineno-84-18" href="#__codelineno-84-18"></a>FastQC report: /data/users/$USER/nextflow-training/results/fastqc/ERR036226_1_fastqc.html
+</span><span id="__span-84-19"><a id="__codelineno-84-19" name="__codelineno-84-19" href="#__codelineno-84-19"></a>FastQC report: /data/users/$USER/nextflow-training/results/fastqc/ERR036226_2_fastqc.html
+</span><span id="__span-84-20"><a id="__codelineno-84-20" name="__codelineno-84-20" href="#__codelineno-84-20"></a>FastQC report: /data/users/$USER/nextflow-training/results/fastqc/ERR036227_1_fastqc.html
+</span><span id="__span-84-21"><a id="__codelineno-84-21" name="__codelineno-84-21" href="#__codelineno-84-21"></a>FastQC report: /data/users/$USER/nextflow-training/results/fastqc/ERR036227_2_fastqc.html
+</span><span id="__span-84-22"><a id="__codelineno-84-22" name="__codelineno-84-22" href="#__codelineno-84-22"></a>FastQC report: /data/users/$USER/nextflow-training/results/fastqc/ERR036232_1_fastqc.html
+</span><span id="__span-84-23"><a id="__codelineno-84-23" name="__codelineno-84-23" href="#__codelineno-84-23"></a>FastQC report: /data/users/$USER/nextflow-training/results/fastqc/ERR036232_2_fastqc.html
+</span><span id="__span-84-24"><a id="__codelineno-84-24" name="__codelineno-84-24" href="#__codelineno-84-24"></a>FastQC report: /data/users/$USER/nextflow-training/results/fastqc/ERR036234_1_fastqc.html
+</span><span id="__span-84-25"><a id="__codelineno-84-25" name="__codelineno-84-25" href="#__codelineno-84-25"></a>FastQC report: /data/users/$USER/nextflow-training/results/fastqc/ERR036234_2_fastqc.html
+</span><span id="__span-84-26"><a id="__codelineno-84-26" name="__codelineno-84-26" href="#__codelineno-84-26"></a>FastQC report: /data/users/$USER/nextflow-training/results/fastqc/ERR036249_1_fastqc.html
+</span><span id="__span-84-27"><a id="__codelineno-84-27" name="__codelineno-84-27" href="#__codelineno-84-27"></a>FastQC report: /data/users/$USER/nextflow-training/results/fastqc/ERR036249_2_fastqc.html
+</span><span id="__span-84-28"><a id="__codelineno-84-28" name="__codelineno-84-28" href="#__codelineno-84-28"></a>FastQC report: /data/users/$USER/nextflow-training/results/fastqc/ERR10112845_1_fastqc.html
+</span><span id="__span-84-29"><a id="__codelineno-84-29" name="__codelineno-84-29" href="#__codelineno-84-29"></a>FastQC report: /data/users/$USER/nextflow-training/results/fastqc/ERR10112845_2_fastqc.html
+</span><span id="__span-84-30"><a id="__codelineno-84-30" name="__codelineno-84-30" href="#__codelineno-84-30"></a>FastQC report: /data/users/$USER/nextflow-training/results/fastqc/ERR10112846_1_fastqc.html
+</span><span id="__span-84-31"><a id="__codelineno-84-31" name="__codelineno-84-31" href="#__codelineno-84-31"></a>FastQC report: /data/users/$USER/nextflow-training/results/fastqc/ERR10112846_2_fastqc.html
+</span><span id="__span-84-32"><a id="__codelineno-84-32" name="__codelineno-84-32" href="#__codelineno-84-32"></a>FastQC report: /data/users/$USER/nextflow-training/results/fastqc/ERR10112851_1_fastqc.html
+</span><span id="__span-84-33"><a id="__codelineno-84-33" name="__codelineno-84-33" href="#__codelineno-84-33"></a>FastQC report: /data/users/$USER/nextflow-training/results/fastqc/ERR10112851_2_fastqc.html
 </span><span id="__span-84-34"><a id="__codelineno-84-34" name="__codelineno-84-34" href="#__codelineno-84-34"></a>
 </span><span id="__span-84-35"><a id="__codelineno-84-35" name="__codelineno-84-35" href="#__codelineno-84-35"></a>Completed at: 08-Sep-2025 15:54:16
 </span><span id="__span-84-36"><a id="__codelineno-84-36" name="__codelineno-84-36" href="#__codelineno-84-36"></a>Duration    : 1m 11s
@@ -5706,17 +5666,17 @@ showScenario('fresh');
 </details>
 <p><strong>Step 4: Check your results</strong>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-85-1"><a id="__codelineno-85-1" name="__codelineno-85-1" href="#__codelineno-85-1"></a><span class="c1"># Look at the results structure</span>
-</span><span id="__span-85-2"><a id="__codelineno-85-2" name="__codelineno-85-2" href="#__codelineno-85-2"></a>ls<span class="w"> </span>-la<span class="w"> </span>results/fastqc/
+</span><span id="__span-85-2"><a id="__codelineno-85-2" name="__codelineno-85-2" href="#__codelineno-85-2"></a>ls<span class="w"> </span>-la<span class="w"> </span>/data/users/<span class="nv">$USER</span>/nextflow-training/results/fastqc/
 </span><span id="__span-85-3"><a id="__codelineno-85-3" name="__codelineno-85-3" href="#__codelineno-85-3"></a>
 </span><span id="__span-85-4"><a id="__codelineno-85-4" name="__codelineno-85-4" href="#__codelineno-85-4"></a><span class="c1"># Check file sizes (real data produces substantial reports)</span>
-</span><span id="__span-85-5"><a id="__codelineno-85-5" name="__codelineno-85-5" href="#__codelineno-85-5"></a>du<span class="w"> </span>-h<span class="w"> </span>results/fastqc/
+</span><span id="__span-85-5"><a id="__codelineno-85-5" name="__codelineno-85-5" href="#__codelineno-85-5"></a>du<span class="w"> </span>-h<span class="w"> </span>/data/users/<span class="nv">$USER</span>/nextflow-training/results/fastqc/
 </span><span id="__span-85-6"><a id="__codelineno-85-6" name="__codelineno-85-6" href="#__codelineno-85-6"></a>
 </span><span id="__span-85-7"><a id="__codelineno-85-7" name="__codelineno-85-7" href="#__codelineno-85-7"></a><span class="c1"># Open an HTML report to see real quality metrics</span>
-</span><span id="__span-85-8"><a id="__codelineno-85-8" name="__codelineno-85-8" href="#__codelineno-85-8"></a><span class="c1"># firefox results/fastqc/ERR036221_1_fastqc.html &amp;</span>
+</span><span id="__span-85-8"><a id="__codelineno-85-8" name="__codelineno-85-8" href="#__codelineno-85-8"></a><span class="c1"># firefox /data/users/$USER/nextflow-training/results/fastqc/ERR036221_1_fastqc.html &amp;</span>
 </span></code></pre></div></p>
 <details class="success">
 <summary>Expected output (✅ Tested and validated)</summary>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-86-1"><a id="__codelineno-86-1" name="__codelineno-86-1" href="#__codelineno-86-1"></a>results/
+<div class="language-text highlight"><pre><span></span><code><span id="__span-86-1"><a id="__codelineno-86-1" name="__codelineno-86-1" href="#__codelineno-86-1"></a>/data/users/$USER/nextflow-training/results/
 </span><span id="__span-86-2"><a id="__codelineno-86-2" name="__codelineno-86-2" href="#__codelineno-86-2"></a>└── fastqc/
 </span><span id="__span-86-3"><a id="__codelineno-86-3" name="__codelineno-86-3" href="#__codelineno-86-3"></a>    ├── ERR036221_1_fastqc.html    # 707KB quality report
 </span><span id="__span-86-4"><a id="__codelineno-86-4" name="__codelineno-86-4" href="#__codelineno-86-4"></a>    ├── ERR036221_1_fastqc.zip     # 432KB data archive
@@ -5848,7 +5808,7 @@ microbial-genomics-training/
 ├── workflows/                 # Workflow directory
 │   ├── count_reads.nf        # Your script (✅ tested)
 │   ├── samplesheet.csv       # Sample metadata
-│   ├── results/              # Published outputs
+│   ├── /data/users/$USER/nextflow-training/results/  # Published outputs
 │   │   ├── ERR036221.count   # 2,452,408 read pairs
 │   │   ├── ERR036223.count   # 4,188,521 read pairs
 │   │   ├── pipeline_trace.txt     # Execution trace
@@ -5862,14 +5822,14 @@ microbial-genomics-training/
 
 <strong>What to Check:</strong>
 <ul>
-<li><strong>Results Files:</strong> <code>cat results/sample1.count</code> should show "2"</li>
-<li><strong>Results Files:</strong> <code>cat results/sample2.count</code> should show "3"</li>
+<li><strong>Results Files:</strong> <code>cat /data/users/$USER/nextflow-training/results/sample1.count</code> should show "2"</li>
+<li><strong>Results Files:</strong> <code>cat /data/users/$USER/nextflow-training/results/sample2.count</code> should show "3"</li>
 <li><strong>File Permissions:</strong> Results should be readable and in the correct location</li>
 </ul>
 
 <strong>Key Learning Points:</strong>
 <ul>
-<li><strong>publishDir:</strong> Copies important outputs to results/</li>
+<li><strong>publishDir:</strong> Copies important outputs to /data/users/$USER/nextflow-training/results/</li>
 <li><strong>Parallel Processing:</strong> Both samples processed simultaneously</li>
 <li><strong>Channel Operations:</strong> fromPath() found your FASTQ files</li>
 </ul>
@@ -5884,7 +5844,7 @@ microbial-genomics-training/
 ├── workflows/                 # Workflow directory
 │   ├── qc_pipeline.nf       # Your script (✅ tested with 10 samples)
 │   ├── samplesheet.csv       # Sample metadata (10 TB samples)
-│   ├── results/              # Published outputs
+│   ├── /data/users/$USER/nextflow-training/results/  # Published outputs
 │   │   └── fastqc/          # FastQC reports (23MB total)
 │   │       ├── ERR036221_1_fastqc.html  # 707KB quality report
 │   │       ├── ERR036221_1_fastqc.zip   # 432KB data archive
@@ -5911,7 +5871,7 @@ microbial-genomics-training/
 
 <strong>What to Check:</strong>
 <ul>
-<li><strong>HTML Reports:</strong> Open <code>results/fastqc/sample1_R1_fastqc.html</code> in browser</li>
+<li><strong>HTML Reports:</strong> Open <code>/data/users/$USER/nextflow-training/results/fastqc/sample1_R1_fastqc.html</code> in browser</li>
 <li><strong>File Count:</strong> Should have 8 files total (4 HTML + 4 ZIP)</li>
 <li><strong>Container Usage:</strong> Log should show Docker container being used</li>
 </ul>
@@ -5998,7 +5958,7 @@ document.querySelectorAll('.results-btn').forEach(btn => {
 </span><span id="__span-95-3"><a id="__codelineno-95-3" name="__codelineno-95-3" href="#__codelineno-95-3"></a><span class="nb">cd</span><span class="w"> </span>nextflow-training
 </span><span id="__span-95-4"><a id="__codelineno-95-4" name="__codelineno-95-4" href="#__codelineno-95-4"></a>
 </span><span id="__span-95-5"><a id="__codelineno-95-5" name="__codelineno-95-5" href="#__codelineno-95-5"></a><span class="c1"># Create subdirectories (no data dir needed - using /data)</span>
-</span><span id="__span-95-6"><a id="__codelineno-95-6" name="__codelineno-95-6" href="#__codelineno-95-6"></a>mkdir<span class="w"> </span>results<span class="w"> </span>scripts
+</span><span id="__span-95-6"><a id="__codelineno-95-6" name="__codelineno-95-6" href="#__codelineno-95-6"></a>mkdir<span class="w"> </span>scripts
 </span></code></pre></div></p>
 <details class="success">
 <summary>Expected output</summary>
@@ -6007,8 +5967,7 @@ document.querySelectorAll('.results-btn').forEach(btn => {
 </span><span id="__span-96-3"><a id="__codelineno-96-3" name="__codelineno-96-3" href="#__codelineno-96-3"></a>drwxr-xr-x 5 user user 4096 Jan 15 09:00 .
 </span><span id="__span-96-4"><a id="__codelineno-96-4" name="__codelineno-96-4" href="#__codelineno-96-4"></a>drwxr-xr-x 3 user user 4096 Jan 15 09:00 ..
 </span><span id="__span-96-5"><a id="__codelineno-96-5" name="__codelineno-96-5" href="#__codelineno-96-5"></a>drwxr-xr-x 2 user user 4096 Jan 15 09:00 data
-</span><span id="__span-96-6"><a id="__codelineno-96-6" name="__codelineno-96-6" href="#__codelineno-96-6"></a>drwxr-xr-x 2 user user 4096 Jan 15 09:00 results
-</span><span id="__span-96-7"><a id="__codelineno-96-7" name="__codelineno-96-7" href="#__codelineno-96-7"></a>drwxr-xr-x 2 user user 4096 Jan 15 09:00 scripts
+</span><span id="__span-96-6"><a id="__codelineno-96-6" name="__codelineno-96-6" href="#__codelineno-96-6"></a>drwxr-xr-x 2 user user 4096 Jan 15 09:00 scripts
 </span></code></pre></div>
 </details>
 <p><strong>Interactive Setup Checklist:</strong></p>
@@ -6264,14 +6223,14 @@ document.querySelectorAll('.exercise-checkbox').forEach(checkbox => {
 </details>
 <p><strong>Check your results:</strong>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-107-1"><a id="__codelineno-107-1" name="__codelineno-107-1" href="#__codelineno-107-1"></a><span class="c1"># List output directory contents</span>
-</span><span id="__span-107-2"><a id="__codelineno-107-2" name="__codelineno-107-2" href="#__codelineno-107-2"></a>ls<span class="w"> </span>-la<span class="w"> </span>results/
+</span><span id="__span-107-2"><a id="__codelineno-107-2" name="__codelineno-107-2" href="#__codelineno-107-2"></a>ls<span class="w"> </span>-la<span class="w"> </span>/data/users/<span class="nv">$USER</span>/nextflow-training/results/
 </span><span id="__span-107-3"><a id="__codelineno-107-3" name="__codelineno-107-3" href="#__codelineno-107-3"></a>
 </span><span id="__span-107-4"><a id="__codelineno-107-4" name="__codelineno-107-4" href="#__codelineno-107-4"></a><span class="c1"># Check if files were created</span>
-</span><span id="__span-107-5"><a id="__codelineno-107-5" name="__codelineno-107-5" href="#__codelineno-107-5"></a>find<span class="w"> </span>results/<span class="w"> </span>-type<span class="w"> </span>f<span class="w"> </span>-name<span class="w"> </span><span class="s2">&quot;*.html&quot;</span><span class="w"> </span>-o<span class="w"> </span>-name<span class="w"> </span><span class="s2">&quot;*.txt&quot;</span><span class="w"> </span>-o<span class="w"> </span>-name<span class="w"> </span><span class="s2">&quot;*.count&quot;</span>
+</span><span id="__span-107-5"><a id="__codelineno-107-5" name="__codelineno-107-5" href="#__codelineno-107-5"></a>find<span class="w"> </span>/data/users/<span class="nv">$USER</span>/nextflow-training/results/<span class="w"> </span>-type<span class="w"> </span>f<span class="w"> </span>-name<span class="w"> </span><span class="s2">&quot;*.html&quot;</span><span class="w"> </span>-o<span class="w"> </span>-name<span class="w"> </span><span class="s2">&quot;*.txt&quot;</span><span class="w"> </span>-o<span class="w"> </span>-name<span class="w"> </span><span class="s2">&quot;*.count&quot;</span>
 </span></code></pre></div></p>
 <details class="success">
 <summary>Expected successful output</summary>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-108-1"><a id="__codelineno-108-1" name="__codelineno-108-1" href="#__codelineno-108-1"></a># ls -la results/
+<div class="language-text highlight"><pre><span></span><code><span id="__span-108-1"><a id="__codelineno-108-1" name="__codelineno-108-1" href="#__codelineno-108-1"></a># ls -la /data/users/$USER/nextflow-training/results/
 </span><span id="__span-108-2"><a id="__codelineno-108-2" name="__codelineno-108-2" href="#__codelineno-108-2"></a>total 12
 </span><span id="__span-108-3"><a id="__codelineno-108-3" name="__codelineno-108-3" href="#__codelineno-108-3"></a>drwxr-xr-x 3 user user 4096 Jan 15 10:30 .
 </span><span id="__span-108-4"><a id="__codelineno-108-4" name="__codelineno-108-4" href="#__codelineno-108-4"></a>drwxr-xr-x 5 user user 4096 Jan 15 10:29 ..
@@ -6279,17 +6238,17 @@ document.querySelectorAll('.exercise-checkbox').forEach(checkbox => {
 </span><span id="__span-108-6"><a id="__codelineno-108-6" name="__codelineno-108-6" href="#__codelineno-108-6"></a>-rw-r--r-- 1 user user   42 Jan 15 10:30 sample1.count
 </span><span id="__span-108-7"><a id="__codelineno-108-7" name="__codelineno-108-7" href="#__codelineno-108-7"></a>-rw-r--r-- 1 user user   38 Jan 15 10:30 sample2.count
 </span><span id="__span-108-8"><a id="__codelineno-108-8" name="__codelineno-108-8" href="#__codelineno-108-8"></a>
-</span><span id="__span-108-9"><a id="__codelineno-108-9" name="__codelineno-108-9" href="#__codelineno-108-9"></a># find results/ -type f
-</span><span id="__span-108-10"><a id="__codelineno-108-10" name="__codelineno-108-10" href="#__codelineno-108-10"></a>results/sample1.count
-</span><span id="__span-108-11"><a id="__codelineno-108-11" name="__codelineno-108-11" href="#__codelineno-108-11"></a>results/sample2.count
-</span><span id="__span-108-12"><a id="__codelineno-108-12" name="__codelineno-108-12" href="#__codelineno-108-12"></a>results/fastqc/sample1_R1_fastqc.html
-</span><span id="__span-108-13"><a id="__codelineno-108-13" name="__codelineno-108-13" href="#__codelineno-108-13"></a>results/fastqc/sample1_R2_fastqc.html
+</span><span id="__span-108-9"><a id="__codelineno-108-9" name="__codelineno-108-9" href="#__codelineno-108-9"></a># find /data/users/$USER/nextflow-training/results/ -type f
+</span><span id="__span-108-10"><a id="__codelineno-108-10" name="__codelineno-108-10" href="#__codelineno-108-10"></a>/data/users/$USER/nextflow-training/results/sample1.count
+</span><span id="__span-108-11"><a id="__codelineno-108-11" name="__codelineno-108-11" href="#__codelineno-108-11"></a>/data/users/$USER/nextflow-training/results/sample2.count
+</span><span id="__span-108-12"><a id="__codelineno-108-12" name="__codelineno-108-12" href="#__codelineno-108-12"></a>/data/users/$USER/nextflow-training/results/fastqc/sample1_R1_fastqc.html
+</span><span id="__span-108-13"><a id="__codelineno-108-13" name="__codelineno-108-13" href="#__codelineno-108-13"></a>/data/users/$USER/nextflow-training/results/fastqc/sample1_R2_fastqc.html
 </span></code></pre></div>
 </details>
 <details class="warning">
 <summary>Warning signs - something went wrong</summary>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-109-1"><a id="__codelineno-109-1" name="__codelineno-109-1" href="#__codelineno-109-1"></a># Empty results directory
-</span><span id="__span-109-2"><a id="__codelineno-109-2" name="__codelineno-109-2" href="#__codelineno-109-2"></a>ls results/
+</span><span id="__span-109-2"><a id="__codelineno-109-2" name="__codelineno-109-2" href="#__codelineno-109-2"></a>ls /data/users/$USER/nextflow-training/results/
 </span><span id="__span-109-3"><a id="__codelineno-109-3" name="__codelineno-109-3" href="#__codelineno-109-3"></a># (no output)
 </span><span id="__span-109-4"><a id="__codelineno-109-4" name="__codelineno-109-4" href="#__codelineno-109-4"></a>
 </span><span id="__span-109-5"><a id="__codelineno-109-5" name="__codelineno-109-5" href="#__codelineno-109-5"></a># Error in nextflow log
@@ -6861,7 +6820,7 @@ document.querySelectorAll('.trouble-btn').forEach(btn => {
 </span><span id="__span-121-15"><a id="__codelineno-121-15" name="__codelineno-121-15" href="#__codelineno-121-15"></a>nextflow<span class="w"> </span>run<span class="w"> </span>qc_pipeline.nf<span class="w"> </span>--input<span class="w"> </span>samplesheet.csv
 </span><span id="__span-121-16"><a id="__codelineno-121-16" name="__codelineno-121-16" href="#__codelineno-121-16"></a>
 </span><span id="__span-121-17"><a id="__codelineno-121-17" name="__codelineno-121-17" href="#__codelineno-121-17"></a><span class="c1"># Check results</span>
-</span><span id="__span-121-18"><a id="__codelineno-121-18" name="__codelineno-121-18" href="#__codelineno-121-18"></a>ls<span class="w"> </span>-la<span class="w"> </span>results/fastqc/
+</span><span id="__span-121-18"><a id="__codelineno-121-18" name="__codelineno-121-18" href="#__codelineno-121-18"></a>ls<span class="w"> </span>-la<span class="w"> </span>/data/users/<span class="nv">$USER</span>/nextflow-training/results/fastqc/
 </span></code></pre></div>
 <h2 id="troubleshooting-guide">Troubleshooting Guide<a class="headerlink" href="#troubleshooting-guide" title="Permanent link">&para;</a></h2>
 <h3 id="installation-issues">Installation Issues<a class="headerlink" href="#installation-issues" title="Permanent link">&para;</a></h3>
