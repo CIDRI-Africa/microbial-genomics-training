@@ -2814,7 +2814,7 @@
 </span><span id="__span-11-14"><a id="__codelineno-11-14" name="__codelineno-11-14" href="#__codelineno-11-14"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Results directory: /data/users/</span><span class="nv">$USER</span><span class="s2">/nextflow-training/results&quot;</span>
 </span><span id="__span-11-15"><a id="__codelineno-11-15" name="__codelineno-11-15" href="#__codelineno-11-15"></a>
 </span><span id="__span-11-16"><a id="__codelineno-11-16" name="__codelineno-11-16" href="#__codelineno-11-16"></a><span class="c1"># Copy workflows from the training repository</span>
-</span><span id="__span-11-17"><a id="__codelineno-11-17" name="__codelineno-11-17" href="#__codelineno-11-17"></a>cp<span class="w"> </span>-r<span class="w"> </span>/users/mamana/microbial-genomics-training/workflows/*<span class="w"> </span>workflows/
+</span><span id="__span-11-17"><a id="__codelineno-11-17" name="__codelineno-11-17" href="#__codelineno-11-17"></a>cp<span class="w"> </span>-r<span class="w"> </span>/users/<span class="nv">$USER</span>/microbial-genomics-training/workflows/*<span class="w"> </span>workflows/
 </span><span id="__span-11-18"><a id="__codelineno-11-18" name="__codelineno-11-18" href="#__codelineno-11-18"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Workflows copied to: /data/users/</span><span class="nv">$USER</span><span class="s2">/nextflow-training/workflows/&quot;</span>
 </span><span id="__span-11-19"><a id="__codelineno-11-19" name="__codelineno-11-19" href="#__codelineno-11-19"></a>
 </span><span id="__span-11-20"><a id="__codelineno-11-20" name="__codelineno-11-20" href="#__codelineno-11-20"></a><span class="c1"># Check available real data</span>
@@ -3756,7 +3756,7 @@ updateCalculator();
 <div class="language-groovy highlight"><pre><span></span><code><span id="__span-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a><span class="c1">// Set work directory to user&#39;s data space</span>
 </span><span id="__span-29-2"><a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a><span class="n">workDir</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;/data/users/$USER/nextflow-training/work&quot;</span>
 </span></code></pre></div>
-<p>This means all task execution directories will be created under <code>/data/users/mamana/nextflow-training/work/</code> (or your username).</p>
+<p>This means all task execution directories will be created under <code>/data/users/$USER/nextflow-training/work/</code> (or your username).</p>
 <h4 id="nextflow-directory-structure">Nextflow Directory Structure<a class="headerlink" href="#nextflow-directory-structure" title="Permanent link">&para;</a></h4>
 <p>When you run a Nextflow pipeline, several directories are automatically created:</p>
 <pre class="mermaid"><code>flowchart TD
