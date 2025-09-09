@@ -692,13 +692,14 @@ and a <strong>mini toy dataset exercise</strong>. Unlike genomics (WGS) which fo
 </span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>gzip<span class="w"> </span>SRR13827118*.fastq
 </span></code></pre></div>
 <hr />
+<h2 id="shotgun-metagenomics">Shotgun metagenomics<a class="headerlink" href="#shotgun-metagenomics" title="Permanent link">&para;</a></h2>
 <h3 id="step-2-quality-control">Step 2. Quality Control<a class="headerlink" href="#step-2-quality-control" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>Why</strong>: To reduce the effects of sequencing errors, remove adapters, and low-quality 
 reads which may reduce false positives.</li>
 <li><strong>Tools</strong>: <code>fastqc</code>, <code>multiqc</code></li>
 </ul>
-<p><div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># Load modules</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># Load modules</span>
 </span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>module<span class="w"> </span>load<span class="w"> </span>fastqc
 </span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>module<span class="w"> </span>load<span class="w"> </span>multiqc
 </span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="nv">indata</span><span class="o">=</span><span class="s2">&quot;/data/users/user29/metagenomes/shotgun/&quot;</span>
@@ -715,7 +716,7 @@ reads which may reduce false positives.</li>
 </span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="w">  </span>--input<span class="w"> </span>/data/users/<span class="si">${</span><span class="nv">USER</span><span class="si">}</span>/metagenomes/shotgun/samplesheet.csv<span class="w"> </span><span class="se">\</span>
 </span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a><span class="w">  </span>--outdir<span class="w"> </span>/data/users/<span class="si">${</span><span class="nv">USER</span><span class="si">}</span>/metagenomes/shotgun/results/rawfastqc
 </span></code></pre></div>
-<strong>What to think about?</strong>
+<p><strong>What to think about?</strong>
 - Which parts of the data are flagged as potentially problematic? GC% content of the dataset.
 NB: We are dealing with mixed community and organisms, so its difficult to  have a perfect normal distribution around the average.
 As such we consider this as normal given the biology of the system.
@@ -734,34 +735,42 @@ As such we consider this as normal given the biology of the system.
 reads (to standardize read lengths) that bias downstream analysis.</li>
 <li><strong>Tool</strong>: <code>fastp</code>, <code>trimmomatic</code>, <code>BBMap</code>, <code>sickle</code>, <code>cutadapt</code>, etc.</li>
 </ul>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="ch">#!/bin/bash</span>
+<p><div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="ch">#!/bin/bash</span>
 </span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
-</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="c1"># Load required modules/tools</span>
-</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>module<span class="w"> </span>load<span class="w"> </span>trimmomatic
-</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>
-</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="c1"># Define input and output dir</span>
-</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="nv">indata</span><span class="o">=</span><span class="s2">&quot;/data/users/user24/metagenomes/&quot;</span>
-</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="nv">wkdir</span><span class="o">=</span><span class="s2">&quot;/data/users/</span><span class="si">${</span><span class="nv">USER</span><span class="si">}</span><span class="s2">/metagenomics/shotgun/&quot;</span>
-</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="nv">outtrimmomatic</span><span class="o">=</span><span class="si">${</span><span class="nv">wkdir</span><span class="si">}</span><span class="s2">&quot;/data_analysis/02_trimmomatic&quot;</span>
-</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>
-</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>mkdir<span class="w"> </span>-p<span class="w"> </span><span class="si">${</span><span class="nv">outtrimmomatic</span><span class="si">}</span>
-</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>
-</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="c1"># Trimming with Trimmomatic</span>
-</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a><span class="k">for</span><span class="w"> </span>file<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="sb">`</span>ls<span class="w"> </span><span class="si">${</span><span class="nv">data</span><span class="si">}</span>*1.fastq.gz<span class="sb">`</span>
-</span><span id="__span-2-16"><a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a><span class="k">do</span>
-</span><span id="__span-2-17"><a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a><span class="w">  </span><span class="nv">sample</span><span class="o">=</span><span class="k">$(</span>basename<span class="w"> </span><span class="si">${</span><span class="nv">file</span><span class="si">}</span><span class="w"> </span>_1.fastq.gz<span class="k">)</span>
-</span><span id="__span-2-18"><a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a><span class="w">  </span>trimmomatic<span class="w"> </span>PE<span class="w"> </span>-threads<span class="w"> </span><span class="m">8</span><span class="w"> </span><span class="se">\</span>
-</span><span id="__span-2-19"><a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a><span class="w">      </span><span class="si">${</span><span class="nv">indata</span><span class="si">}${</span><span class="nv">sample</span><span class="si">}</span>_R1.fastq.gz<span class="w"> </span><span class="o">{</span>indata<span class="o">}</span><span class="si">${</span><span class="nv">sample</span><span class="si">}</span>_R2.fastq.gz<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-2-20"><a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a><span class="w">      </span><span class="si">${</span><span class="nv">outtrimmomatic</span><span class="si">}${</span><span class="nv">sample</span><span class="si">}</span>_R1.fastq.gz<span class="w"> </span><span class="si">${</span><span class="nv">outtrimmomatic</span><span class="si">}${</span><span class="nv">sample</span><span class="si">}</span>_R1_unpaired.fastq.gz<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-2-21"><a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a><span class="w">      </span><span class="si">${</span><span class="nv">outtrimmomatic</span><span class="si">}${</span><span class="nv">sample</span><span class="si">}</span>_R2.fastq.gz<span class="w"> </span><span class="si">${</span><span class="nv">outtrimmomatic</span><span class="si">}${</span><span class="nv">sample</span><span class="si">}</span>_R2_unpaired.fastq.gz<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-2-22"><a id="__codelineno-2-22" name="__codelineno-2-22" href="#__codelineno-2-22"></a><span class="w">      </span>ILLUMINACLIP:adapters.fa:2:30:10<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-2-23"><a id="__codelineno-2-23" name="__codelineno-2-23" href="#__codelineno-2-23"></a><span class="w">      </span>LEADING:3<span class="w"> </span>TRAILING:3<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-2-24"><a id="__codelineno-2-24" name="__codelineno-2-24" href="#__codelineno-2-24"></a><span class="w">      </span>SLIDINGWINDOW:4:20<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-2-25"><a id="__codelineno-2-25" name="__codelineno-2-25" href="#__codelineno-2-25"></a><span class="w">      </span>MINLEN:50
-</span><span id="__span-2-26"><a id="__codelineno-2-26" name="__codelineno-2-26" href="#__codelineno-2-26"></a><span class="k">done</span>
-</span><span id="__span-2-27"><a id="__codelineno-2-27" name="__codelineno-2-27" href="#__codelineno-2-27"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Trimming with Trimmomatic completed&quot;</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="c1"># Load required modules/tools</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>module<span class="w"> </span>load<span class="w"> </span>trimmomatic
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="c1"># Define input and output dir</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="nv">indata</span><span class="o">=</span><span class="s2">&quot;/data/users/user24/metagenomes/&quot;</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="nv">wkdir</span><span class="o">=</span><span class="s2">&quot;/data/users/</span><span class="si">${</span><span class="nv">USER</span><span class="si">}</span><span class="s2">/metagenomics/shotgun/&quot;</span>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="nv">outtrimmomatic</span><span class="o">=</span><span class="si">${</span><span class="nv">wkdir</span><span class="si">}</span><span class="s2">&quot;/data_analysis/02_trimmomatic&quot;</span>
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>mkdir<span class="w"> </span>-p<span class="w"> </span><span class="si">${</span><span class="nv">outtrimmomatic</span><span class="si">}</span>
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>
+</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="c1"># Trimming with Trimmomatic</span>
+</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="k">for</span><span class="w"> </span>file<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="sb">`</span>ls<span class="w"> </span><span class="si">${</span><span class="nv">data</span><span class="si">}</span>*1.fastq.gz<span class="sb">`</span>
+</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a><span class="k">do</span>
+</span><span id="__span-2-16"><a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a><span class="w">  </span><span class="nv">sample</span><span class="o">=</span><span class="k">$(</span>basename<span class="w"> </span><span class="si">${</span><span class="nv">file</span><span class="si">}</span><span class="w"> </span>_1.fastq.gz<span class="k">)</span>
+</span><span id="__span-2-17"><a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a><span class="w">  </span>trimmomatic<span class="w"> </span>PE<span class="w"> </span>-threads<span class="w"> </span><span class="m">8</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-2-18"><a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a><span class="w">      </span><span class="si">${</span><span class="nv">indata</span><span class="si">}${</span><span class="nv">sample</span><span class="si">}</span>_R1.fastq.gz<span class="w"> </span><span class="o">{</span>indata<span class="o">}</span><span class="si">${</span><span class="nv">sample</span><span class="si">}</span>_R2.fastq.gz<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-2-19"><a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a><span class="w">      </span><span class="si">${</span><span class="nv">outtrimmomatic</span><span class="si">}${</span><span class="nv">sample</span><span class="si">}</span>_R1.fastq.gz<span class="w"> </span><span class="si">${</span><span class="nv">outtrimmomatic</span><span class="si">}${</span><span class="nv">sample</span><span class="si">}</span>_R1_unpaired.fastq.gz<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-2-20"><a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a><span class="w">      </span><span class="si">${</span><span class="nv">outtrimmomatic</span><span class="si">}${</span><span class="nv">sample</span><span class="si">}</span>_R2.fastq.gz<span class="w"> </span><span class="si">${</span><span class="nv">outtrimmomatic</span><span class="si">}${</span><span class="nv">sample</span><span class="si">}</span>_R2_unpaired.fastq.gz<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-2-21"><a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a><span class="w">      </span>ILLUMINACLIP:adapters.fa:2:30:10<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-2-22"><a id="__codelineno-2-22" name="__codelineno-2-22" href="#__codelineno-2-22"></a><span class="w">      </span>LEADING:3<span class="w"> </span>TRAILING:3<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-2-23"><a id="__codelineno-2-23" name="__codelineno-2-23" href="#__codelineno-2-23"></a><span class="w">      </span>SLIDINGWINDOW:4:20<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-2-24"><a id="__codelineno-2-24" name="__codelineno-2-24" href="#__codelineno-2-24"></a><span class="w">      </span>MINLEN:50
+</span><span id="__span-2-25"><a id="__codelineno-2-25" name="__codelineno-2-25" href="#__codelineno-2-25"></a><span class="k">done</span>
+</span><span id="__span-2-26"><a id="__codelineno-2-26" name="__codelineno-2-26" href="#__codelineno-2-26"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Trimming with Trimmomatic completed&quot;</span>
 </span></code></pre></div>
+Parameter | Type |  Description
+----------|------|-----------------------------
+PE |    positional |    Specifies whether we are analysing single- or paired-end reads
+-threads 2 |    keyword |   Specifies the number of threads to use when processing
+-phred33 |  keyword |   Specifies the fastq encoding used
+<span class="arithmatex" sample="sample">\({indata}\)</span>_R2.fastq.gz |  positional  | The paired forward and reverse reads to trim
+ILLUMINACLIP:adapters.fa:2:30:10 |  positional |    Adapter trimming allowing for 2 seed mismatch, palindrome clip score threshold of 30, and simple clip score threshold of 10
+SLIDINGWINDOW:4:20  | positional    |Quality filtering command. Analyse each sequence in a 4 base pair sliding window and then truncate if the average quality drops below Q20
+MINLEN:50   | positional |  Length filtering command. Discard sequences that are shorter than 80 base pairs after trimming}_R1.fastq.gz {indata}${sample</p>
 <blockquote>
 <p><strong>Note:</strong> The trimming parameters in <code>trimmomatic</code> are processed in the order they are specified. For instance, </p>
 </blockquote>
@@ -779,19 +788,7 @@ reads (to standardize read lengths) that bias downstream analysis.</li>
 </span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="w">        </span>SLIDINGWINDOW:4:20<span class="w"> </span>
 </span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="k">done</span>
 </span></code></pre></div>
-means we remove sequences shorter than 50 bps and then qualiyty trim, thus if a sequence is trimmed to a length shorter than 50bps after trimming, the <code>MINLEN</code> filtering does not execute a second time.
-Parameter | Type |  Description
-----------|------|-----------------------------
-PE |    positional |    Specifies whether we are analysing single- or paired-end reads
--threads 2 |    keyword |   Specifies the number of threads to use when processing
--phred33 |  keyword |   Specifies the fastq encoding used
-mock_R1.adapter_decay.fastq.gz / mock_R2.adapter_decay.fastq.gz |   positional  | The paired forward and reverse reads to trim
-mock_R1.qc.fastq.gz |   positional  |The file to write forward reads which passed quality trimming, if their reverse partner also passed
-mock_s1.qc.fastq.gz |   positional |    The file to write forward reads which passed quality trimming, if their reverse partner failed (orphan reads)
-mock_R2.qc.fastq.gz / mock_s2.qc.fastq.gz | positional  | The reverse-sequence equivalent of above
-ILLUMINACLIP:NexteraPE-PE.fa:1:25:7 |   positional |    Adapter trimming allowing for 1 seed mismatch, palindrome clip score threshold of 25, and simple clip score threshold of 7
-SLIDINGWINDOW:4:30  | positional    |Quality filtering command. Analyse each sequence in a 4 base pair sliding window and then truncate if the average quality drops below Q30
-MINLEN:50   | positional |  Length filtering command. Discard sequences that are shorter than 80 base pairs after trimming</p>
+means we remove sequences shorter than 50 bps and then qualiyty trim, thus if a sequence is trimmed to a length shorter than 50bps after trimming, the <code>MINLEN</code> filtering does not execute a second time.</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># Delete unnecessary files</span>
 </span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>rm<span class="w"> </span>-rf<span class="w"> </span><span class="si">${</span><span class="nv">outtrimmomatic</span><span class="si">}</span>*<span class="si">${</span><span class="nv">sample</span><span class="si">}</span>*_unpaired.fastq.gz
 </span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>
@@ -983,6 +980,86 @@ MINLEN:50   | positional |  Length filtering command. Discard sequences that are
 <li>Summarize results in Excel or RMarkdown reports.</li>
 </ul>
 <hr />
+<h3 id="nextflow-pipelines">Nextflow pipelines<a class="headerlink" href="#nextflow-pipelines" title="Permanent link">&para;</a></h3>
+<h4 id="nfcoremag-pipeline-httpsnf-coremag400">nfcore/mag Pipeline <a href="https://nf-co.re/mag/4.0.0">https://nf-co.re/mag/4.0.0</a><a class="headerlink" href="#nfcoremag-pipeline-httpsnf-coremag400" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Use an <a href="https://nf-co.re/mag/4.0.0/">nf-core/mag</a> pipeline for assembly, binning and annotation of metagenomes, <a href="https://github.com/nf-core/mag/tree/4.0.0">github repository</a>.</li>
+<li>This pipeline works for short- and/or long-reads.</li>
+<li>✅<strong>Key Features:</strong></li>
+<li><strong>Preprocessing:</strong><ul>
+<li>Short reads: fastp, Bowtie2, FastQC</li>
+<li>Long reads: Porechop, NanoLyse, Filtlong, NanoPlot</li>
+</ul>
+</li>
+<li><strong>Assembly:</strong><ul>
+<li>Short reads: MEGAHIT, SPAdes</li>
+<li>Hybrid: hybridSPAdes</li>
+</ul>
+</li>
+<li><strong>Binning:</strong><ul>
+<li>Tools: MetaBAT2, MaxBin2, CONCOCT, DAS Tool</li>
+<li>Quality checks: BUSCO, CheckM, GUNC</li>
+</ul>
+</li>
+<li><strong>Taxonomic Classification:</strong><ul>
+<li>Tools: GTDB-Tk, CAT/BAT</li>
+<li>Co-assembly and co-abundance:</li>
+<li>Supports sample grouping for co-assembly and binning</li>
+</ul>
+</li>
+<li>📦 <strong>Reproducibility:</strong></li>
+<li>Uses Nextflow DSL2, Docker/Singularity containers</li>
+<li>Fully portable across HPC, cloud, and local systems</li>
+<li>Includes test datasets and CI testing</li>
+<li>It requires a sample sheet in <code>csv</code>  format with five columns: sample,group,short_reads_1,short_reads_2,long_reads</li>
+<li>Assuming all your raw reads (short- and long-reads) are in the same folder, run the python script:</li>
+</ul>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="nv">proj</span><span class="o">=</span><span class="s2">&quot;/data/users/</span><span class="si">${</span><span class="nv">USER</span><span class="si">}</span><span class="s2">/metagenomes/shotgun/&quot;</span>
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="c1"># Create required directories</span>
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>mkdir<span class="w"> </span>-p<span class="w"> </span><span class="si">${</span><span class="nv">proj</span><span class="si">}</span>scripts<span class="w"> </span><span class="si">${</span><span class="nv">proj</span><span class="si">}</span>logs
+</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="c1"># Get the script to create samplesheet</span>
+</span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a>cp<span class="w"> </span>/data/users/user24/metagenomes/shotgun/scripts/generate_mag_samplesheet.py<span class="w"> </span>/data/users/<span class="si">${</span><span class="nv">USER</span><span class="si">}</span>/metagenomes/shotgun/scripts/
+</span><span id="__span-15-6"><a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a>
+</span><span id="__span-15-7"><a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a><span class="c1"># Create samplesheet for running mag</span>
+</span><span id="__span-15-8"><a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a>python3<span class="w"> </span>/data/users/<span class="si">${</span><span class="nv">USER</span><span class="si">}</span>/metagenomes/shotgun/scripts/generate_mag_samplesheet.py<span class="w"> </span>/data/users/user29/metagenomes/shotgun/<span class="w"> </span>mag-samplesheet.csv
+</span><span id="__span-15-9"><a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a><span class="c1"># Create submission script</span>
+</span><span id="__span-15-10"><a id="__codelineno-15-10" name="__codelineno-15-10" href="#__codelineno-15-10"></a>nano<span class="w"> </span>data/users/<span class="si">${</span><span class="nv">USER</span><span class="si">}</span>/metagenomes/shotgun/scripts/mag-nf_submit.sh
+</span><span id="__span-15-11"><a id="__codelineno-15-11" name="__codelineno-15-11" href="#__codelineno-15-11"></a>
+</span><span id="__span-15-12"><a id="__codelineno-15-12" name="__codelineno-15-12" href="#__codelineno-15-12"></a><span class="c1">#!/bin/bash</span>
+</span><span id="__span-15-13"><a id="__codelineno-15-13" name="__codelineno-15-13" href="#__codelineno-15-13"></a><span class="c1">#SBATCH --job-name=&#39;mag&#39;</span>
+</span><span id="__span-15-14"><a id="__codelineno-15-14" name="__codelineno-15-14" href="#__codelineno-15-14"></a><span class="c1">#SBATCH --time=24:00:00</span>
+</span><span id="__span-15-15"><a id="__codelineno-15-15" name="__codelineno-15-15" href="#__codelineno-15-15"></a><span class="c1">#SBATCH --mem=128g</span>
+</span><span id="__span-15-16"><a id="__codelineno-15-16" name="__codelineno-15-16" href="#__codelineno-15-16"></a><span class="c1">#SBATCH --ntasks=16</span>
+</span><span id="__span-15-17"><a id="__codelineno-15-17" name="__codelineno-15-17" href="#__codelineno-15-17"></a><span class="c1">#SBATCH --output=/data/users/user24/metagenomes/shotgun/logs/nfcore-mag-stdout.log</span>
+</span><span id="__span-15-18"><a id="__codelineno-15-18" name="__codelineno-15-18" href="#__codelineno-15-18"></a><span class="c1">#SBATCH --error=/data/users/user24/metagenomes/shotgun/logs/nfcore-mag-stderr.log</span>
+</span><span id="__span-15-19"><a id="__codelineno-15-19" name="__codelineno-15-19" href="#__codelineno-15-19"></a><span class="c1">#SBATCH --mail-user=ephie.geza@uct.ac.za</span>
+</span><span id="__span-15-20"><a id="__codelineno-15-20" name="__codelineno-15-20" href="#__codelineno-15-20"></a>
+</span><span id="__span-15-21"><a id="__codelineno-15-21" name="__codelineno-15-21" href="#__codelineno-15-21"></a><span class="nv">proj</span><span class="o">=</span><span class="s2">&quot;/data/users/user24/metagenomes/shotgun/&quot;</span>
+</span><span id="__span-15-22"><a id="__codelineno-15-22" name="__codelineno-15-22" href="#__codelineno-15-22"></a>
+</span><span id="__span-15-23"><a id="__codelineno-15-23" name="__codelineno-15-23" href="#__codelineno-15-23"></a>module<span class="w"> </span>load<span class="w"> </span>nextflow/25.04.6
+</span><span id="__span-15-24"><a id="__codelineno-15-24" name="__codelineno-15-24" href="#__codelineno-15-24"></a><span class="c1">#### Unload JAVA 18 as it doesn&#39;t work and load JAVA 17</span>
+</span><span id="__span-15-25"><a id="__codelineno-15-25" name="__codelineno-15-25" href="#__codelineno-15-25"></a>module<span class="w"> </span>unload<span class="w"> </span>java/openjdk-18.0.2
+</span><span id="__span-15-26"><a id="__codelineno-15-26" name="__codelineno-15-26" href="#__codelineno-15-26"></a>module<span class="w"> </span>load<span class="w"> </span>java/openjdk-17.0.2
+</span><span id="__span-15-27"><a id="__codelineno-15-27" name="__codelineno-15-27" href="#__codelineno-15-27"></a><span class="c1">####Unset conflicting environment variables (optional but recommended)</span>
+</span><span id="__span-15-28"><a id="__codelineno-15-28" name="__codelineno-15-28" href="#__codelineno-15-28"></a><span class="nb">unset</span><span class="w"> </span>JAVA_CMD
+</span><span id="__span-15-29"><a id="__codelineno-15-29" name="__codelineno-15-29" href="#__codelineno-15-29"></a><span class="nb">unset</span><span class="w"> </span>JAVA_HOME
+</span><span id="__span-15-30"><a id="__codelineno-15-30" name="__codelineno-15-30" href="#__codelineno-15-30"></a>
+</span><span id="__span-15-31"><a id="__codelineno-15-31" name="__codelineno-15-31" href="#__codelineno-15-31"></a><span class="c1">#### Run pipeline</span>
+</span><span id="__span-15-32"><a id="__codelineno-15-32" name="__codelineno-15-32" href="#__codelineno-15-32"></a>nextflow<span class="w"> </span>run<span class="w"> </span><span class="si">${</span><span class="nv">proj</span><span class="si">}</span>mag<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-15-33"><a id="__codelineno-15-33" name="__codelineno-15-33" href="#__codelineno-15-33"></a><span class="w">      </span>--input<span class="w"> </span><span class="si">${</span><span class="nv">proj</span><span class="si">}</span>mag-samplesheet.csv<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-15-34"><a id="__codelineno-15-34" name="__codelineno-15-34" href="#__codelineno-15-34"></a><span class="w">      </span>--outdir<span class="w"> </span><span class="si">${</span><span class="nv">proj</span><span class="si">}</span>nfcore-mag<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-15-35"><a id="__codelineno-15-35" name="__codelineno-15-35" href="#__codelineno-15-35"></a><span class="w">      </span>-w<span class="w"> </span><span class="si">${</span><span class="nv">work</span><span class="si">}</span>work/nfcore-mag<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-15-36"><a id="__codelineno-15-36" name="__codelineno-15-36" href="#__codelineno-15-36"></a><span class="w">      </span>-profile<span class="w"> </span>singularity<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-15-37"><a id="__codelineno-15-37" name="__codelineno-15-37" href="#__codelineno-15-37"></a><span class="w">      </span>-resume<span class="w"> </span>--skip_gtdbtk
+</span><span id="__span-15-38"><a id="__codelineno-15-38" name="__codelineno-15-38" href="#__codelineno-15-38"></a>
+</span><span id="__span-15-39"><a id="__codelineno-15-39" name="__codelineno-15-39" href="#__codelineno-15-39"></a><span class="c1">## Save and submit</span>
+</span></code></pre></div>
+<h3 id="nf-corefuncscan"><a href="https://nf-co.re/funcscan/2.1.0/">nf-core/funcscan</a><a class="headerlink" href="#nf-corefuncscan" title="Permanent link">&para;</a></h3>
+<p>Using contigs to screen for functional and natural gene sequences</p>
+<h3 id="viralgenie-nf-coreviralmetagenome">Viralgenie <a href="https://nf-co.re/viralmetagenome/0.1.2/">nf-core/viralmetagenome</a><a class="headerlink" href="#viralgenie-nf-coreviralmetagenome" title="Permanent link">&para;</a></h3>
+<h3 id="nf-coretaxprofiler"><a href="https://nf-co.re/taxprofiler/1.2.4/">nf-core/taxprofiler</a><a class="headerlink" href="#nf-coretaxprofiler" title="Permanent link">&para;</a></h3>
+<h2 id="targeted-metagenomics">Targeted Metagenomics<a class="headerlink" href="#targeted-metagenomics" title="Permanent link">&para;</a></h2>
+<h3 id="nf-coreampliseq"><a href="https://nf-co.re/ampliseq/2.14.0/">nf-core/ampliseq</a><a class="headerlink" href="#nf-coreampliseq" title="Permanent link">&para;</a></h3>
 
 
 
