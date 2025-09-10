@@ -735,7 +735,7 @@ As such we consider this as normal given the biology of the system.
 reads (to standardize read lengths) that bias downstream analysis.</li>
 <li><strong>Tool</strong>: <code>fastp</code>, <code>trimmomatic</code>, <code>BBMap</code>, <code>sickle</code>, <code>cutadapt</code>, etc.</li>
 </ul>
-<p><div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="ch">#!/bin/bash</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="ch">#!/bin/bash</span>
 </span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
 </span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="c1"># Load required modules/tools</span>
 </span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>module<span class="w"> </span>load<span class="w"> </span>trimmomatic
@@ -762,15 +762,52 @@ reads (to standardize read lengths) that bias downstream analysis.</li>
 </span><span id="__span-2-25"><a id="__codelineno-2-25" name="__codelineno-2-25" href="#__codelineno-2-25"></a><span class="k">done</span>
 </span><span id="__span-2-26"><a id="__codelineno-2-26" name="__codelineno-2-26" href="#__codelineno-2-26"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Trimming with Trimmomatic completed&quot;</span>
 </span></code></pre></div>
-Parameter | Type |  Description
-----------|------|-----------------------------
-PE |    positional |    Specifies whether we are analysing single- or paired-end reads
--threads 2 |    keyword |   Specifies the number of threads to use when processing
--phred33 |  keyword |   Specifies the fastq encoding used
-<span class="arithmatex" sample="sample">\({indata}\)</span>_R2.fastq.gz |  positional  | The paired forward and reverse reads to trim
-ILLUMINACLIP:adapters.fa:2:30:10 |  positional |    Adapter trimming allowing for 2 seed mismatch, palindrome clip score threshold of 30, and simple clip score threshold of 10
-SLIDINGWINDOW:4:20  | positional    |Quality filtering command. Analyse each sequence in a 4 base pair sliding window and then truncate if the average quality drops below Q20
-MINLEN:50   | positional |  Length filtering command. Discard sequences that are shorter than 80 base pairs after trimming}_R1.fastq.gz {indata}${sample</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PE</td>
+<td>positional</td>
+<td>Specifies whether we are analysing single- or paired-end reads</td>
+</tr>
+<tr>
+<td>-threads 2</td>
+<td>keyword</td>
+<td>Specifies the number of threads to use when processing</td>
+</tr>
+<tr>
+<td>-phred33</td>
+<td>keyword</td>
+<td>Specifies the fastq encoding used</td>
+</tr>
+<tr>
+<td><span class="arithmatex" sample="sample">\({indata}\)</span>_R2.fastq.gz}_R1.fastq.gz {indata}${sample</td>
+<td>positional</td>
+<td>The paired forward and reverse reads to trim</td>
+</tr>
+<tr>
+<td>ILLUMINACLIP:adapters.fa:2:30:10</td>
+<td>positional</td>
+<td>Adapter trimming allowing for 2 seed mismatch, palindrome clip score threshold of 30, and simple clip score threshold of 10</td>
+</tr>
+<tr>
+<td>SLIDINGWINDOW:4:20</td>
+<td>positional</td>
+<td>Quality filtering command. Analyse each sequence in a 4 base pair sliding window and then truncate if the average quality drops below Q20</td>
+</tr>
+<tr>
+<td>MINLEN:50</td>
+<td>positional</td>
+<td>Length filtering command. Discard sequences that are shorter than 80 base pairs after trimming</td>
+</tr>
+</tbody>
+</table>
 <blockquote>
 <p><strong>Note:</strong> The trimming parameters in <code>trimmomatic</code> are processed in the order they are specified. For instance, </p>
 </blockquote>
