@@ -138,8 +138,8 @@ The 10-day intensive training course covers fundamental to advanced topics in mi
 
 | Time (CAT) | Topic | Links | Trainer |
 |------------|-------|-------|---------|
-| **09:00** | *Pangenomics* | | Arash Iranzadeh |
-| **10:30** | *Phylogenomics: Inferring evolutionary relationships from core SNPs* | | Arash Iranzadeh |
+| **09:00** | *Pangenomics* | [Practical](https://github.com/Arash-Iranzadeh/Microbial-Genomics/blob/main/scripts/4_pangenomics.sh) | Arash Iranzadeh |
+| **10:30** | *Phylogenomics: Inferring evolutionary relationships from core SNPs* | [Practical](https://github.com/Arash-Iranzadeh/Microbial-Genomics/blob/main/scripts/5_core_SNP_phylogeny.sh) | Arash Iranzadeh |
 | **11:30** | **Break** | | |
 | **12:00** | *Phylogenomics: Tree construction and visualisation* | | Arash Iranzadeh |
 
