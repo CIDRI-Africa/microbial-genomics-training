@@ -1314,6 +1314,49 @@ nextflow run qc_pipeline.nf \
     -profile slurm,Singularity
 ```
 
+**Common Issue 5: GRiPHin Directory Parsing Errors**
+
+If you encounter `NotADirectoryError` during the GRiPHin post-processing step:
+
+```bash
+# Error example:
+# ERROR ~ Error executing process > 'PHOENIX:PHOENIX_EXTERNAL:GRIPHIN (1)'
+# NotADirectoryError: [Errno 20] Not a directory: 'pipeline_report.html/qc_stats/'
+
+# Solution 1: Clean up leftover HTML files (preferred method)
+# Remove any leftover HTML report files from previous runs
+find /data/users/$USER/nextflow-training/phoenix-analysis/phoenix -name "pipeline_report.html" -type f -delete
+find /data/users/$USER/nextflow-training/phoenix-analysis/phoenix -name "pipeline_timeline.html" -type f -delete
+
+# Solution 2: Apply GRiPHin patch (if HTML cleanup doesn't work)
+# The patch file is available at /users/mamana/microbial-genomics-training/griphin_patch.txt
+
+# Create backup of GRiPHin.py
+cp /data/users/$USER/nextflow-training/phoenix-analysis/phoenix/bin/GRiPHin.py \
+   /data/users/$USER/nextflow-training/phoenix-analysis/phoenix/bin/GRiPHin.py.backup
+
+# Apply the patch to add HTML files to skip list
+sed -i 's/skip_list_b = \["BiosampleAttributes_Microbe.1.0.xlsx", "Sra_Microbe.1.0.xlsx", "Phoenix_Summary.tsv", "pipeline_info", "GRiPHin_Summary.xlsx", "multiqc", "samplesheet_converted.csv", "Directory_samplesheet.csv", "sra_samplesheet.csv"\]/skip_list_b = ["BiosampleAttributes_Microbe.1.0.xlsx", "Sra_Microbe.1.0.xlsx", "Phoenix_Summary.tsv", "pipeline_info", "GRiPHin_Summary.xlsx", "multiqc", "samplesheet_converted.csv", "Directory_samplesheet.csv", "sra_samplesheet.csv", "pipeline_report.html", "pipeline_timeline.html", "trace.txt", "dag.html"]/' \
+/data/users/$USER/nextflow-training/phoenix-analysis/phoenix/bin/GRiPHin.py
+
+# Verify the patch was applied
+grep -n "skip_list_b" /data/users/$USER/nextflow-training/phoenix-analysis/phoenix/bin/GRiPHin.py
+
+# To rollback if needed:
+# cp /data/users/$USER/nextflow-training/phoenix-analysis/phoenix/bin/GRiPHin.py.backup \
+#    /data/users/$USER/nextflow-training/phoenix-analysis/phoenix/bin/GRiPHin.py
+
+# After applying either solution, resume the pipeline
+nextflow run phoenix/main.nf \
+    -entry PHOENIX \
+    --input phoenix_samplesheet.csv \
+    --kraken2db /data/users/kraken2_db_local \
+    --outdir tb_analysis_results \
+    -c /users/mamana/microbial-genomics-training/cluster.config \
+    -profile singularity,slurm \
+    -resume
+```
+
 **Checking PHoeNIx Results**
 
 ```bash

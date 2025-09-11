@@ -1,0 +1,30 @@
+# GRiPHin.py Patch for HTML File Issues
+# Apply this patch if HTML file cleanup doesn't resolve GRiPHin directory parsing errors
+
+## Location: /data/users/mamana/nextflow-training/phoenix-analysis/phoenix/bin/GRiPHin.py
+## Line: 1307
+
+### Current skip_list_b:
+skip_list_b = ["BiosampleAttributes_Microbe.1.0.xlsx", "Sra_Microbe.1.0.xlsx", "Phoenix_Summary.tsv", "pipeline_info", "GRiPHin_Summary.xlsx", "multiqc", "samplesheet_converted.csv", "Directory_samplesheet.csv", "sra_samplesheet.csv"]
+
+### Patched skip_list_b (add HTML files to skip list):
+skip_list_b = ["BiosampleAttributes_Microbe.1.0.xlsx", "Sra_Microbe.1.0.xlsx", "Phoenix_Summary.tsv", "pipeline_info", "GRiPHin_Summary.xlsx", "multiqc", "samplesheet_converted.csv", "Directory_samplesheet.csv", "sra_samplesheet.csv", "pipeline_report.html", "pipeline_timeline.html", "trace.txt", "dag.html"]
+
+## Apply the patch:
+# 1. Create backup:
+cp /data/users/mamana/nextflow-training/phoenix-analysis/phoenix/bin/GRiPHin.py /data/users/mamana/nextflow-training/phoenix-analysis/phoenix/bin/GRiPHin.py.backup
+
+# 2. Apply the patch:
+sed -i 's/skip_list_b = \["BiosampleAttributes_Microbe.1.0.xlsx", "Sra_Microbe.1.0.xlsx", "Phoenix_Summary.tsv", "pipeline_info", "GRiPHin_Summary.xlsx", "multiqc", "samplesheet_converted.csv", "Directory_samplesheet.csv", "sra_samplesheet.csv"\]/skip_list_b = ["BiosampleAttributes_Microbe.1.0.xlsx", "Sra_Microbe.1.0.xlsx", "Phoenix_Summary.tsv", "pipeline_info", "GRiPHin_Summary.xlsx", "multiqc", "samplesheet_converted.csv", "Directory_samplesheet.csv", "sra_samplesheet.csv", "pipeline_report.html", "pipeline_timeline.html", "trace.txt", "dag.html"]/' /data/users/mamana/nextflow-training/phoenix-analysis/phoenix/bin/GRiPHin.py
+
+# 3. Verify the change:
+grep -n "skip_list_b" /data/users/mamana/nextflow-training/phoenix-analysis/phoenix/bin/GRiPHin.py
+
+## Rollback if needed:
+# cp /data/users/mamana/nextflow-training/phoenix-analysis/phoenix/bin/GRiPHin.py.backup /data/users/mamana/nextflow-training/phoenix-analysis/phoenix/bin/GRiPHin.py
+
+## Purpose:
+# This patch adds HTML report files and other Nextflow output files to the skip_list_b
+# to prevent GRiPHin from trying to parse them as directories during post-processing.
+# The issue occurs when GRiPHin encounters files like 'pipeline_report.html' and tries
+# to treat them as directories, causing NotADirectoryError exceptions.
