@@ -60,7 +60,7 @@ The 10-day intensive training course covers fundamental to advanced topics in mi
 |------------|-------|-------|---------|
 | **09:00** | *Introduction High Performance Computing (HPC) – Ilifu* | [Notes](../day2/hpc-ilifu-training.md) • [Practical 1](../day2/slurm-practical-tutorial.md) • [Practical 2](../day2/unix-commands-pathogen-examples.md) | Mamana Mbiyavanga |
 | **11:00** | **Break** | | |
-| **12:00** | *Quality checking and control, as well as species identification* | [Practical](https://github.com/Arash-Iranzadeh/Microbial-Genomics/blob/main/scripts/qc_cleaning_detection.sh) | Arash Iranzadeh |
+| **12:00** | *Quality checking and control, as well as species identification* |[Slides](https://github.com/Arash-Iranzadeh/Microbial-Genomics/blob/main/docs/1_QC_cleaning_speciesIdentification.pptx) • [Practical](https://github.com/Arash-Iranzadeh/Microbial-Genomics/blob/main/scripts/1_qc_cleaning_detection_batch.sh) | Arash Iranzadeh |
 
 **Key Learning Outcomes**: HPC fundamentals, Quality control fundamentals
 
@@ -73,7 +73,7 @@ The 10-day intensive training course covers fundamental to advanced topics in mi
 
 | Time (CAT) | Topic | Links | Trainer |
 |------------|-------|-------|---------|
-| **09:00** | *Recap: Quality checking and control, and species identification* | [Practical](https://github.com/Arash-Iranzadeh/Microbial-Genomics/blob/main/scripts/qc_cleaning_detection.sh) | Arash Iranzadeh |
+| **09:00** | *Recap: Quality checking and control, and species identification* |[Slides](https://github.com/Arash-Iranzadeh/Microbial-Genomics/blob/main/docs/1_QC_cleaning_speciesIdentification.pptx) • [Practical](https://github.com/Arash-Iranzadeh/Microbial-Genomics/blob/main/scripts/1_qc_cleaning_detection_batch.sh) | Arash Iranzadeh |
 | **10:30** | *Genome assembly, quality assessment* |[Notes](../day4/genome_assembly.md). [Practical](../day4/practical_assembly.md) | Ephifania Geza |
 | **11:00** | **Break** | | |
 | **11:30** | *Genome assembly, quality assessment: Continuation* |[Notes](../day4/genome_assembly.md). [Practical](../day4/practical_assembly.md) | Ephifania Geza |
@@ -83,15 +83,15 @@ The 10-day intensive training course covers fundamental to advanced topics in mi
 
 ---
 
-## Day 5: Tracking Threats: Genomic Detection of AMR, Virulence, and Plasmid Mobility
+## Day 5: Recap Day 4 and functional gene annotation
 
 **Date**: September 5, 2025  
 **[→ View detailed module](../modules/day5/index.md)**
 
 | Time (CAT) | Topic | Links | Trainer |
 |------------|-------|-------|---------|
-| **09:00** | *Recap: Genome assembly, quality assessment* |[Notes](../day4/genome_assembly.md). [Practical](../day4/practical_assembly.md) | 
-| **10:00** | *Genome annotation and Multi-Locus Sequence Typing* | [Notes](https://github.com/Arash-Iranzadeh/Microbial-Genomics/blob/main/scripts/de-novo_assembly_annotation.sh)| Arash Iranzadeh |
+| **09:00** | *Recap: Genome assembly, quality assessment* |[Notes](../day4/genome_assembly.md) **.** [Practical](../day4/practical_assembly.md) | 
+| **10:00** | *Genome annotation and Multi-Locus Sequence Typing* |[Slides](https://github.com/Arash-Iranzadeh/Microbial-Genomics/blob/main/docs/3_sequence_typing.pptx) **.** [Practical](https://github.com/Arash-Iranzadeh/Microbial-Genomics/blob/main/scripts/de-novo_assembly_annotation.sh)| Arash Iranzadeh |
 | **11:30** | **Break** | | |
 | **12:00** | *Antimicrobial Resistance gene detection and resistance prediction* | | Ephifania Geza |
 
@@ -160,8 +160,8 @@ The 10-day intensive training course covers fundamental to advanced topics in mi
 
 | Time (CAT) | Topic | Links | Trainer |
 |------------|-------|-------|---------|
-| **09:00** | *Pangenomics* |[link](https://github.com/Arash-Iranzadeh/Microbial-Genomics/blob/main/scripts/4_pangenomics.sh) | Arash Iranzadeh |
-| **10:30** | *Phylogenomics: Inferring evolutionary relationships from core SNPs* |[link](https://github.com/Arash-Iranzadeh/Microbial-Genomics/blob/main/scripts/5_core_SNP_phylogeny.sh) | Arash Iranzadeh |
+| **09:00** | *Pangenomics* |[Practical](https://github.com/Arash-Iranzadeh/Microbial-Genomics/blob/main/scripts/4_pangenomics.sh) | Arash Iranzadeh |
+| **10:30** | *Phylogenomics: Inferring evolutionary relationships from core SNPs* |[Practical](https://github.com/Arash-Iranzadeh/Microbial-Genomics/blob/main/scripts/5_core_SNP_phylogeny.sh) | Arash Iranzadeh |
 | **11:30** | **Break** | | |
 | **12:00** | *Phylogenomics: Tree construction and visualisation* | | Arash Iranzadeh |
 
